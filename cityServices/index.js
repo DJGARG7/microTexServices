@@ -2,18 +2,40 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql2");
 const bodyParser = require("body-parser");
-const cors = require("cors");
-const e = require("express");
+const dotenv = require("dotenv");
+const cors = require('cors')
+dotenv.config();
+
 const db = mysql.createPool({
-  host: "localhost",
-  user: "root",
-  password: "rutvaydhami",
-  database: "ADMINDASHBOARD",
+  connectionLimit: 10,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
+const jwt = require("jsonwebtoken");
+
+const authenticate = (req, res, next) => {
+    // Get token from request header.
+    const token = req.body.accessToken;
+    // Access is denied to resource if token does not exist.
+    if (!token) res.status(401).send("Access denied.");
+
+    // Verify token if it exists.
+    try {
+        const verify = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = verify;
+        req.isAuthenticated = true;
+        next();
+    } catch (error) {
+        res.status(401).send("Invalid token.");
+    }
+};
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(authenticate);
 app.listen(3001, () => {
   console.log("Run on 3001");
 });
@@ -33,12 +55,13 @@ app.post("/cityMaster/Delete", (req, res) => {
   const cityname = req.body.City;
 
   db.query(sql, cityname, (err, result) => {
-    console.log(result);
+
   });
 });
 
-app.get("/cityMaster/Add", (req, res) => {
+app.post("/cityMaster/getdata", (req, res) => {
   const sql = "SELECT * FROM CITYMASTER;";
+  
   db.query(sql, (err, result) => {
     if (err) console.log(err);
     else {
@@ -49,8 +72,7 @@ app.get("/cityMaster/Add", (req, res) => {
 });
 
 app.post("/cityMaster/Update", (req, res) => {
-  const sql =
-    "UPDATE CITYMASTER SET CityName=?,StateName=? WHERE CityName=?;";
+  const sql = "UPDATE CITYMASTER SET CityName=?,StateName=? WHERE CityName=?;";
   const cityname = req.body.City;
   const statename = req.body.State;
   const oldcity = req.body.oldcity;
@@ -58,3 +80,4 @@ app.post("/cityMaster/Update", (req, res) => {
     console.log(err);
   });
 });
+
