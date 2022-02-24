@@ -1,8 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const db = require("../db");
-const validation = require("../validation");
+const db = require("../config/db");
+const validation = require("../helpers/validation");
 
 const login = (req, res) => {
     if (req.body.userType === "proprietor") {
@@ -21,7 +21,7 @@ const login = (req, res) => {
 
                 // Check if userID exists; if it exists check if it is correct; then check if password is correct.
                 if (
-                    !results || 
+                    !results ||
                     results.length === 0 ||
                     results[0].user_id !== req.body.userID ||
                     !bcrypt.compareSync(req.body.password, results[0].password)
