@@ -7,8 +7,8 @@ const authenticate = (req, res, next) => {
     // Access is denied to resource if token does not exist.
     if (!token) res.status(401).send("Access denied.");
 
-    // Verify token if it exists.
     try {
+        // Verify token if it exists.
         const verify = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
 
         // Authorization - check if the token owner & request owner are the same.
