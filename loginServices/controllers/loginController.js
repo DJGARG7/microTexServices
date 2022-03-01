@@ -27,18 +27,39 @@ const login = (req, res) => {
                 ) {
                     res.status(401).send("userID or password is incorrect.");
                 } else {
-                    // Create JWT.
+                    // Create access token.
                     const accessToken = jwt.sign(
                         { _id: req.body.userID },
                         process.env.JWT_ACCESS_SECRET,
                         { expiresIn: "30s" }
                     );
 
-                    // Send JWT.
-                    res.json({
-                        userID: req.body.userID,
-                        accessToken: accessToken,
-                    });
+                    // Create refresh token.
+                    const refreshToken = jwt.sign(
+                        { _id: req.body.userID },
+                        process.env.JWT_REFRESH_SECRET,
+                        { expiresIn: "10d" }
+                    );
+
+                    // Update database with refresh token.
+                    db.query(
+                        "UPDATE Proprietor SET `refresh_token` = ? WHERE user_id = ?",
+                        [refreshToken, req.body.userID],
+                        (error) => {
+                            if (error) {
+                                res.status(500).send(error);
+                            } else {
+                                // Send JWT.
+                                res.cookie("refreshToken", refreshToken, {
+                                    maxAge: 10 * 24 * 3600000,
+                                    httpOnly: true,
+                                }).json({
+                                    userID: req.body.userID,
+                                    accessToken: accessToken,
+                                });
+                            }
+                        }
+                    );
                 }
             }
         );
@@ -69,11 +90,18 @@ const login = (req, res) => {
                         "corporateID, userID or password is incorrect."
                     );
                 } else {
-                    // Create JWT.
+                    // Create access token.
                     const accessToken = jwt.sign(
                         { _id: req.body.userID },
                         process.env.JWT_ACCESS_SECRET,
-                        { expiresIn: "24h" }
+                        { expiresIn: "30s" }
+                    );
+
+                    // Create refresh token.
+                    const refreshToken = jwt.sign(
+                        { _id: req.body.userID },
+                        process.env.JWT_REFRESH_SECRET,
+                        { expiresIn: "10d" }
                     );
 
                     // Send JWT.

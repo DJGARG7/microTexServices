@@ -1,5 +1,8 @@
-const refresh = () => {
-    console.log("Hello");
+const jwt = require("jsonwebtoken");
+
+const refresh = (req, res) => {
+    console.log(req.cookies.refreshToken);
+    res.send("Hello");
 };
 
-export default refresh;
+module.exports = refresh;

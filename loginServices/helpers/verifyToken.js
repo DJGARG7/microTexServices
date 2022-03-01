@@ -10,9 +10,11 @@ const authenticate = (req, res, next) => {
     // Verify token if it exists.
     try {
         const verify = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
-        console.log(verify);
+
+        // Authorization - check if the token owner & request owner are the same.
         if (verify._id === req.body.userID)
             throw { name: "Unauthorized", error: new Error() };
+
         next();
     } catch (error) {
         if (
