@@ -22,23 +22,22 @@ const login = (req, res) => {
                 // Check if userID exists; if it exists check if it is correct; then check if password is correct.
                 if (
                     !results ||
-                    results.length === 0 ||
                     results[0].user_id !== req.body.userID ||
                     !bcrypt.compareSync(req.body.password, results[0].password)
                 ) {
                     res.status(401).send("userID or password is incorrect.");
                 } else {
                     // Create JWT.
-                    const token = jwt.sign(
-                        { _id: req.body.userID, iat: Date.now() },
-                        process.env.JWT_SECRET,
-                        { expiresIn: "24h" }
+                    const accessToken = jwt.sign(
+                        { _id: req.body.userID },
+                        process.env.JWT_ACCESS_SECRET,
+                        { expiresIn: "30s" }
                     );
 
                     // Send JWT.
                     res.json({
                         userID: req.body.userID,
-                        accessToken: token,
+                        accessToken: accessToken,
                     });
                 }
             }
@@ -61,7 +60,7 @@ const login = (req, res) => {
 
                 // Check if userID exists; if it exists check if userID exists; if it exists check if it is correct; then check if password is correct.
                 if (
-                    results.length === 0 ||
+                    !results ||
                     results[0].corporate_id !== req.body.corporateID ||
                     results[0].user_id !== req.body.userID ||
                     !bcrypt.compareSync(req.body.password, results[0].password)
@@ -71,12 +70,9 @@ const login = (req, res) => {
                     );
                 } else {
                     // Create JWT.
-                    const token = jwt.sign(
-                        {
-                            _id: `${req.body.corporateID}_${req.body.userID}`,
-                            iat: Date.now(),
-                        },
-                        process.env.JWT_SECRET,
+                    const accessToken = jwt.sign(
+                        { _id: req.body.userID },
+                        process.env.JWT_ACCESS_SECRET,
                         { expiresIn: "24h" }
                     );
 
