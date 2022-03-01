@@ -2,8 +2,7 @@ const router = require("express").Router();
 
 const register = require("../controllers/registerController");
 const login = require("../controllers/loginController");
-const verifyToken = require("./verifyToken");
-
+const verifyToken = require("../helpers/verifyToken");
 
 router.post("/register", register);
 

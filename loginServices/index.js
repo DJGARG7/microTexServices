@@ -1,8 +1,8 @@
 const express = require("express");
-const app = express();
 const dotenv = require("dotenv");
 var cors = require("cors");
 
+const app = express();
 dotenv.config();
 
 // Importing routes.
@@ -15,4 +15,3 @@ app.use(express.json());
 app.use("/user", authRoute);
 
 app.listen(3002, () => console.log("Server running at port 3002."));
-// test commit
