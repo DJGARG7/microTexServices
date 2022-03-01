@@ -29,14 +29,14 @@ const login = (req, res) => {
                 } else {
                     // Create access token.
                     const accessToken = jwt.sign(
-                        { _id: req.body.userID },
+                        { _id: req.body.userID, userType: "Proprietor" },
                         process.env.JWT_ACCESS_SECRET,
                         { expiresIn: "30s" }
                     );
 
                     // Create refresh token.
                     const refreshToken = jwt.sign(
-                        { _id: req.body.userID },
+                        { _id: req.body.userID, userType: "Proprietor" },
                         process.env.JWT_REFRESH_SECRET,
                         { expiresIn: "10d" }
                     );

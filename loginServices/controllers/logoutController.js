@@ -1,5 +1,5 @@
 const logout = (req, res) => {
-    res.send("Logout");
+    res.cookie("refreshToken", { expires: Date.now() }).send("Logout");
 };
 
 module.exports = logout;

@@ -14,7 +14,7 @@ const refresh = (req, res) => {
 
         // If it checks out, hit the database to see if the token exists.
         db.query(
-            "SELECT user_id FROM Proprietor WHERE refresh_token = ?",
+            `SELECT user_id FROM ${verify.userType} WHERE refresh_token = ?`,
             [req.cookies.refreshToken],
             (error, results) => {
                 if (error) {
