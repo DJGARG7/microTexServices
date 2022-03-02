@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const db = require("../config/db");
-const validation = require("../helpers/validation");
+const validation = require("../utils/validation");
 
 const login = (req, res) => {
     if (req.body.userType === "proprietor") {
@@ -43,7 +43,7 @@ const login = (req, res) => {
 
                     // Update database with refresh token.
                     db.query(
-                        "UPDATE Proprietor SET `refresh_token` = ? WHERE user_id = ?",
+                        "UPDATE Proprietor SET refresh_token = ? WHERE user_id = ?",
                         [refreshToken, req.body.userID],
                         (error) => {
                             if (error) {
@@ -92,23 +92,37 @@ const login = (req, res) => {
                 } else {
                     // Create access token.
                     const accessToken = jwt.sign(
-                        { _id: req.body.userID },
+                        { _id: req.body.userID, userType: "Firm" },
                         process.env.JWT_ACCESS_SECRET,
                         { expiresIn: "30s" }
                     );
 
                     // Create refresh token.
                     const refreshToken = jwt.sign(
-                        { _id: req.body.userID },
+                        { _id: req.body.userID, userType: "Firm" },
                         process.env.JWT_REFRESH_SECRET,
                         { expiresIn: "10d" }
                     );
 
-                    // Send JWT.
-                    res.json({
-                        userID: req.body.userID,
-                        accessToken: token,
-                    });
+                    // Update database with refresh token.
+                    db.query(
+                        "UPDATE Firm SET refresh_token = ? WHERE user_id = ?",
+                        [refreshToken, req.body.userID],
+                        (error) => {
+                            if (error) {
+                                res.status(500).send(error);
+                            } else {
+                                // Send JWT.
+                                res.cookie("refreshToken", refreshToken, {
+                                    maxAge: 10 * 24 * 3600000,
+                                    httpOnly: true,
+                                }).json({
+                                    userID: req.body.userID,
+                                    accessToken: accessToken,
+                                });
+                            }
+                        }
+                    );
                 }
             }
         );

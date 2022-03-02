@@ -9,22 +9,13 @@ const authenticate = (req, res, next) => {
 
     try {
         // Verify token if it exists.
-        const verify = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
-
-        // Authorization - check if the token owner & request owner are the same.
-        if (verify._id === req.body.userID)
-            throw { name: "Unauthorized", error: new Error() };
-
+        const tokenPayload = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
         next();
     } catch (error) {
-        if (
-            error.name === "JsonWebTokenError" ||
-            error.name === "Unauthorized"
-        ) {
+        if (error.name === "JsonWebTokenError")
             res.status(401).send("Invalid token.");
-        } else if (error.name === "TokenExpiredError") {
+        else if (error.name === "TokenExpiredError")
             res.status(403).send("Token expired.");
-        }
     }
 };
 

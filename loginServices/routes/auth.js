@@ -4,7 +4,7 @@ const register = require("../controllers/registerController");
 const login = require("../controllers/loginController");
 const refresh = require("../controllers/refreshController");
 const logout = require("../controllers/logoutController");
-const verifyToken = require("../helpers/verifyToken");
+const verifyToken = require("../utils/verifyToken");
 
 router.post("/register", register);
 
