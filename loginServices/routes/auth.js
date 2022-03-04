@@ -9,7 +9,7 @@ router.post("/register", register);
 
 router.post("/login", login);
 
-router.get("/logout", logout);
+router.get("/logout", authenticate, logout);
 
 router.get("/test", authenticate, (req, res) => {
     res.send("Authenticated!");
