@@ -1,4 +1,4 @@
-const db = require("../../../accountservice/config/db");
+const db = require("../config/db");
 
 const accountdata = (req, res) => {
   const data = req.body;
