@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const db = require("../config/db");
-const validation = require("../helpers/validation");
+const validation = require("../utils/validation");
 
 const login = (req, res) => {
     if (req.body.userType === "proprietor") {
@@ -21,23 +21,28 @@ const login = (req, res) => {
 
                 // Check if userID exists; if it exists check if it is correct; then check if password is correct.
                 if (
-                    results.length === 0 ||
+                    !results ||
                     results[0].user_id !== req.body.userID ||
                     !bcrypt.compareSync(req.body.password, results[0].password)
                 ) {
                     res.status(401).send("userID or password is incorrect.");
                 } else {
-                    // Create JWT.
-                    const token = jwt.sign(
-                        { _id: req.body.userID, iat: Date.now() },
+                    // Create access token.
+                    const accessToken = jwt.sign(
+                        { userID: req.body.userID, userType: "Proprietor" },
                         process.env.JWT_SECRET,
                         { expiresIn: "24h" }
                     );
 
                     // Send JWT.
-                    res.json({
+                    res.cookie("accessToken", accessToken, {
+                        maxAge: 24 * 3600000,
+                        httpOnly: true,
+                        signed: true,
+                    }).json({
                         userID: req.body.userID,
-                        accessToken: token,
+                        accessToken: accessToken,
+                        isLoggedIn: true,
                     });
                 }
             }
@@ -50,8 +55,8 @@ const login = (req, res) => {
         if (error) return res.status(401).send(error.details[0].message);
 
         db.query(
-            "SELECT * FROM Firm WHERE corporate_id = ?",
-            [req.body.corporateID],
+            "SELECT * FROM Firm WHERE user_id = ?",
+            [req.body.userID],
             (error, results) => {
                 if (error)
                     res.status(401).send(
@@ -60,7 +65,7 @@ const login = (req, res) => {
 
                 // Check if userID exists; if it exists check if userID exists; if it exists check if it is correct; then check if password is correct.
                 if (
-                    results.length === 0 ||
+                    !results ||
                     results[0].corporate_id !== req.body.corporateID ||
                     results[0].user_id !== req.body.userID ||
                     !bcrypt.compareSync(req.body.password, results[0].password)
@@ -69,20 +74,22 @@ const login = (req, res) => {
                         "corporateID, userID or password is incorrect."
                     );
                 } else {
-                    // Create JWT.
-                    const token = jwt.sign(
-                        {
-                            _id: `${req.body.corporateID}_${req.body.userID}`,
-                            iat: Date.now(),
-                        },
+                    // Create access token.
+                    const accessToken = jwt.sign(
+                        { userID: req.body.userID, userType: "Firm" },
                         process.env.JWT_SECRET,
                         { expiresIn: "24h" }
                     );
 
                     // Send JWT.
-                    res.json({
+                    res.cookie("accessToken", accessToken, {
+                        maxAge: 24 * 3600000,
+                        httpOnly: true,
+                        signed: true,
+                    }).json({
                         userID: req.body.userID,
-                        accessToken: token,
+                        accessToken: accessToken,
+                        isLoggedIn: true,
                     });
                 }
             }

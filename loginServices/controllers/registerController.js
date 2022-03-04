@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 
 const db = require("../config/db");
-const validation = require("../helpers/validation");
+const validation = require("../utils/validation");
 
 const register = async (req, res) => {
     // Get salt to hash passwords.

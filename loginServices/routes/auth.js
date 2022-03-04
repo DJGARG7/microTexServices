@@ -2,13 +2,16 @@ const router = require("express").Router();
 
 const register = require("../controllers/registerController");
 const login = require("../controllers/loginController");
-const verifyToken = require("../helpers/verifyToken");
+const logout = require("../controllers/logoutController");
+const authenticate = require("../utils/authenticate");
 
 router.post("/register", register);
 
 router.post("/login", login);
 
-router.get("/test", verifyToken, (req, res) => {
+router.get("/logout", authenticate, logout);
+
+router.get("/test", authenticate, (req, res) => {
     res.send("Authenticated!");
 });
 
