@@ -21,10 +21,6 @@ const login = (req, res) => {
 
                 // Check if userID exists; if it exists check if it is correct; then check if password is correct.
                 if (
-<<<<<<< HEAD
-=======
-                    !results ||
->>>>>>> 3d3076eea07ef211d264cbfe43b60e34a27d586b
                     results.length === 0 ||
                     results[0].user_id !== req.body.userID ||
                     !bcrypt.compareSync(req.body.password, results[0].password)
