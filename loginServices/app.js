@@ -16,8 +16,10 @@ app.use(
         credentials: true,
     })
 );
-app.use(cookieParser());
+app.use(cookieParser("secret"));
 app.use(express.json());
-app.use("/user", authRoute);
+app.use("/auth", authRoute);
 
-app.listen(3002, () => console.log("Server running at port 3002."));
+app.listen(process.env.PORT, () =>
+    console.log(`Server running at port ${process.env.PORT}.`)
+);

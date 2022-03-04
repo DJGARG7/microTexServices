@@ -29,37 +29,21 @@ const login = (req, res) => {
                 } else {
                     // Create access token.
                     const accessToken = jwt.sign(
-                        { _id: req.body.userID, userType: "Proprietor" },
-                        process.env.JWT_ACCESS_SECRET,
-                        { expiresIn: "30s" }
+                        { userID: req.body.userID, userType: "Proprietor" },
+                        process.env.JWT_SECRET,
+                        { expiresIn: "24h" }
                     );
 
-                    // Create refresh token.
-                    const refreshToken = jwt.sign(
-                        { _id: req.body.userID, userType: "Proprietor" },
-                        process.env.JWT_REFRESH_SECRET,
-                        { expiresIn: "10d" }
-                    );
-
-                    // Update database with refresh token.
-                    db.query(
-                        "UPDATE Proprietor SET refresh_token = ? WHERE user_id = ?",
-                        [refreshToken, req.body.userID],
-                        (error) => {
-                            if (error) {
-                                res.status(500).send(error);
-                            } else {
-                                // Send JWT.
-                                res.cookie("refreshToken", refreshToken, {
-                                    maxAge: 10 * 24 * 3600000,
-                                    httpOnly: true,
-                                }).json({
-                                    userID: req.body.userID,
-                                    accessToken: accessToken,
-                                });
-                            }
-                        }
-                    );
+                    // Send JWT.
+                    res.cookie("accessToken", accessToken, {
+                        maxAge: 24 * 3600000,
+                        httpOnly: true,
+                        signed: true,
+                    }).json({
+                        userID: req.body.userID,
+                        accessToken: accessToken,
+                        isLoggedIn: true,
+                    });
                 }
             }
         );
@@ -71,8 +55,8 @@ const login = (req, res) => {
         if (error) return res.status(401).send(error.details[0].message);
 
         db.query(
-            "SELECT * FROM Firm WHERE corporate_id = ?",
-            [req.body.corporateID],
+            "SELECT * FROM Firm WHERE user_id = ?",
+            [req.body.userID],
             (error, results) => {
                 if (error)
                     res.status(401).send(
@@ -92,37 +76,20 @@ const login = (req, res) => {
                 } else {
                     // Create access token.
                     const accessToken = jwt.sign(
-                        { _id: req.body.userID, userType: "Firm" },
-                        process.env.JWT_ACCESS_SECRET,
-                        { expiresIn: "30s" }
+                        { userID: req.body.userID, userType: "Firm" },
+                        process.env.JWT_SECRET,
+                        { expiresIn: "24h" }
                     );
 
-                    // Create refresh token.
-                    const refreshToken = jwt.sign(
-                        { _id: req.body.userID, userType: "Firm" },
-                        process.env.JWT_REFRESH_SECRET,
-                        { expiresIn: "10d" }
-                    );
-
-                    // Update database with refresh token.
-                    db.query(
-                        "UPDATE Firm SET refresh_token = ? WHERE user_id = ?",
-                        [refreshToken, req.body.userID],
-                        (error) => {
-                            if (error) {
-                                res.status(500).send(error);
-                            } else {
-                                // Send JWT.
-                                res.cookie("refreshToken", refreshToken, {
-                                    maxAge: 10 * 24 * 3600000,
-                                    httpOnly: true,
-                                }).json({
-                                    userID: req.body.userID,
-                                    accessToken: accessToken,
-                                });
-                            }
-                        }
-                    );
+                    // Send JWT.
+                    res.cookie("accessToken", accessToken, {
+                        maxAge: 24 * 3600000,
+                        httpOnly: true,
+                    }).json({
+                        userID: req.body.userID,
+                        accessToken: accessToken,
+                        isLoggedIn: true,
+                    });
                 }
             }
         );
