@@ -17,7 +17,7 @@ const jwt = require("jsonwebtoken");
 
 const authenticate = (req, res, next) => {
     // Get token from request header.
-    const token = req.body.accessToken;
+    const token = req.headers['accesstoken'];
     // Access is denied to resource if token does not exist.
     if (!token) res.status(401).send("Access denied.");
 
@@ -46,7 +46,10 @@ app.post("/cityMaster/Add", (req, res) => {
   const statename = req.body.State;
 
   db.query(sql, [cityname, statename], (err, result) => {
-    console.log(err);
+    if (err) {console.log(err);res.send(err);}
+    else{
+      res.send("Successfully added");
+    }
   });
 });
 
@@ -55,7 +58,8 @@ app.post("/cityMaster/Delete", (req, res) => {
   const cityname = req.body.City;
 
   db.query(sql, cityname, (err, result) => {
-
+    if (err) {console.log(err);res.send(err);}
+    res.send("Successfully deleted");
   });
 });
 
@@ -63,7 +67,7 @@ app.post("/cityMaster/getdata", (req, res) => {
   const sql = "SELECT * FROM CITYMASTER;";
   
   db.query(sql, (err, result) => {
-    if (err) console.log(err);
+    if (err) {console.log(err);res.send(err);}
     else {
       console.log(result);
       res.send(result);
@@ -77,7 +81,10 @@ app.post("/cityMaster/Update", (req, res) => {
   const statename = req.body.State;
   const oldcity = req.body.oldcity;
   db.query(sql, [cityname, statename, oldcity], (err, result) => {
-    console.log(err);
+    if (err) {console.log(err);res.send(err);}
+    else{
+      res.send("Successfully updated");
+    }
   });
 });
 
