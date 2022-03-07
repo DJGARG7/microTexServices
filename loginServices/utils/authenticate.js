@@ -17,8 +17,10 @@ const authenticate = (req, res, next) => {
 
             next();
         } catch (error) {
-            if (error.name === "JsonWebTokenError" || "UnauthorizedUserError")
+            if (error.name === "JsonWebTokenError")
                 res.status(401).send("Invalid token.");
+            else if (error.name === "UnauthorizedUserError")
+                res.status(403).send("Unauthorized.");
             else if (error.name === "TokenExpiredError")
                 res.status(403).send("Token expired.");
         }
