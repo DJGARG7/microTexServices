@@ -9,7 +9,7 @@ const register = async (req, res) => {
 
     if (req.body.userType === "proprietor") {
         // Validate incoming request.
-        const { error } = validation.validateProprietor(req.body);
+        const { error } = validation.validateRegisterProprietor(req.body);
 
         // If there is an error, report it; else continue normal flow.
         if (error) return res.status(400).send(error.details[0].message);
@@ -19,8 +19,8 @@ const register = async (req, res) => {
 
         // Insert data into the table.
         db.query(
-            "INSERT INTO Proprietor VALUES(?, ?)",
-            [req.body.userID, hashedPassword],
+            "INSERT INTO Proprietor VALUES(uuid(), ?, ?, ?)",
+            [req.body.userID, req.body.userName, hashedPassword],
             (error) => {
                 if (error)
                     res.status(400).send(`${error.code}: ${error.sqlMessage}`);
@@ -39,10 +39,11 @@ const register = async (req, res) => {
 
         // Insert data into the table.
         db.query(
-            "INSERT INTO Firm VALUES(?, ?, ?, ?)",
+            "INSERT INTO Firm VALUES(uuid(), ?, ?, ?, ?, ?)",
             [
                 req.body.corporateID,
                 req.body.userID,
+                req.body.userName,
                 hashedPassword,
                 req.body.isAdmin,
             ],

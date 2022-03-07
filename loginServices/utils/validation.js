@@ -1,6 +1,18 @@
 const Joi = require("joi");
 
-const validateProprietor = (data) => {
+const validateRegisterProprietor = (data) => {
+    // Schema for proprietor register request object.
+    const proprietorSchema = Joi.object({
+        userType: Joi.string().pattern(new RegExp("^proprietor$")),
+        userID: Joi.string().alphanum().min(3).max(30).required(),
+        userName: Joi.string().pattern(new RegExp("^[ a-zA-Z]{2,30}$")),
+        password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{8,30}$")),
+    });
+
+    return proprietorSchema.validate(data);
+};
+
+const validateLoginProprietor = (data) => {
     // Schema for proprietor register request object.
     const proprietorSchema = Joi.object({
         userType: Joi.string().pattern(new RegExp("^proprietor$")),
@@ -17,6 +29,7 @@ const validateRegisterFirm = (data) => {
         userType: Joi.string().pattern(new RegExp("^firm$")),
         corporateID: Joi.string().alphanum().min(3).max(30).required(),
         userID: Joi.string().alphanum().min(3).max(30).required(),
+        userName: Joi.string().pattern(new RegExp("^[ a-zA-Z]{2,30}$")),
         password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{8,30}$")),
         isAdmin: Joi.boolean().required(),
     });
@@ -36,6 +49,7 @@ const validateLoginFirm = (data) => {
     return firmSchema.validate(data);
 };
 
-module.exports.validateProprietor = validateProprietor;
+module.exports.validateRegisterProprietor = validateRegisterProprietor;
+module.exports.validateLoginProprietor = validateLoginProprietor;
 module.exports.validateRegisterFirm = validateRegisterFirm;
 module.exports.validateLoginFirm = validateLoginFirm;

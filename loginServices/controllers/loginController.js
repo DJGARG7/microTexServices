@@ -7,7 +7,7 @@ const validation = require("../utils/validation");
 const login = (req, res) => {
     if (req.body.userType === "proprietor") {
         // Validate incoming request.
-        const { error } = validation.validateProprietor(req.body);
+        const { error } = validation.validateLoginProprietor(req.body);
 
         // If there is an error, report it; else continue normal flow.
         if (error) return res.status(400).send(error.details[0].message);
@@ -40,7 +40,9 @@ const login = (req, res) => {
                         httpOnly: true,
                         signed: true,
                     }).json({
+                        uuid: results[0].uuid,
                         userID: req.body.userID,
+                        userName: results[0].user_name,
                         accessToken: accessToken,
                         isLoggedIn: true,
                     });
@@ -87,7 +89,9 @@ const login = (req, res) => {
                         httpOnly: true,
                         signed: true,
                     }).json({
+                        uuid: results[0].uuid,
                         userID: req.body.userID,
+                        userName: results[0].user_name,
                         accessToken: accessToken,
                         isLoggedIn: true,
                     });
