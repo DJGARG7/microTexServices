@@ -33,7 +33,34 @@ app.listen(3001, () => {
     console.log("Run on 3001");
 });
 
-app.post("/cityMaster/add", (req, res) => {
+const authenticate = (req, res, next) => {
+    // Access is denied if access token is not sent.
+    if (!req.signedCookies.accessToken) res.status(401).send("Access denied.");
+    else {
+        try {
+            // Validate token if it exists.
+            const tokenPayload = jwt.verify(
+                req.signedCookies.accessToken,
+                process.env.JWT_SECRET
+            );
+
+            // Check if token belongs to user.
+            if (req.header("userID") !== tokenPayload.userID)
+                throw { name: "UnauthorizedUserError", error: new Error() };
+
+            next();
+        } catch (error) {
+            if (error.name === "JsonWebTokenError")
+                res.status(400).send("Invalid token.");
+            else if (error.name === "UnauthorizedUserError")
+                res.status(401).send("Unauthorized.");
+            else if (error.name === "TokenExpiredError")
+                res.status(403).send("Token expired.");
+        }
+    }
+};
+
+app.post("/cityMaster/add", authenticate, (req, res) => {
     db.query(
         "INSERT INTO CITYMASTER VALUES(?,?);",
         [req.body.City, req.body.State],
@@ -48,7 +75,7 @@ app.post("/cityMaster/add", (req, res) => {
     );
 });
 
-app.post("/cityMaster/delete", (req, res) => {
+app.post("/cityMaster/delete", authenticate, (req, res) => {
     db.query(
         "DELETE FROM CITYMASTER WHERE CityName=?;",
         req.body.City,
@@ -61,7 +88,7 @@ app.post("/cityMaster/delete", (req, res) => {
     );
 });
 
-app.get("/cityMaster/get", (req, res) => {
+app.get("/cityMaster/get", authenticate, (req, res) => {
     db.query("SELECT * FROM CITYMASTER;", (err, result) => {
         if (err) {
             console.log(err.sqlMessage);
@@ -72,7 +99,7 @@ app.get("/cityMaster/get", (req, res) => {
     });
 });
 
-app.post("/cityMaster/update", (req, res) => {
+app.post("/cityMaster/update", authenticate, (req, res) => {
     db.query(
         "UPDATE CITYMASTER SET CityName=?,StateName=? WHERE CityName=?;",
         [req.body.City, req.body.State, req.body.oldcity],
