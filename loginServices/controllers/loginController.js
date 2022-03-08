@@ -22,6 +22,7 @@ const login = (req, res) => {
                 // Check if userID exists; if it exists check if it is correct; then check if password is correct.
                 if (
                     !results ||
+                    results.length == 0 ||
                     results[0].user_id !== req.body.userID ||
                     !bcrypt.compareSync(req.body.password, results[0].password)
                 ) {
@@ -68,6 +69,7 @@ const login = (req, res) => {
                 // Check if userID exists; if it exists check if userID exists; if it exists check if it is correct; then check if password is correct.
                 if (
                     !results ||
+                    results.length == 0 ||
                     results[0].corporate_id !== req.body.corporateID ||
                     results[0].user_id !== req.body.userID ||
                     !bcrypt.compareSync(req.body.password, results[0].password)
