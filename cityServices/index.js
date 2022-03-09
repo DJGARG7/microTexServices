@@ -46,7 +46,6 @@ app.listen(3001, () => {
 });
 
 app.post("/cityMaster/Add", (req, res) => {
-    console.log("chal jaa be");
     const sql = "INSERT INTO CITYMASTER VALUES(?,?);";
     const cityname = req.body.City;
     const statename = req.body.State;
@@ -61,29 +60,15 @@ app.post("/cityMaster/Add", (req, res) => {
     });
 });
 
-app.post("/cityMaster/Delete", (req, res) => {
-    const sql = "DELETE FROM CITYMASTER WHERE CityName=?;";
-    const cityname = req.body.City;
-
-    db.query(sql, cityname, (err, result) => {
-        if (err) {
-            console.log(err);
-            res.send(err);
-        }
-        res.send("Successfully deleted");
-    });
-});
-
 app.get("/cityMaster/getdata", (req, res) => {
-
-    const sql = "SELECT * FROM CITYMASTER;";
+    const sql = "SELECT CityName FROM CITYMASTER;";
 
     db.query(sql, (err, result) => {
         if (err) {
             console.log(err);
             res.send(err);
         } else {
-            console.log(result);
+            console.log(Object.keys(result).map((city)=>{ return result[city].CityName}));
             res.send(result);
         }
     });
@@ -102,5 +87,18 @@ app.post("/cityMaster/Update", (req, res) => {
         } else {
             res.send("Successfully updated");
         }
+    });
+});
+
+app.post("/cityMaster/Delete", (req, res) => {
+    const sql = "DELETE FROM CITYMASTER WHERE CityName=?;";
+    const cityname = req.body.City;
+
+    db.query(sql, cityname, (err, result) => {
+        if (err) {
+            console.log(err);
+            res.send(err);
+        }
+        res.send("Successfully deleted");
     });
 });
