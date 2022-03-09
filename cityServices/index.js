@@ -46,7 +46,6 @@ app.listen(3001, () => {
 });
 
 app.post("/cityMaster/Add", (req, res) => {
-    console.log("chal jaa be");
     const sql = "INSERT INTO CITYMASTER VALUES(?,?);";
     const cityname = req.body.City;
     const statename = req.body.State;
