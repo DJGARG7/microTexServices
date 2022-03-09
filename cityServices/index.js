@@ -45,8 +45,8 @@ const authenticate = (req, res, next) => {
             );
 
             // Check if token belongs to user.
-            if (req.header("userID") !== tokenPayload.userID)
-                throw { name: "UnauthorizedUserError", error: new Error() };
+            // if (req.header("userID") !== tokenPayload.userID)
+            //     throw { name: "UnauthorizedUserError", error: new Error() };
 
             next();
         } catch (error) {
@@ -114,7 +114,7 @@ app.post("/cityMaster/update", authenticate, (req, res) => {
     );
 });
 
-app.post("/cityMaster/Delete", (req, res) => {
+app.post("/cityMaster/delete", (req, res) => {
     const sql = "DELETE FROM CITYMASTER WHERE CityName=?;";
     const cityname = req.body.City;
 
