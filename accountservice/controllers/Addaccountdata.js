@@ -1,28 +1,42 @@
 const db = require("../config/db");
 
 const Addaccountdata = (req, res) => {
-  const data = req.body;
-  const query =
-    "INSERT INTO account_master (account_name,account_type,address_line_1,address_line_2,address_line_3,city,pincode) values (?,?,?,?,?,?,?);";
-  if(!data.pincode) data.pincode = 0;
-  db.query(
-    query,
-    [
-      data.accountname,
-      data.accounttype,
-      data.address_1,
-      data.address_2,
-      data.address_3,
-      data.city,
-      data.pincode,
-    ],
-    (err, result) => {
-      if (err) 
-      {console.log(err);
-        res.send(err);}
-      else res.send("1");
-    }
-  );
+	console.log("heloo")
+    const data = req.body;
+    const query =
+        "INSERT INTO accountmaster values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+    db.query(
+        query,
+        [	"a1",
+            data.AccName,
+            data.AccType,
+            data.address1,
+            data.address2,
+            data.address3,
+            data.city,
+            data.pincode,
+            data.phoneNo,
+            data.email,
+            data.GSTIN,
+            data.RegDate,
+            data.propName,
+            data.PAN,
+            data.dist,
+            data.transport,
+            data.openingBal,
+            data.CrDr,
+            data.beneName,
+            data.AccountNum,
+            data.IFSC,
+            data.shares,
+        ],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                res.send(err.sql.Message);
+            } else res.send(result);
+        }
+    );
 };
 
 module.exports = Addaccountdata;
