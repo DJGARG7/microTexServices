@@ -7,7 +7,7 @@ const Addaccountdata = (req, res) => {
         "INSERT INTO accountmaster values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
     db.query(
         query,
-        [	"a1",
+        [   "a1",
             data.AccName,
             data.AccType,
             data.address1,
@@ -30,11 +30,11 @@ const Addaccountdata = (req, res) => {
             data.IFSC,
             data.shares,
         ],
-        (err, result) => {
+        (err) => {
             if (err) {
                 console.log(err);
-                res.send(err.sql.Message);
-            } else res.send(result);
+                res.send(err);
+            } else res.send(1);
         }
     );
 };
