@@ -29,9 +29,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.json());
 
-app.listen(3001, () => {
-    console.log("Run on 3001");
-});
 
 const authenticate = (req, res, next) => {
     // Access is denied if access token is not sent.
@@ -45,8 +42,8 @@ const authenticate = (req, res, next) => {
             );
 
             // Check if token belongs to user.
-            if (req.header("userID") !== tokenPayload.userID)
-                throw { name: "UnauthorizedUserError", error: new Error() };
+            // if (req.header("userID") !== tokenPayload.userID)
+            //     throw { name: "UnauthorizedUserError", error: new Error() };
 
             next();
         } catch (error) {
@@ -94,6 +91,7 @@ app.get("/cityMaster/get", authenticate, (req, res) => {
             console.log(err.sqlMessage);
             res.send(err.sqlMessage);
         } else {
+
             res.send(result);
         }
     });
@@ -125,4 +123,10 @@ app.post("/cityMaster/Delete", (req, res) => {
         }
         res.send("Successfully deleted");
     });
+});
+
+
+
+app.listen(3001, () => {
+    console.log("City master running on 3001");
 });
