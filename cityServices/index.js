@@ -32,6 +32,7 @@ app.use(express.json());
 
 const authenticate = (req, res, next) => {
     // Access is denied if access token is not sent.
+    console.log(req);
     if (!req.signedCookies.accessToken) res.status(401).send("Access denied.");
     else {
         try {
@@ -86,12 +87,12 @@ app.post("/cityMaster/delete", authenticate, (req, res) => {
 });
 
 app.get("/cityMaster/get", authenticate, (req, res) => {
+    console.log("hel");
     db.query("SELECT * FROM CITYMASTER;", (err, result) => {
         if (err) {
             console.log(err.sqlMessage);
             res.send(err.sqlMessage);
         } else {
-
             res.send(result);
         }
     });
