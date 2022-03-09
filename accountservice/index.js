@@ -9,9 +9,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const authRoute = require("./routes/auth");
 
 // Middlewares.
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+}));
 app.use(express.json());
 
 app.use("/accountMaster", authRoute);
 
-app.listen(3003, () => console.log("Server running at port 3003."));
+app.listen(3003, () => console.log("Account Master running at 3003."));

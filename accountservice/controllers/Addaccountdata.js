@@ -1,26 +1,50 @@
 const db = require("../config/db");
-
+const { v4: uuidv4 } = require("uuid");
 const Addaccountdata = (req, res) => {
+  console.log("heloo");
   const data = req.body;
+  const id = uuidv4();
+  console.log(id);
+  data.RegDate = "2000/12/1";
+  data.dist = 1;
+  const ref = {
+    status: "1",
+    uuid: id,
+  };
+  JSON.stringify(ref);
   const query =
-    "INSERT INTO account_master (account_name,account_type,address_line_1,address_line_2,address_line_3,city,pincode) values (?,?,?,?,?,?,?);";
-  if(!data.pincode) data.pincode = 0;
+    "INSERT INTO accountmaster values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
   db.query(
     query,
     [
-      data.accountname,
-      data.accounttype,
-      data.address_1,
-      data.address_2,
-      data.address_3,
+      id,
+      data.AccName,
+      data.AccType,
+      data.address1,
+      data.address2,
+      data.address3,
       data.city,
       data.pincode,
+      data.phoneNo,
+      data.email,
+      data.GSTIN,
+      data.RegDate,
+      data.propName,
+      data.PAN,
+      data.dist,
+      data.transport,
+      data.openingBal,
+      data.CrDr,
+      data.beneName,
+      data.AccountNum,
+      data.IFSC,
+      data.shares,
     ],
-    (err, result) => {
-      if (err) 
-      {console.log(err);
-        res.send(err.sql.Message);}
-      else res.send(result);
+    (err) => {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else res.send(JSON.stringify(ref));
     }
   );
 };

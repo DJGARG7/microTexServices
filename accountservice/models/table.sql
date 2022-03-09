@@ -1,3 +1,27 @@
 CREATE DATABASE ADMINDASHBOARD;
 
-CREATE TABLE account_master (account_id int(10) PRIMARY KEY AUTO_INCREMENT,address_name varchar(100) NOT NULL,account_type varchar(100) NOT NULL,address_line_1 varchar(100), address_line_2 varchar(100),address_line_3 varchar(100),city VARCHAR(20),pincode int(10));
+CREATE TABLE `accountmaster` (
+    `uid` VARCHAR(36),
+    `AccName` VARCHAR(100) NOT NULL,
+    `AccType` VARCHAR(50) NOT NULL,
+    `address1` VARCHAR(100),
+    `address2` VARCHAR(100),
+    `address3` VARCHAR(100),
+    `city` VARCHAR(50),
+    `pincode` INT(6),
+    `phoneNo` INT(10),
+    `email` VARCHAR(100),
+    `GSTIN` VARCHAR(15),
+    `RegDate` DATE,
+    `propName` VARCHAR(100),
+    `PAN` VARCHAR(10),
+    `dist` INT(10),
+    `transport` VARCHAR(100),
+    `openingBal` INT(20),
+    `Cr/Dr` VARCHAR(2),
+    `beneName` VARCHAR(100),
+    `AccountNum` INT(50),
+    `IFSC` VARCHAR(11),
+    `shares` INT(3),
+    PRIMARY KEY (`uid`)
+);

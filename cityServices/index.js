@@ -29,12 +29,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.json());
 
-app.listen(3001, () => {
-    console.log("Run on 3001");
-});
 
 const authenticate = (req, res, next) => {
     // Access is denied if access token is not sent.
+    console.log(req);
     if (!req.signedCookies.accessToken) res.status(401).send("Access denied.");
     else {
         try {
@@ -89,6 +87,7 @@ app.post("/cityMaster/delete", authenticate, (req, res) => {
 });
 
 app.get("/cityMaster/get", authenticate, (req, res) => {
+    console.log("hel");
     db.query("SELECT * FROM CITYMASTER;", (err, result) => {
         if (err) {
             console.log(err.sqlMessage);
@@ -125,4 +124,10 @@ app.post("/cityMaster/delete", (req, res) => {
         }
         res.send("Successfully deleted");
     });
+});
+
+
+
+app.listen(3001, () => {
+    console.log("City master running on 3001");
 });
