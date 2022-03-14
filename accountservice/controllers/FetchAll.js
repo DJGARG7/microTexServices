@@ -4,14 +4,14 @@ const FetchAll = (req, res) => {
   const data = req.body;
   console.log(req.body);
   const query =
-    "SELECT * FROM account_master;";
+    "SELECT * FROM accountmaster;";
   db.query(
     query,
     (err, result) => {
       if (err) {
         console.log(err);
         res.send(err.sql.Message);
-      } else {console.log(result);res.send(result)};
+      } else {res.send(result)};
     }
   );
 };
