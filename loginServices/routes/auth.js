@@ -11,7 +11,7 @@ router.post("/login", login);
 
 router.get("/logout", authenticate, logout);
 
-router.get("/test", authenticate, (req, res) => {
+router.get("/check", authenticate, (req, res) => {
     res.send("Authenticated!");
 });
 

@@ -111,7 +111,7 @@ app.post("/cityMaster/update", authenticate, (req, res) => {
     );
 });
 
-app.post("/cityMaster/Delete", (req, res) => {
+app.post("/cityMaster/delete", (req, res) => {
     const sql = "DELETE FROM CITYMASTER WHERE CityName=?;";
     const cityname = req.body.City;
 

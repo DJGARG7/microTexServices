@@ -95,6 +95,7 @@ const login = (req, res) => {
                         userID: req.body.userID,
                         userName: results[0].user_name,
                         accessToken: accessToken,
+                        isAdmin: results[0].admin,
                         isLoggedIn: true,
                     });
                 }
