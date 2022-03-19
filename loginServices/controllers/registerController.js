@@ -4,6 +4,8 @@ const db = require("../config/db");
 const validation = require("../utils/validation");
 
 const register = async (req, res) => {
+    if (!req.body.userType) res.status(400).send("Bad format.");
+
     // Get salt to hash passwords.
     const salt = await bcrypt.genSalt(10);
 
@@ -22,8 +24,7 @@ const register = async (req, res) => {
             "INSERT INTO Proprietor VALUES(uuid(), ?, ?, ?)",
             [req.body.userID, req.body.userName, hashedPassword],
             (error) => {
-                if (error)
-                    res.status(400).send(`${error.code}: ${error.sqlMessage}`);
+                if (error) res.status(400).send(`${error.sqlMessage}`);
                 else res.send("User registered!");
             }
         );
@@ -48,8 +49,7 @@ const register = async (req, res) => {
                 req.body.isAdmin,
             ],
             (error) => {
-                if (error)
-                    res.status(400).send(`${error.code}: ${error.sqlMessage}`);
+                if (error) res.status(400).send(`${error.sqlMessage}`);
                 else res.send("User registered!");
             }
         );
