@@ -15,7 +15,7 @@ router.post("/register", authenticate, register);
 
 router.get("/fetchUsers", authenticate, fetchUsers);
 
-router.get("/deleteUser", authenticate, deleteUser);
+router.post("/deleteUser", authenticate, deleteUser);
 
 router.get("/check", authenticate, (req, res) => {
     res.send("Authenticated!");

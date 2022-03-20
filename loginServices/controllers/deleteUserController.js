@@ -1,9 +1,9 @@
 const db = require("../config/db");
 
 const deleteUser = (req, res) => {
-    db.query("SELECT uuid, user_id FROM Firm", (error, results) => {
+    db.query("DELETE FROM Firm WHERE uuid = ?", [req.body.uuid], (error) => {
         if (error) res.status(400).send(`${error.sqlMessage}`);
-        else res.send(results);
+        else res.send("User deleted successfully!");
     });
 };
 
