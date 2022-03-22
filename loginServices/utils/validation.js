@@ -4,9 +4,21 @@ const validateRegisterProprietor = (data) => {
     // Schema for proprietor register request object.
     const proprietorSchema = Joi.object({
         userType: Joi.string().pattern(new RegExp("^proprietor$")),
-        userID: Joi.string().alphanum().min(3).max(30).required(),
-        userName: Joi.string().pattern(new RegExp("^[ a-zA-Z]{2,30}$")),
-        password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{8,30}$")),
+        userID: Joi.string()
+            .min(3)
+            .max(30)
+            .pattern(new RegExp("^[ a-zA-Z]*$"))
+            .required(),
+        userName: Joi.string()
+            .min(2)
+            .max(30)
+            .pattern(new RegExp("^[ a-zA-Z]*$"))
+            .required(),
+        password: Joi.string()
+            .min(8)
+            .max(30)
+            .pattern(new RegExp("^[a-zA-Z0-9]*$"))
+            .required(),
     });
 
     return proprietorSchema.validate(data);
@@ -16,8 +28,16 @@ const validateLoginProprietor = (data) => {
     // Schema for proprietor register request object.
     const proprietorSchema = Joi.object({
         userType: Joi.string().pattern(new RegExp("^proprietor$")),
-        userID: Joi.string().alphanum().min(3).max(30).required(),
-        password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{8,30}$")),
+        userID: Joi.string()
+            .min(3)
+            .max(30)
+            .pattern(new RegExp("^[_a-zA-Z0-9]*$"))
+            .required(),
+        password: Joi.string()
+            .min(8)
+            .max(30)
+            .pattern(new RegExp("^[a-zA-Z0-9]*$"))
+            .required(),
     });
 
     return proprietorSchema.validate(data);
@@ -27,11 +47,28 @@ const validateRegisterFirm = (data) => {
     // Schema for firm register request object.
     const firmSchema = Joi.object({
         userType: Joi.string().pattern(new RegExp("^firm$")),
-        corporateID: Joi.string().alphanum().min(3).max(30).required(),
-        userID: Joi.string().alphanum().min(3).max(30).required(),
-        userName: Joi.string().pattern(new RegExp("^[ a-zA-Z]{2,30}$")),
-        password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{8,30}$")),
+        corporateID: Joi.string()
+            .min(3)
+            .max(30)
+            .pattern(new RegExp("^[_a-zA-Z0-9]*$"))
+            .required(),
+        userID: Joi.string()
+            .min(3)
+            .max(30)
+            .pattern(new RegExp("^[_a-zA-Z0-9]*$"))
+            .required(),
+        userName: Joi.string()
+            .min(2)
+            .max(30)
+            .pattern(new RegExp("^[ a-zA-Z]*$"))
+            .required(),
+        password: Joi.string()
+            .min(8)
+            .max(30)
+            .pattern(new RegExp("^[a-zA-Z0-9]*$"))
+            .required(),
         isAdmin: Joi.boolean().required(),
+        permissions: Joi.array().required(),
     });
 
     return firmSchema.validate(data);
@@ -41,8 +78,21 @@ const validateLoginFirm = (data) => {
     // Schema for firm login request object.
     const firmSchema = Joi.object({
         userType: Joi.string().pattern(new RegExp("^firm$")),
-        corporateID: Joi.string().alphanum().min(3).max(30).required(),
-        userID: Joi.string().alphanum().min(3).max(30).required(),
+        corporateID: Joi.string()
+            .min(3)
+            .max(30)
+            .pattern(new RegExp("^[_a-zA-Z0-9]*$"))
+            .required(),
+        userID: Joi.string()
+            .min(3)
+            .max(30)
+            .pattern(new RegExp("^[_a-zA-Z0-9]*$"))
+            .required(),
+        password: Joi.string()
+            .min(8)
+            .max(30)
+            .pattern(new RegExp("^[a-zA-Z0-9]*$"))
+            .required(),
         password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{0,30}$")),
     });
 

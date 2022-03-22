@@ -1,11 +1,9 @@
 const router = require("express").Router();
 
-const register = require("../controllers/registerController");
-const login = require("../controllers/loginController");
-const logout = require("../controllers/logoutController");
-const authenticate = require("../utils/authenticate");
+const login = require("../controllers/auth/loginController");
+const logout = require("../controllers/auth/logoutController");
 
-router.post("/register", register);
+const authenticate = require("../utils/authenticate");
 
 router.post("/login", login);
 
