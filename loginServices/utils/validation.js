@@ -68,6 +68,7 @@ const validateRegisterFirm = (data) => {
             .pattern(new RegExp("^[a-zA-Z0-9]*$"))
             .required(),
         isAdmin: Joi.boolean().required(),
+        permissions: Joi.array().required(),
     });
 
     return firmSchema.validate(data);
