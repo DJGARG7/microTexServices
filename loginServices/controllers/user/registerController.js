@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 
-const db = require("../config/db");
-const validation = require("../utils/validation");
+const db = require("../../config/db");
+const validation = require("../../utils/validation");
 
 const register = async (req, res) => {
     if (!req.body.userType) res.status(400).send("Bad format.");
