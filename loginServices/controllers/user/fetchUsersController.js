@@ -1,4 +1,4 @@
-const db = require("../config/db");
+const db = require("../../config/db");
 
 const fetchUsers = (req, res) => {
     db.query("SELECT uuid, user_id FROM Firm", (error, results) => {

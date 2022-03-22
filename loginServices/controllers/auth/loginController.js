@@ -1,8 +1,8 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const db = require("../config/db");
-const validation = require("../utils/validation");
+const db = require("../../config/db");
+const validation = require("../../utils/validation");
 
 const login = (req, res) => {
     if (req.body.userType === "proprietor") {
