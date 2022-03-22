@@ -4,7 +4,7 @@ const UpdateAccount = (req, res) => {
   const data = req.body;
   console.log(req.body);
   const query =
-    "UPDATE account_master set account_name=?, account_type=?, address_line_1 = ?,address_line_2 = ?,address_line_3 = ?,city = ?,pincode = ? WHERE account_name = ?;";
+    "UPDATE accountmaster set account_name=?, account_type=?, address_line_1 = ?,address_line_2 = ?,address_line_3 = ?,city = ?,pincode = ? WHERE account_name = ?;";
   db.query(
     query,
     [
