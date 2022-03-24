@@ -1,0 +1,15 @@
+CREATE TABLE `DesignMaster` (
+  `id` int(11) NOT NULL,
+  `NAME` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `CLOTH_TYPE` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `BASIC_COST` int(11) DEFAULT NULL,
+  `WORK_COST` int(11) DEFAULT NULL,
+  `LACE_COST` int(11) DEFAULT NULL,
+  `DIAMOND_COST` int(11) DEFAULT NULL,
+  `PACKING_COST` int(11) DEFAULT NULL,
+  `MU` int(11) DEFAULT NULL,
+  `CALC_PRICE` int(11) GENERATED ALWAYS AS ((`BASIC_COST` + `WORK_COST` + `LACE_COST` + `DIAMOND_COST` + `PACKING_COST`) * 100 / (100 - `MU`)) VIRTUAL,
+  `WORK_JOB` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LACE_JOB` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DIAM_JOB` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
