@@ -6,36 +6,36 @@ const UpdateAccount = (req, res) => {
     const data = req.body;
     console.log(req.body);
     const query =
-        "UPDATE accountmaster set AccName=?,\
-                                   AccType=?\
+        "UPDATE accountmaster SET AccName=?,\
+                                   AccType=?,\
                                    address1 = ?,\
                                    address2 = ?,\
                                    address3 = ?,\
                                    city = ?,\
                                    pincode = ?,\
                                    phoneNo = ?,\
-                                   email,\
-                                   GSTIN,\
-                                   RegDate,\
-                                   propName,\
-                                   PAN,\
-                                   dist,\
-                                   transport,\
-                                   openingBal,\
-                                   Cr/Dr,\
-                                   beneName,\
-                                   AccountNum,\
-                                   IFSC,\
-                                   shares\
+                                   email=?,\
+                                   GSTIN=?,\
+                                   RegDate=?,\
+                                   propName=?,\
+                                   PAN=?,\
+                                   dist=?,\
+                                   transport=?,\
+                                   openingBal=?,\
+                                   CrDr=?,\
+                                   beneName=?,\
+                                   AccountNum=?,\
+                                   IFSC=?,\
+                                   shares=?\
         WHERE uid = ?;";
     db.query(
         query,
         [
-            data.accountname,
-            data.accounttype,
-            data.address_1,
-            data.address_2,
-            data.address_3,
+            data.AccName,
+            data.AccType,
+            data.address1,
+            data.address2,
+            data.address3,
             data.city,
             data.pincode,
             data.phoneNo,
@@ -54,7 +54,14 @@ const UpdateAccount = (req, res) => {
             data.shares,
             uuid
         ],
-        (err, result) => sendResponse(res, err, result)
+        (err) => {
+            if (err) {
+                console.log(err);
+                res.status(400).send(err);
+            } else {
+                res.send("1");
+            }
+        }
     );
 };
 
