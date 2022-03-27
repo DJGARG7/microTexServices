@@ -1,19 +1,22 @@
 const db = require("../config/db");
 const { v4: uuidv4 } = require("uuid");
-const {sendResponse} = require('../../helper');
 
 const Addaccountdata = (req, res) => {
-  console.log("heloo");
+
   const data = req.body;
+
   const id = uuidv4();
   console.log(id);
+
   data.RegDate = "2000/12/1";
   data.dist = 1;
+
   const ref = {
     status: "1",
     uuid: id,
   };
   JSON.stringify(ref);
+
   const query =
     "INSERT INTO accountmaster values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
   db.query(
