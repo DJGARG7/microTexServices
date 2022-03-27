@@ -1,16 +1,18 @@
-CREATE TABLE `greypurchase` (
-    `uid` VARCHAR(36) NOT NULL,
+CREATE TABLE `billdetails` (
     `BillNo` INT(10),
     `BillDate` DATE,
     `accntnames` VARCHAR(100) NOT NULL,
-    `RevCharge` VARCHAR(5),
-    `RcmInvNo` INT(10),
     `ChallanNo` INT(10),
     `ChallanDate` DATE,
     `Agent` VARCHAR(10),
-    `Haste` VARCHAR(10),
-    `OrderForm` VARCHAR(15),
     `EntryNo` INT(10),
+    `NetAmount` DECIMAL(20,2) NOT NULL,
+    PRIMARY KEY (`BillNo`)
+);
+
+
+CREATE TABLE `itemdetails` (
+    `BillNo` VARCHAR(10) NOT NULL,
     `ItemName` VARCHAR(100),
     `Marka` DECIMAL(20,2),
     `Taka` INT(10),
@@ -22,7 +24,5 @@ CREATE TABLE `greypurchase` (
     `Discount` DECIMAL(20,2),
     `IGST` DECIMAL(20,2),
     `CGST` DECIMAL(20,2),
-    `SGST` DECIMAL(20,2),
-    `NetAmount` DECIMAL(20,2) NOT NULL,
-    PRIMARY KEY (`uid`)
+    `SGST` DECIMAL(20,2)
 );
