@@ -1,10 +1,21 @@
 const db = require("../../config/db");
 
 const fetchPermissions = (req, res) => {
-    db.query("SELECT * FROM Permissions", (error, results) => {
-        if (error) res.status(400).send(`${error.sqlMessage}`);
-        else res.send(results);
-    });
+    if (!req.params.uuid) {
+        db.query("SELECT * FROM Permissions", (error, results) => {
+            if (error) res.status(400).send(`${error.sqlMessage}`);
+            else res.send(results);
+        });
+    } else {
+        db.query(
+            "SELECT p_id FROM UserPermissions WHERE uuid=?",
+            [req.params.uuid],
+            (error, results) => {
+                if (error) res.status(400).send(`${error.sqlMessage}`);
+                else res.send(results);
+            }
+        );
+    }
 };
 
 module.exports = fetchPermissions;
