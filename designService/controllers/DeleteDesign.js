@@ -1,11 +1,15 @@
 const db = require("../config/db");
-const {sendResponse} = require('../../helper');
-
 const Deleteaccountdata = (req, res) => {
-    const uuid = req.params.id;
-    const query = "DELETE FROM DesignMaster WHERE uid=?;";
-    // console.log(data);
-    db.query(query, [uuid], (err, result) => sendResponse(res, err, result));
+    const Dno = req.params.Dno;
+    const query = "DELETE FROM DesignMaster WHERE Dno=?;";
+    db.query(query, [Dno], (err) => {
+        if (err) {
+            console.log(err);
+            res.status(400).send(err);
+        } else {
+            res.send("1");
+        }
+    });
 }
 
 module.exports = Deleteaccountdata;
