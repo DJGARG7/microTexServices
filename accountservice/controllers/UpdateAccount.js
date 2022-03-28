@@ -4,7 +4,7 @@ const {sendResponse} = require('../../helper');
 const UpdateAccount = (req, res) => {
     const uuid = req.params.id;
     const data = req.body;
-    console.log(req.body);
+ 
     const query =
         "UPDATE accountmaster SET AccName=?,\
                                    AccType=?,\
