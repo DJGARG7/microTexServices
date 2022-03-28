@@ -1,5 +1,5 @@
-CREATE TABLE `DesignMaster` (
-  `id` int(11) NOT NULL,
+CREATE TABLE `designmaster` (
+  `Dno` int(11) NOT NULL,
   `NAME` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `CLOTH_TYPE` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `BASIC_COST` int(11) DEFAULT NULL,
@@ -8,8 +8,10 @@ CREATE TABLE `DesignMaster` (
   `DIAMOND_COST` int(11) DEFAULT NULL,
   `PACKING_COST` int(11) DEFAULT NULL,
   `MU` int(11) DEFAULT NULL,
-  `CALC_PRICE` int(11) GENERATED ALWAYS AS ((`BASIC_COST` + `WORK_COST` + `LACE_COST` + `DIAMOND_COST` + `PACKING_COST`) * 100 / (100 - `MU`)) VIRTUAL,
-  `WORK_JOB` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `LACE_JOB` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `DIAM_JOB` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL
+  `CALC_PRICE` int(11) DEFAULT NULL,
+  `WORK_JOB` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `LACE_JOB` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `DIAM_JOB` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+ALTER TABLE `designmaster`
+  ADD PRIMARY KEY (`Dno`);

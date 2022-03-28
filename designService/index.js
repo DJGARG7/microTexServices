@@ -6,7 +6,7 @@ const app = express();
 dotenv.config();
 app.use(bodyParser.urlencoded({ extended: true }));
 // Importing routes.
-const authRoute = require("./routes/auth");
+const authRoute = require("./routes/designRoute");
 
 // Middlewares.
 app.use(cors({
