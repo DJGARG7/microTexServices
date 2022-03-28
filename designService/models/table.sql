@@ -13,3 +13,5 @@ CREATE TABLE `designmaster` (
   `LACE_JOB` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `DIAM_JOB` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+ALTER TABLE `designmaster`
+  ADD PRIMARY KEY (`Dno`);
