@@ -6,7 +6,6 @@ CREATE TABLE `billdetails` (
     `ChallanDate` DATE,
     `Agent` VARCHAR(10),
     `EntryNo` INT(10),
-    `NetAmount` DECIMAL(20,2) NOT NULL,
     PRIMARY KEY (`BillNo`)
 );
 
