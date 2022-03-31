@@ -17,4 +17,4 @@ app.use(express.json());
 
 app.use("/userservice", authRoute);
 
-app.listen(3004, () => console.log("UserService running at 3004."));
+app.listen(3005, () => console.log("UserService running at 3005."));
