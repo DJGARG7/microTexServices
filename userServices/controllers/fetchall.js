@@ -2,7 +2,7 @@ const db = require("../config/db");
 const { v4: uuidv4 } = require("uuid");
 const fetchall = (req, res) => {
   const query =
-    "SELECT * FROM greypurchase;";
+    "SELECT * FROM billdetails as bd,itemdetails as id where bd.BillNo=id.billNo;";
   db.query(
     query,
     (err,result) => {

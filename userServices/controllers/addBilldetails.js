@@ -13,7 +13,7 @@ const addBilldetails = async (req, res) => {
   try {
     // insert into bill details
     await connection.execute(
-      "INSERT INTO billdetails values (?,?,?,?,?,?,?);",
+      "INSERT INTO billdetails values (?,?,?,?,?,?,?,?);",
       [
         data.state.BillNo,
         data.state.BillDate,
@@ -22,6 +22,7 @@ const addBilldetails = async (req, res) => {
         data.state.ChallanDate,
         data.state.Agent,
         data.state.EntryNo,
+        data.totalamount
       ]
     );
     console.log("Bill details added successfully");
