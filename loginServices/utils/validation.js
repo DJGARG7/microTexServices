@@ -65,7 +65,12 @@ const validateRegisterFirm = (data) => {
         password: Joi.string()
             .min(8)
             .max(30)
-            .pattern(new RegExp("^[a-zA-Z0-9]*$"))
+            // .pattern(new RegExp("^[a-zA-Z0-9]*$"))
+            .pattern(
+                new RegExp(
+                    "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$"
+                )
+            )
             .required(),
         isAdmin: Joi.boolean().required(),
         permissions: Joi.array().required(),
