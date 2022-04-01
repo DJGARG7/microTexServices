@@ -1,4 +1,4 @@
-const db = require("../config/db");
+const db = require("../../config/db");
 const additems = (req, res) => {
   const data = req.body;
   const ref = {
