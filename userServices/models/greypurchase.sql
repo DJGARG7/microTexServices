@@ -9,8 +9,9 @@ CREATE TABLE `billdetails` (
  `ChallanDate` date DEFAULT NULL,
  `Agent` varchar(10) DEFAULT NULL,
  `EntryNo` int(10) DEFAULT NULL,
+ `NetAmount` int(10) DEFAULT NULL,
  PRIMARY KEY (`BillNo`)
-) 
+); 
 
 /*table that holds details regarding items
 */
@@ -31,7 +32,7 @@ CREATE TABLE `itemdetails` (
  `SGST` decimal(20,2) DEFAULT NULL,
  KEY `BillNo` (`BillNo`),
  CONSTRAINT `test` FOREIGN KEY (`BillNo`) REFERENCES `billdetails` (`BillNo`) ON DELETE CASCADE ON UPDATE NO ACTION
-)
+);
 
 /*table that holds different types of items
 */
@@ -45,4 +46,4 @@ CREATE TABLE `items` (
  `hsncode` int(10) DEFAULT NULL,
  `gst` int(10) DEFAULT NULL,
  `descriptiongst` varchar(100) DEFAULT NULL
-)
+);
