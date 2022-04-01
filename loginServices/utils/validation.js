@@ -17,7 +17,12 @@ const validateRegisterProprietor = (data) => {
         password: Joi.string()
             .min(8)
             .max(30)
-            .pattern(new RegExp("^[a-zA-Z0-9]*$"))
+            // .pattern(new RegExp("^[a-zA-Z0-9]*$"))
+            .pattern(
+                new RegExp(
+                    "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$"
+                )
+            )
             .required(),
     });
 
@@ -36,7 +41,12 @@ const validateLoginProprietor = (data) => {
         password: Joi.string()
             .min(8)
             .max(30)
-            .pattern(new RegExp("^[a-zA-Z0-9]*$"))
+            // .pattern(new RegExp("^[a-zA-Z0-9]*$"))
+            .pattern(
+                new RegExp(
+                    "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$"
+                )
+            )
             .required(),
     });
 
@@ -96,7 +106,12 @@ const validateLoginFirm = (data) => {
         password: Joi.string()
             .min(8)
             .max(30)
-            .pattern(new RegExp("^[a-zA-Z0-9]*$"))
+            // .pattern(new RegExp("^[a-zA-Z0-9]*$"))
+            .pattern(
+                new RegExp(
+                    "^(?=.*[A-Za-z])(?=.*d)(?=.*[@$!%*#?&])[A-Za-zd@$!%*#?&]{8,}$"
+                )
+            )
             .required(),
         password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{0,30}$")),
     });
