@@ -1,5 +1,5 @@
 const mysql = require("mysql2/promise");
-const config = require("../config/transactionconnect");
+const config = require("../../config/transactionconnect");
 const addBilldetails = async (req, res) => {
   const data = req.body;
   const ref = {
