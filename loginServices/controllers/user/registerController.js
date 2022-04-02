@@ -2,9 +2,12 @@ const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 
 const db = require("../../config/db");
+const mysql = require("mysql2/promise");
+const config = require("../../utils/transactionConfig");
 const validation = require("../../utils/validation");
 
 const register = async (req, res) => {
+    // console.log(req.body);
     if (!req.body.userType) res.status(400).send("Bad format.");
 
     // Get salt to hash passwords.
@@ -45,37 +48,43 @@ const register = async (req, res) => {
         // Generate UUID.
         let uuid = uuidv4();
 
-        // Insert data into the table.
-        db.query(
-            "INSERT INTO Firm VALUES(?, ?, ?, ?, ?, ?)",
-            [
-                uuid,
-                req.body.corporateID,
-                req.body.userID,
-                req.body.userName,
-                hashedPassword,
-                req.body.isAdmin,
-            ],
-            (error) => {
-                if (error) res.status(400).send(`${error.sqlMessage}`);
-                else {
-                    // Construct query statement
-                    let QUERY = "";
-                    req.body.permissions.map((p_id) => {
-                        QUERY =
-                            QUERY +
-                            `INSERT INTO UserPermissions VALUES('${uuid}', ${p_id});`;
-                    });
+        // Create connection.
+        const connection = await mysql.createConnection(config);
 
-                    // Insert data into the table.
-                    db.query(QUERY, (error) => {
-                        if (error) res.status(400).send(`${error.sqlMessage}`);
-                        // Bug: Add rollback - delete added user.
-                        else res.send("User registered!");
-                    });
-                }
-            }
+        // Begin transaction.
+        await connection.execute(
+            "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
         );
+        await connection.beginTransaction();
+
+        // Insert user.
+        try {
+            await connection.execute(
+                "INSERT INTO Firm VALUES(?, ?, ?, ?, ?, ?)",
+                [
+                    uuid,
+                    req.body.corporateID,
+                    req.body.userID,
+                    req.body.userName,
+                    hashedPassword,
+                    req.body.isAdmin,
+                ]
+            );
+
+            await Promise.all(
+                req.body.permissions.map(async (p_id) => {
+                    await connection.execute(
+                        `INSERT INTO UserPermissions VALUES('${uuid}', ${p_id});`
+                    );
+                })
+            );
+
+            await connection.commit();
+            res.send("User registered!");
+        } catch (error) {
+            connection.rollback();
+            res.status(400).send(`${error.sqlMessage}`);
+        }
     }
 };
 
