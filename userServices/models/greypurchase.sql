@@ -40,6 +40,7 @@ CREATE TABLE `items` (
  `itemname` varchar(20) NOT NULL,
  `openingpcs` int(10) DEFAULT NULL,
  `openingmts` int(10) DEFAULT NULL,
+ `currentmts` int(10) DEFAULT NULL,
  `openingval` int(10) DEFAULT NULL,
  `rateperpcs` int(10) DEFAULT NULL,
  `ratepermts` int(10) DEFAULT NULL,
