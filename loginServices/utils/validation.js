@@ -93,7 +93,6 @@ const validateLoginFirm = (data) => {
             .max(30)
             .pattern(new RegExp("^[a-zA-Z0-9]*$"))
             .required(),
-        password: Joi.string().pattern(new RegExp("^[a-zA-Z0-9]{0,30}$")),
     });
 
     return firmSchema.validate(data);
