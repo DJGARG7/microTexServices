@@ -89,6 +89,7 @@ const login = (req, res) => {
                     res.cookie("accessToken", accessToken, {
                         maxAge: 24 * 3600000,
                         httpOnly: true,
+                        sameSite: true,
                         signed: true,
                     }).json({
                         uuid: results[0].uuid,
