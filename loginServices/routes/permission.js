@@ -5,7 +5,7 @@ const postPermission = require("../controllers/permission/postPermissionsControl
 const deletePermission = require("../controllers/permission/deletePermissionController");
 const authenticate = require("../utils/authenticate");
 
-router.get("/:uuid?", authenticate, fetchPermissions);
+router.get("/:uuid?/:p_id?", authenticate, fetchPermissions);
 router.post("/:uuid?/:p_id?", authenticate, postPermission);
 router.delete("/:uuid?/:p_id?", authenticate, deletePermission);
 
