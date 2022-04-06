@@ -129,8 +129,17 @@ ALTER TABLE `Permissions`
   MODIFY `p_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Constraints for dumped tables
+-- Dumping data for table `Permissions`
 --
+
+INSERT INTO `Permissions` (`p_id`, `p_name`) VALUES
+(1, 'Grey Purchase'),
+(2, 'General Purchase'),
+(3, 'Send to Mill'),
+(4, 'Receive from Mill'),
+(5, 'Sale Challan'),
+(6, 'Sale Billing'),
+(7, 'Display Bills');
 
 --
 -- Constraints for table `UserPermissions`

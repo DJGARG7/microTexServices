@@ -12,8 +12,8 @@ const authenticate = (req, res, next) => {
             );
 
             // Check if token belongs to user.
-            if (req.header("userID") !== tokenPayload.userID)
-                throw { name: "UnauthorizedUserError", error: new Error() };
+            // if (req.header("userID") !== tokenPayload.userID)
+            //     throw { name: "UnauthorizedUserError", error: new Error() };
 
             next();
         } catch (error) {
