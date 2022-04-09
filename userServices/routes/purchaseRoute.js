@@ -10,6 +10,7 @@ const fetchitems = require("../controllers/purchases/fetchitems");
 const fetchpurchase = require("../controllers/purchases/fetchgeneralpurchases");
 const addgeneralpurchase = require("../controllers/purchases/addgeneralpurchase");
 const deletegeneralpurchase = require("../controllers/purchases/deletegeneralpurchase");
+const updategeneralpurchase = require("../controllers/purchases/updategeneralpurchase")
 
 // routes for purchase transactions
 router.post("/addbilldetails", addBilldetails); // adds data to greypurchase table
@@ -20,6 +21,7 @@ router.get("/fetchitems",fetchitems); // for getting items
 // routes for general purchase
 router.get("/fetchgeneralpurchase",fetchpurchase)
 router.post("/addgeneralpurchase",addgeneralpurchase);
-router.delete("/:id",deletegeneralpurchase);
+router.delete("/deletegeneralpurchase/:id",deletegeneralpurchase);
+router.put("/updategeneralpurchase/:id",updategeneralpurchase)
 
 module.exports = router;
