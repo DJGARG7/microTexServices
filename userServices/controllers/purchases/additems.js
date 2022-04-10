@@ -1,24 +1,22 @@
 const db = require("../../config/db");
+const { v4: uuidv4 } = require("uuid");
 const additems = (req, res) => {
   const data = req.body;
+  const id = uuidv4();
   const ref = {
     status: "1",
+    uuid: id,
   };
   JSON.stringify(ref);
   const query =
-    "INSERT INTO grey_items values (?,?,?,?,?,?,?,?,?);";
+    "INSERT INTO grey_items values (?,?,?,?);";
   db.query(
     query,
     [
+     id,
      data.itemname,
-     data.openingpcs,
      data.openingmts,
-     data.openingval,
-     data.rateperpcs,
      data.ratepermts,
-     data.hsncode,
-     data.gst,
-     data.descriptiongst
     ],
     (err) => {
       if (err) {
