@@ -5,6 +5,7 @@ const addBilldetails = require("../controllers/purchases/addBilldetails");
 const fetchGreyBills = require("../controllers/purchases/fetchGreyBills");
 const additems = require("../controllers/purchases/additems");
 const fetchitems = require("../controllers/purchases/fetchitems");
+const fetchChallanNo = require("../controllers/purchases/fetchChallanNo");
 
 //imports for general purchase
 const fetchpurchase = require("../controllers/purchases/fetchgeneralpurchases");
@@ -16,6 +17,7 @@ const updategeneralpurchase = require("../controllers/purchases/updategeneralpur
 router.post("/addbilldetails", addBilldetails); // adds data to greypurchase table
 router.get("/fetchGreyBills",fetchGreyBills); // all the bill info detched 
 router.post("/additems",additems); // for adding new item
+router.get("/fetchChallanNo",fetchChallanNo) // for getting the last challan number
 router.get("/fetchitems",fetchitems); // for getting items
 
 // routes for general purchase
