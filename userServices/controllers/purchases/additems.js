@@ -6,7 +6,7 @@ const additems = (req, res) => {
   };
   JSON.stringify(ref);
   const query =
-    "INSERT INTO items values (?,?,?,?,?,?,?,?,?);";
+    "INSERT INTO grey_items values (?,?,?,?,?,?,?,?,?);";
   db.query(
     query,
     [

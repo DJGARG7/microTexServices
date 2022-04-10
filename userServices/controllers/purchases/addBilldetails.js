@@ -13,15 +13,13 @@ const addBilldetails = async (req, res) => {
     try {
         // insert into bill details
         await connection.execute(
-            "INSERT INTO billdetails VALUES (?,?,?,?,?,?,?,?);",
+            "INSERT INTO grey_billdetails VALUES (?,?,?,?,?,?);",
             [
                 data.state.BillNo,
                 data.state.BillDate,
                 data.state.accntnames,
                 data.state.ChallanNo,
                 data.state.ChallanDate,
-                data.state.Agent,
-                data.state.EntryNo,
                 data.totalamount,
             ]
         );
@@ -30,21 +28,14 @@ const addBilldetails = async (req, res) => {
         data.purchaseditems.forEach(async (item, index) => {
             try {
                 await connection.execute(
-                    "INSERT INTO itemdetails values (?,?,?,?,?,?,?,?,?,?,?,?,?);",
+                    "INSERT INTO grey_itemdetails values (?,?,?,?,?,?);",
                     [
-                        data.state.BillNo,
+                        data.state.ChallanNo,
                         item.ItemName,
-                        item.Marka,
-                        item.Taka,
                         item.Mts,
-                        item.Fold,
-                        item.ActMts,
                         item.Rate,
                         item.Amount,
                         item.Discount,
-                        item.IGST,
-                        item.CGST,
-                        item.SGST,
                     ]
                 );
                 console.log("item details added successfully");

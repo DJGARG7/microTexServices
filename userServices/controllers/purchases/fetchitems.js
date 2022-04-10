@@ -1,7 +1,7 @@
 const db = require("../../config/db");
 const fetchitems = (req, res) => {
   const query =
-    "SELECT * FROM items;";
+    "SELECT * FROM grey_items;";
   db.query(
     query,
     (err,result) => {
