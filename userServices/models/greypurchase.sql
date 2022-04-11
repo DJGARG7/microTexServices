@@ -28,15 +28,11 @@ CREATE TABLE `grey_itemdetails` (
 /*table that holds different types of items
 */
 CREATE TABLE `grey_items` (
+ `uuid` varchar(36) NOT NULL,
  `itemname` varchar(20) NOT NULL,
- `openingpcs` int(10) DEFAULT NULL,
  `openingmts` int(10) DEFAULT NULL,
- `openingval` int(10) DEFAULT NULL,
- `rateperpcs` int(10) DEFAULT NULL,
  `ratepermts` int(10) DEFAULT NULL,
- `hsncode` int(10) DEFAULT NULL,
- `gst` int(10) DEFAULT NULL,
- `descriptiongst` varchar(100) DEFAULT NULL
+ PRIMARY KEY (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
 
