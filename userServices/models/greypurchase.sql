@@ -37,4 +37,4 @@ CREATE TABLE `grey_items` (
 
 
 /*Creating a view of the first two tables*/
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `usermodule`.`grey_bills` AS select `usermodule`.`grey_billdetails`.`ChallanNo` AS `ChallanNo`,`usermodule`.`grey_billdetails`.`BillNo` AS `BillNo`,`usermodule`.`grey_billdetails`.`BillDate` AS `BillDate`,`usermodule`.`grey_billdetails`.`accntnames` AS `accntnames`,`usermodule`.`grey_billdetails`.`ChallanDate` AS `ChallanDate`,`usermodule`.`grey_billdetails`.`NetAmount` AS `NetAmount`,`usermodule`.`grey_itemdetails`.`ItemName` AS `ItemName`,`usermodule`.`grey_itemdetails`.`Mts` AS `Mts`,`usermodule`.`grey_itemdetails`.`Rate` AS `Rate`,`usermodule`.`grey_itemdetails`.`Amount` AS `Amount`,`usermodule`.`grey_itemdetails`.`Discount` AS `Discount` from (`usermodule`.`grey_billdetails` join `usermodule`.`grey_itemdetails` on(`usermodule`.`grey_billdetails`.`ChallanNo` = `usermodule`.`grey_itemdetails`.`ChallanNo`))
+CREATE VIEW grey_bills AS SELECT * FROM grey_billdetails NATURAL JOIN grey_itemdetails;
