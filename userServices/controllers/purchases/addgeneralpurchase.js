@@ -11,11 +11,12 @@ const addgeneralpurchase = (req, res) => {
 
   console.log(data);
   const query =
-    "INSERT INTO generalpurchase values (?,?,?,?,?);";
+    "INSERT INTO generalpurchase values (?,?,?,?,?,?);";
   db.query(
     query,
     [
       id,
+      data.state.accntname,
       data.state.itemname, 
       data.state.quantity, 
       data.state.priceperqty,

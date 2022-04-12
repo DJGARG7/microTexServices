@@ -5,4 +5,4 @@ CREATE TABLE `generalpurchase` (
  `priceperqty` int(10) NOT NULL,
  `totalamount` int(15) NOT NULL,
  PRIMARY KEY (`uuid`)
-) 
+);

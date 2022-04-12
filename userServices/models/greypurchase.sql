@@ -9,7 +9,7 @@ CREATE TABLE `grey_billdetails` (
  `ChallanDate` date DEFAULT NULL,
  `NetAmount` int(100) DEFAULT NULL,
  PRIMARY KEY (`ChallanNo`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+);
 
 /*table that holds details regarding items
 */
@@ -23,7 +23,7 @@ CREATE TABLE `grey_itemdetails` (
  `Discount` decimal(20,2) DEFAULT NULL,
  KEY `link` (`ChallanNo`),
  CONSTRAINT `link` FOREIGN KEY (`ChallanNo`) REFERENCES `grey_billdetails` (`ChallanNo`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+);
 
 /*table that holds different types of items
 */
@@ -33,7 +33,7 @@ CREATE TABLE `grey_items` (
  `openingmts` int(10) DEFAULT NULL,
  `ratepermts` int(10) DEFAULT NULL,
  PRIMARY KEY (`uuid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+);
 
 
 /*Creating a view of the first two tables*/
