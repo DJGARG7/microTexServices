@@ -16,14 +16,17 @@ CREATE TABLE `grey_billdetails` (
 
 CREATE TABLE `grey_itemdetails` (
  `ChallanNo` int(10) NOT NULL,
+ `itemID` varchar(36) NOT NULL,
  `ItemName` varchar(100) DEFAULT NULL,
+ `Taka` int(10) NOT NULL,
  `Mts` decimal(20,2) DEFAULT NULL,
  `Rate` decimal(20,2) DEFAULT NULL,
  `Amount` decimal(20,2) DEFAULT NULL,
  `Discount` decimal(20,2) DEFAULT NULL,
+ PRIMARY KEY (`itemID`),
  KEY `link` (`ChallanNo`),
  CONSTRAINT `link` FOREIGN KEY (`ChallanNo`) REFERENCES `grey_billdetails` (`ChallanNo`) ON DELETE CASCADE ON UPDATE NO ACTION
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
 /*table that holds different types of items
 */
