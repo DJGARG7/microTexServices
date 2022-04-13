@@ -7,7 +7,7 @@ const authenticate = require("../utils/authenticate");
 
 router.post("/login", login);
 
-router.get("/logout", authenticate, logout);
+router.get("/logout", logout);
 
 router.get("/check", authenticate, (req, res) => {
     res.send("Authenticated!");
