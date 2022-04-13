@@ -35,6 +35,15 @@ CREATE TABLE `grey_items` (
  PRIMARY KEY (`uuid`)
 );
 
+/*table that holds taka details of each item
+*/
+CREATE TABLE `grey_takadetails` (
+ `itemID` varchar(36) NOT NULL,
+ `Mts` int(10) NOT NULL,
+ KEY `itemtotaka` (`itemID`),
+ CONSTRAINT `itemtotaka` FOREIGN KEY (`itemID`) REFERENCES `grey_itemdetails` (`itemID`) ON DELETE CASCADE
+);
+
 
 /*Creating a view of the first two tables*/
 CREATE VIEW grey_bills AS SELECT * FROM grey_billdetails NATURAL JOIN grey_itemdetails;
