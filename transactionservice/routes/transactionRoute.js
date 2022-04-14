@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-// const Accountdata = require("../controllers/Addaccountdata");
+const transact = require("../controllers/Transact");
 // const Deleteaccountdata = require("../controllers/Deleteaccountdata");
 // const updatedata = require("../controllers/UpdateAccount");
 // const FetchAll = require("../controllers/FetchAll");
