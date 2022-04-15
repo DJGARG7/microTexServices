@@ -6,6 +6,7 @@ const fetchGreyBills = require("../controllers/purchases/fetchGreyBills");
 const additems = require("../controllers/purchases/additems");
 const fetchitems = require("../controllers/purchases/fetchitems");
 const fetchChallanNo = require("../controllers/purchases/fetchChallanNo");
+const getTaka = require("../controllers/purchases/getTaka");
 
 //imports for general purchase
 const fetchpurchase = require("../controllers/purchases/fetchgeneralpurchases");
@@ -19,6 +20,7 @@ router.get("/fetchGreyBills/:account?", fetchGreyBills); // all the bill info de
 router.post("/additems", additems); // for adding new item
 router.get("/fetchChallanNo", fetchChallanNo); // for getting the last challan number
 router.get("/fetchitems", fetchitems); // for getting items
+router.get("/taka/:itemID?", getTaka); // to get taka for an item.
 
 // routes for general purchase
 router.get("/fetchgeneralpurchase", fetchpurchase);
