@@ -15,6 +15,6 @@ app.use(cors({
 }));
 app.use(express.json());
 
-app.use("/accountMaster", transactionRoute);
+app.use("/transaction", transactionRoute);
 
 app.listen(3007, () => console.log("Transaction Service running at 3007."));
