@@ -6,7 +6,7 @@ const Addaccountdata = (req, res) => {
     console.log(data);
 
     const query =
-        "INSERT INTO DesignMaster values (?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        "INSERT INTO master_design values (?,?,?,?,?,?,?,?,?,?,?,?,?);";
     db.query(query, data, (err) => {
         if (err) {
             console.log(err);
