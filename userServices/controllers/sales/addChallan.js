@@ -23,6 +23,7 @@ const addChallan = async (req, res) => {
                         sale_item.clothType,
                     ]
                 );
+                
             })
         );
         await connection.commit();
