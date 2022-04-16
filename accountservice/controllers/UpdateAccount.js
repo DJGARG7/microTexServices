@@ -6,7 +6,7 @@ const UpdateAccount = (req, res) => {
     const data = req.body;
  
     const query =
-        "UPDATE accountmaster SET AccName=?,\
+        "UPDATE master_account SET AccName=?,\
                                    AccType=?,\
                                    address1 = ?,\
                                    address2 = ?,\

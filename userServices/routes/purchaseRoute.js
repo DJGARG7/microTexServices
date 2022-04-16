@@ -6,19 +6,23 @@ const fetchGreyBills = require("../controllers/purchases/fetchGreyBills");
 const additems = require("../controllers/purchases/additems");
 const fetchitems = require("../controllers/purchases/fetchitems");
 const fetchChallanNo = require("../controllers/purchases/fetchChallanNo");
+const fetchDistinctItems = require("../controllers/purchases/fetchDistinctItems");
+const stockDetails =  require("../controllers/purchases/stockDetails")
 
 //imports for general purchase
 const fetchpurchase = require("../controllers/purchases/fetchgeneralpurchases");
 const addgeneralpurchase = require("../controllers/purchases/addgeneralpurchase");
 const deletegeneralpurchase = require("../controllers/purchases/deletegeneralpurchase");
-const updategeneralpurchase = require("../controllers/purchases/updategeneralpurchase")
+const updategeneralpurchase = require("../controllers/purchases/updategeneralpurchase");
 
 // routes for purchase transactions
 router.post("/addbilldetails", addBilldetails); // adds data to greypurchase table
 router.get("/fetchGreyBills",fetchGreyBills); // all the bill info detched 
 router.post("/additems",additems); // for adding new item
 router.get("/fetchChallanNo",fetchChallanNo) // for getting the last challan number
-router.get("/fetchitems",fetchitems); // for getting items
+router.get("/fetchitems",fetchitems); // for getting itemsthe
+router.get("/fetchDistinctItems",fetchDistinctItems); // for getting distinct items persent
+router.get("/stockDetails/:id",stockDetails); // for getting the qnty 
 
 // routes for general purchase
 router.get("/fetchgeneralpurchase",fetchpurchase)

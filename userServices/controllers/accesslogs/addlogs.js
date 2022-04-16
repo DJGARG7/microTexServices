@@ -7,7 +7,7 @@ const addlogs = (req, res) => {
     JSON.stringify(ref);
     console.log(data);
     const query =
-      "INSERT INTO userlogs values (?,?,?,?,?);";
+      "INSERT INTO master_userlogs values (?,?,?,?,?);";
     db.query(
       query,
       [

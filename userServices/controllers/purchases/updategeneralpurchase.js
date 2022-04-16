@@ -6,7 +6,7 @@ const updategeneralpurchase = (req, res) => {
   const data = req.body;
 
   const query =
-    "UPDATE generalpurchase SET itemname=?,\
+    "UPDATE general_purchase SET itemname=?,\
         quantity=?,\
         priceperqty=?,\
         totalamount=?\
