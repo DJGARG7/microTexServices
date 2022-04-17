@@ -7,6 +7,8 @@ const additems = require("../controllers/purchases/additems");
 const fetchitems = require("../controllers/purchases/fetchitems");
 const fetchChallanNo = require("../controllers/purchases/fetchChallanNo");
 const getTaka = require("../controllers/purchases/getTaka");
+const fetchDistinctItems = require("../controllers/purchases/fetchDistinctItems");
+const stockDetails = require("../controllers/purchases/stockDetails");
 
 //imports for general purchase
 const fetchpurchase = require("../controllers/purchases/fetchgeneralpurchases");
@@ -21,6 +23,8 @@ router.post("/additems", additems); // for adding new item
 router.get("/fetchChallanNo", fetchChallanNo); // for getting the last challan number
 router.get("/fetchitems", fetchitems); // for getting items
 router.get("/taka/:itemID?", getTaka); // to get taka for an item.
+router.get("/fetchDistinctItems", fetchDistinctItems); // for getting distinct items persent
+router.get("/stockDetails/:id", stockDetails); // for getting the qnty
 
 // routes for general purchase
 router.get("/fetchgeneralpurchase", fetchpurchase);

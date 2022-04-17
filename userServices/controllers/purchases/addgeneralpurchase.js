@@ -11,7 +11,7 @@ const addgeneralpurchase = (req, res) => {
 
   console.log(data);
   const query =
-    "INSERT INTO generalpurchase values (?,?,?,?,?,?);";
+    "INSERT INTO general_purchase values (?,?,?,?,?,?);";
   db.query(
     query,
     [

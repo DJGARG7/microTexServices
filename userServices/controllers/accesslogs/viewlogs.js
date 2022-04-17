@@ -1,7 +1,7 @@
 const db = require("../../config/db");
 const viewlogs = (req, res) => {
   const query =
-    "SELECT * FROM userlogs;";
+    "SELECT * FROM master_userlogs;";
   db.query(
     query,
     (err,result) => {

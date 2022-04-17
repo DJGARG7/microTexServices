@@ -60,7 +60,7 @@ const authenticate = (req, res, next) => {
 
 app.post("/cityMaster/add", authenticate, (req, res) => {
     db.query(
-        "INSERT INTO CITYMASTER VALUES(?,?);",
+        "INSERT INTO master_city VALUES(?,?);",
         [req.body.City, req.body.State],
         (err) => {
             if (err) {
@@ -75,7 +75,7 @@ app.post("/cityMaster/add", authenticate, (req, res) => {
 
 app.post("/cityMaster/delete", authenticate, (req, res) => {
     db.query(
-        "DELETE FROM CITYMASTER WHERE CityName=?;",
+        "DELETE FROM master_city WHERE CityName=?;",
         req.body.City,
         (err) => {
             if (err) {
@@ -87,7 +87,7 @@ app.post("/cityMaster/delete", authenticate, (req, res) => {
 });
 
 app.get("/cityMaster/get", authenticate, (req, res) => {
-    db.query("SELECT * FROM CITYMASTER;", (err, result) => {
+    db.query("SELECT * FROM master_city;", (err, result) => {
         if (err) {
             console.log(err.sqlMessage);
             res.send(err.sqlMessage);
@@ -113,7 +113,7 @@ app.post("/cityMaster/update", authenticate, (req, res) => {
 });
 
 app.post("/cityMaster/delete", (req, res) => {
-    const sql = "DELETE FROM CITYMASTER WHERE CityName=?;";
+    const sql = "DELETE FROM master_city WHERE CityName=?;";
     const cityname = req.body.City;
 
     db.query(sql, cityname, (err, result) => {

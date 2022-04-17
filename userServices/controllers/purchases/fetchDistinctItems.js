@@ -1,7 +1,8 @@
 const db = require("../../config/db");
-const fetchgeneralpurchases = (req, res) => {
+
+const fetchDistinctItems = (req, res) => {
   const query =
-    "SELECT * FROM general_purchase";
+    "SELECT DISTINCT(ItemName) from grey_itemdetails;";
   db.query(
     query,
     (err,result) => {
@@ -13,4 +14,4 @@ const fetchgeneralpurchases = (req, res) => {
   );
 };
 
-module.exports = fetchgeneralpurchases;
+module.exports = fetchDistinctItems;

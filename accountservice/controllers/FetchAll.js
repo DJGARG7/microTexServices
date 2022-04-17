@@ -1,7 +1,7 @@
 const db = require("../config/db");
 
 const FetchAll = (req, res) => {
-    const query = "SELECT * FROM accountmaster;";
+    const query = "SELECT * FROM master_account;";
     db.query(query, (err, result) => {
         if (err) {
             console.log(err);

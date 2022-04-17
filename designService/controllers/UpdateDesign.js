@@ -5,7 +5,7 @@ const UpdateAccount = (req, res) => {
     const data = req.body;
     console.log(req.body);
     const query =
-        "UPDATE DesignMaster set Dno= ?,Name= ?,\
+        "UPDATE master_design set Dno= ?,Name= ?,\
                                  Cloth_Type= ?,\
                                  Basic_Cost= ?,\
                                  Work_Cost= ?,\

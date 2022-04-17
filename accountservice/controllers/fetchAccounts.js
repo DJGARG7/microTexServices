@@ -2,7 +2,7 @@ const db = require("../config/db");
 
 const fetchAccounts = (req, res) => {
     const AccType = req.params.accType;
-    const query = "SELECT uid,AccName FROM accountmaster where AccType=?;";
+    const query = "SELECT uid,AccName FROM master_account where AccType=?;";
     db.query(query,[AccType], (err, result) => {
         if (err) {
             console.log(err);
