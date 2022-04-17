@@ -1,10 +1,9 @@
-const db = require("../config/db");
-const {sendResponse} = require('../../helper');
+import { db, config } from "../config/db.js";
 
 const UpdateAccount = (req, res) => {
     const uuid = req.params.id;
     const data = req.body;
- 
+
     const query =
         "UPDATE master_account SET AccName=?,\
                                    AccType=?,\
@@ -52,7 +51,7 @@ const UpdateAccount = (req, res) => {
             data.AccountNum,
             data.IFSC,
             data.shares,
-            uuid
+            uuid,
         ],
         (err) => {
             if (err) {
@@ -65,4 +64,4 @@ const UpdateAccount = (req, res) => {
     );
 };
 
-module.exports = UpdateAccount;
+export default UpdateAccount;
