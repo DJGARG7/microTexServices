@@ -46,7 +46,7 @@ const Addaccountdata = async (req, res) => {
         await connection.commit();
         //send data to transaction service
         const transactData = {
-            date: "2022-04-05",
+            date: data.currDate,
             uid: a_id,
             accType: data.AccType,
             amt: data.openingBal,

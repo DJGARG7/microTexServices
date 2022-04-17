@@ -6,7 +6,8 @@ CREATE TABLE `transactions` (
   `amount` int(10) DEFAULT NULL,
   `CrDr` varchar(2) DEFAULT NULL,
   `currBal` int(10) NOT NULL,
-  `billno` int(5) DEFAULT NULL
+  `billno` int(5) DEFAULT NULL,
+  `remark` varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ALTER TABLE `transactions`
   ADD PRIMARY KEY (`t_id`);
