@@ -1,7 +1,7 @@
 const db = require("../../config/db");
 const fetchGreyBills = (req, res) => {
     if (!req.params.account) {
-        db.query("SELECT * FROM grey_bills;", (err, result) => {
+        db.query("SELECT * FROM GREY_PURCHASES;", (err, result) => {
             if (err) {
                 console.log(err);
                 res.send(err);

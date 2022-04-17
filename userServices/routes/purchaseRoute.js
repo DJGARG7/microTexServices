@@ -1,10 +1,19 @@
 const router = require("express").Router();
 
+/* --------------------Rebuild-------------------- */
+const addItem = require("../controllers/purchases/addItem");
+const fetchItems = require("../controllers/purchases/fetchItems");
+
+// /items routes.
+router.post("/items", addItem); // for adding new item
+router.get("/items", fetchItems); // for getting items
+
+// Grey Purchase routes.
+/* --------------------Rebuild-------------------- */
+
 // imports for purchase transactions
 const addBilldetails = require("../controllers/purchases/addBilldetails");
 const fetchGreyBills = require("../controllers/purchases/fetchGreyBills");
-const additems = require("../controllers/purchases/additems");
-const fetchitems = require("../controllers/purchases/fetchitems");
 const fetchChallanNo = require("../controllers/purchases/fetchChallanNo");
 const getTaka = require("../controllers/purchases/getTaka");
 
@@ -17,9 +26,7 @@ const updategeneralpurchase = require("../controllers/purchases/updategeneralpur
 // routes for purchase transactions
 router.post("/addbilldetails", addBilldetails); // adds data to greypurchase table
 router.get("/fetchGreyBills/:account?", fetchGreyBills); // all the bill info detched
-router.post("/additems", additems); // for adding new item
 router.get("/fetchChallanNo", fetchChallanNo); // for getting the last challan number
-router.get("/fetchitems", fetchitems); // for getting items
 router.get("/taka/:itemID?", getTaka); // to get taka for an item.
 
 // routes for general purchase
