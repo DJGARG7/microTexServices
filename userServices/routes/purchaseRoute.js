@@ -3,10 +3,12 @@ const router = require("express").Router();
 /* --------------------Rebuild-------------------- */
 const addItem = require("../controllers/purchases/addItem");
 const fetchItems = require("../controllers/purchases/fetchItems");
+const fetchSuppliers = require("../controllers/purchases/fetchSuppliers");
 
 // /items routes.
 router.post("/items", addItem); // for adding new item
 router.get("/items", fetchItems); // for getting items
+router.get("/suppliers/:itemID?", fetchSuppliers); // To get suppliers from current inventory.
 
 // Grey Purchase routes.
 /* --------------------Rebuild-------------------- */

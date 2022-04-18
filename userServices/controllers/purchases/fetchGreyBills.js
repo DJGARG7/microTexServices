@@ -9,7 +9,7 @@ const fetchGreyBills = (req, res) => {
         });
     } else {
         db.query(
-            "SELECT * FROM grey_bills WHERE accntnames=?;",
+            "SELECT * FROM GREY_PURCHASES WHERE accountID = ?;",
             [req.params.account],
             (err, result) => {
                 if (err) {

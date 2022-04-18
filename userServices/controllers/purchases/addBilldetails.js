@@ -38,7 +38,7 @@ const addBilldetails = async (req, res) => {
                 console.log(`DISCOUNT: ${item.Discount}`);
                 console.log(parseFloat(item.Discount));
                 await connection.execute(
-                    "INSERT INTO GREY_BILL_DETAILS VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);",
+                    "INSERT INTO GREY_ITEM_DETAILS VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);",
                     [
                         data.formData.billNumber,
                         item.itemID,
@@ -55,13 +55,8 @@ const addBilldetails = async (req, res) => {
                 await Promise.all(
                     data.purchaseditems[index].takaList.map(async (taka) => {
                         await connection.execute(
-                            "INSERT INTO GREY_TAKA_DETAILS VALUES (NULL, ?, ?, ?, ?);",
-                            [
-                                data.formData.billNumber,
-                                data.formData.accountID,
-                                item.itemID,
-                                taka.Mts,
-                            ]
+                            "INSERT INTO GREY_TAKA_DETAILS VALUES (NULL, ?, ?, ?);",
+                            [data.formData.billNumber, item.itemID, taka.Mts]
                         );
                     })
                 );
