@@ -1,4 +1,4 @@
-const db = require("../config/db");
+import { db, config } from "../config/db.js";
 
 const Deleteaccountdata = (req, res) => {
     const uuid = req.params.id;
@@ -13,4 +13,4 @@ const Deleteaccountdata = (req, res) => {
     });
 };
 
-module.exports = Deleteaccountdata;
+export default Deleteaccountdata;

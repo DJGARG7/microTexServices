@@ -1,4 +1,4 @@
-const db = require("../config/db");
+import { db, config } from "../config/db.js";
 
 const FetchAll = (req, res) => {
     const query = "SELECT * FROM master_account;";
@@ -12,4 +12,4 @@ const FetchAll = (req, res) => {
     });
 };
 
-module.exports = FetchAll;
+export default FetchAll;
