@@ -5,7 +5,7 @@ import Accountdata from "../controllers/Addaccountdata.js";
 import Deleteaccountdata from "../controllers/Deleteaccountdata.js";
 import UpdateAccount from "../controllers/UpdateAccount.js";
 import FetchAll from "../controllers/FetchAll.js";
-import FetchAccounts from "../controllers/FetchAccounts.js";
+import FetchAccounts from "../controllers/fetchAccounts.js";
 
 router.post("", Accountdata); // adds data to account_master table
 router.delete("/:id", Deleteaccountdata); // deletes data from the table with given id
