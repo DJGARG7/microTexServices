@@ -1,17 +1,9 @@
 const router = require("express").Router();
 
-/* --------------------Rebuild-------------------- */
+// imports for items.
 const addItem = require("../controllers/purchases/addItem");
 const fetchItems = require("../controllers/purchases/fetchItems");
 const fetchSuppliers = require("../controllers/purchases/fetchSuppliers");
-
-// /items routes.
-router.post("/items", addItem); // for adding new item
-router.get("/items", fetchItems); // for getting items
-router.get("/suppliers/:itemID?", fetchSuppliers); // To get suppliers from current inventory.
-
-// Grey Purchase routes.
-/* --------------------Rebuild-------------------- */
 
 // imports for purchase transactions
 const addBilldetails = require("../controllers/purchases/addBilldetails");
@@ -24,6 +16,11 @@ const fetchpurchase = require("../controllers/purchases/fetchgeneralpurchases");
 const addgeneralpurchase = require("../controllers/purchases/addgeneralpurchase");
 const deletegeneralpurchase = require("../controllers/purchases/deletegeneralpurchase");
 const updategeneralpurchase = require("../controllers/purchases/updategeneralpurchase");
+
+// routes for items.
+router.post("/items", addItem); // for adding new item
+router.get("/items", fetchItems); // for getting items
+router.get("/suppliers/:itemID?", fetchSuppliers); // To get suppliers from current inventory.
 
 // routes for purchase transactions
 router.post("/addbilldetails", addBilldetails); // adds data to greypurchase table
