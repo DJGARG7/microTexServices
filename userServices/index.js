@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Importing routes.
 const purchaseRoute = require("./routes/purchaseRoute");
 const saleRoute = require("./routes/saleRoute");
-const accesslogs = require("./routes/accesslogs")
+const accesslogs = require("./routes/accesslogs");
 
 // Middlewares.
 app.use(
@@ -17,10 +17,11 @@ app.use(
         credentials: true,
     })
 );
+
 app.use(express.json());
 
-app.use("/userservice", purchaseRoute);
+app.use("/purchases", purchaseRoute);
 app.use("/sales", saleRoute);
-app.use("/accesslogs",accesslogs);
+app.use("/accesslogs", accesslogs);
 
 app.listen(3005, () => console.log("UserService running at 3005."));

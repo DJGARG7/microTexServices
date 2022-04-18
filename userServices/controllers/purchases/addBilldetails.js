@@ -1,63 +1,70 @@
 const mysql = require("mysql2/promise");
 const config = require("../../config/transactionconnect");
+
 const { v4: uuidv4 } = require("uuid");
+
 const addBilldetails = async (req, res) => {
+    console.log(req.body);
+
     const data = req.body;
+
     const ref = {
         status: "1",
     };
 
     const connection = await mysql.createConnection(config);
-    await connection.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED");
 
+    // Begin transaction.
+    await connection.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED");
     await connection.beginTransaction();
 
     try {
-        // insert into bill details
+        // Insert into GREY_BILLS.
         await connection.execute(
-            "INSERT INTO grey_billdetails VALUES (?,?,?,?,?,?);",
+            "INSERT INTO GREY_BILLS VALUES (?, ?, ?, ?);",
             [
-                data.state.BillNo,
-                data.state.BillDate,
-                data.state.accntnames,
-                data.state.ChallanNo,
-                data.state.ChallanDate,
+                data.formData.billNumber,
+                data.formData.billDate,
+                data.formData.accountID,
                 data.totalamount,
             ]
         );
-        console.log("Bill details added successfully");
+        console.log("Bill added successfully.");
+
+        // Insert into GREY_BILL_DETAILS.
         console.log(data.purchaseditems);
         await Promise.all(
             data.purchaseditems.map(async (item, index) => {
-                const itemId = uuidv4();
+                console.log(`DISCOUNT: ${item.Discount}`);
+                console.log(parseFloat(item.Discount));
                 await connection.execute(
-                    "INSERT INTO grey_itemdetails VALUES (?,?,?,?,?,?,?,?,?);",
+                    "INSERT INTO GREY_ITEM_DETAILS VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);",
                     [
-                        data.state.ChallanNo,
-                        itemId,
-                        item.ItemName,
+                        data.formData.billNumber,
+                        item.itemID,
                         item.Taka,
-                        item.Mts,
                         item.Mts,
                         item.Rate,
                         item.Amount,
                         item.Discount,
                     ]
                 );
-                console.log("item details added successfully");
+                console.log("Bill details added successfully.");
+
+                // Insert into GREY_TAKA_DETAILS.
                 await Promise.all(
-                    data.purchaseditems[index].takaList.map(
-                        async (item1, index) => {
-                            await connection.execute(
-                                "INSERT INTO grey_takadetails VALUES (NULL,?,?);",
-                                [itemId, item1.Mts]
-                            );
-                        }
-                    )
+                    data.purchaseditems[index].takaList.map(async (taka) => {
+                        await connection.execute(
+                            "INSERT INTO GREY_TAKA_DETAILS VALUES (NULL, ?, ?, ?);",
+                            [data.formData.billNumber, item.itemID, taka.Mts]
+                        );
+                    })
                 );
             })
         );
+
         await connection.commit();
+
         console.log("Transaction Completed");
         res.send(JSON.stringify(ref));
     } catch (err) {
