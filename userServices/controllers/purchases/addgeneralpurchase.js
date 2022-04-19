@@ -1,3 +1,4 @@
+const Axios = require("axios");
 const config = require("../../config/transactionconnect");
 const mysql = require("mysql2/promise");
 const { v4: uuidv4 } = require("uuid");
@@ -28,23 +29,28 @@ const addgeneralpurchase = async (req, res) => {
       ]
     );
 
+    const transactData = {
+      date: data.state.billdate,
+      uid: data.accntid,
+      accType: data.accntType,
+      amt: data.totalamount,
+      CrDr: data.CrDr,
+      billno: data.state.billno,
+      remark: "general purchase",
+    };
+
     try {
-      await connection.execute("");
+      await Axios.post("http://localhost:3007/transaction/", transactData);
+      await connection.commit();
+      res.send(JSON.stringify(ref));
     } catch (e) {
-      console.log("error while adding data to transaction table ", e);
+      connection.rollback();
       res.send(e);
     }
-
-
-
   } catch (e) {
-    console.log("Error occured while adding data in generalpurchase table ", e);
     connection.rollback();
     res.send(e);
   }
-
-
-
 };
 
 module.exports = addgeneralpurchase;
