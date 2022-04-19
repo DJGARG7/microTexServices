@@ -26,7 +26,7 @@ router.get("/suppliers/:itemID?", fetchSuppliers); // To get suppliers from curr
 
 // routes for purchase transactions
 router.post("/addbilldetails", addBilldetails); // adds data to greypurchase table
-router.get("/fetchGreyBills/:account?", fetchGreyBills); // all the bill info detched
+router.get("/fetchGreyBills/:accountID?/:itemID?", fetchGreyBills); // all the bill info detched
 router.get("/fetchChallanNo", fetchChallanNo); // for getting the last challan number
 router.get("/taka/:itemID?", getTaka); // to get taka for an item.
 router.get("/fetchDistinctItems", fetchDistinctItems); // for getting distinct items persent
