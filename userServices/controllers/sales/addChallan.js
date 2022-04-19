@@ -8,7 +8,7 @@ const addChallan = async (req, res) => {
     await connection.beginTransaction();
     try {
         await connection.execute(
-            "INSERT INTO SALES_ORDER values (?,?,?);",
+            "INSERT INTO SALES_ORDER values (?,?,?,0);",
             data.slice(0, 3)
         );
         await Promise.all(

@@ -18,7 +18,7 @@ CREATE TABLE `currbalance` (
 ALTER TABLE `currbalance`
   ADD KEY `FK_accID` (`uid`);
 ALTER TABLE `currbalance`
-  ADD CONSTRAINT `FK_accID` FOREIGN KEY (`uid`) REFERENCES `accountmaster` (`uid`);
+  ADD CONSTRAINT `FK_accID` FOREIGN KEY (`uid`) REFERENCES `master_accout` (`uid`);
 COMMIT;
 
 

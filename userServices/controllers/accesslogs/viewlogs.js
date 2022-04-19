@@ -1,5 +1,8 @@
 const db = require("../../config/db");
 const viewlogs = (req, res) => {
+  db.query(
+    `DELETE FROM master_userlogs WHERE user_date < CURRENT_DATE() - 10;`
+  );
   const query =
     "SELECT * FROM master_userlogs;";
   db.query(
