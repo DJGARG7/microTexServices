@@ -9,6 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const purchaseRoute = require("./routes/purchaseRoute");
 const saleRoute = require("./routes/saleRoute");
 const accesslogs = require("./routes/accesslogs");
+const jobRoutes = require("./routes/jobRoutes");
 
 // Middlewares.
 app.use(
@@ -23,5 +24,6 @@ app.use(express.json());
 app.use("/purchases", purchaseRoute);
 app.use("/sales", saleRoute);
 app.use("/accesslogs", accesslogs);
+app.use("/job",jobRoutes)
 
 app.listen(3005, () => console.log("UserService running at 3005."));
