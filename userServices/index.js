@@ -7,6 +7,7 @@ dotenv.config();
 app.use(bodyParser.urlencoded({ extended: true }));
 // Importing routes.
 const purchaseRoute = require("./routes/purchaseRoute");
+const mill = require("./routes/mill");
 const saleRoute = require("./routes/saleRoute");
 const accesslogs = require("./routes/accesslogs");
 
@@ -21,6 +22,7 @@ app.use(
 app.use(express.json());
 
 app.use("/purchases", purchaseRoute);
+app.use("/mill", mill);
 app.use("/sales", saleRoute);
 app.use("/accesslogs", accesslogs);
 
