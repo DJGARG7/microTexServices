@@ -3,10 +3,15 @@ const db = require("../../config/db");
 const getChallan = (req, res) => {
     console.log(req.body);
     const query = "SELECT * FROM SALES_ORDER where status=0;";
-    db.query(query, (err, result) => {
-        if (err) res.send(err);
-        else res.send(result);
-    });
+    try {
+        db.query(query, (error, result) => {
+            if (error) throw error;
+            else res.send(result);
+        });
+    } catch (error) {
+        console.log("getChallan failed due to ", error);
+        res.status(400).send(error);
+    }
 };
 
 module.exports = getChallan;

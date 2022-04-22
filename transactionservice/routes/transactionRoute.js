@@ -1,6 +1,7 @@
-const router = require("express").Router();
+import express from "express";
+const router = express.Router();
 
-const transact = require("../controllers/Transact");
+import transact from "../controllers/Transact.js";
 // const Deleteaccountdata = require("../controllers/Deleteaccountdata");
 // const updatedata = require("../controllers/UpdateAccount");
 // const FetchAll = require("../controllers/FetchAll");
@@ -16,4 +17,4 @@ router.post("", transact); // gets all the data from the table
 //   res.send("Authenticated!");
 // });
 
-module.exports = router;
+export default router;

@@ -1,6 +1,6 @@
-const db = require("../config/db");
+import { db, config } from "../config/db.js";
 
-const UpdateAccount = (req, res) => {
+const UpdateDesign = (req, res) => {
     const Dno = req.params.Dno;
     const data = req.body;
     console.log(req.body);
@@ -18,14 +18,14 @@ const UpdateAccount = (req, res) => {
                                  Lace_Job= ?,\
                                  Diam_Job= ?\
         WHERE Dno = ?;";
-    db.query(query, [...data, data[0]], (err) => {
-        if (err) {
-            console.log(err);
-            res.status(400).send(err);
-        } else {
-            res.send("1");
-        }
-    });
+    try {
+        db.query(query, [...data, data[0]], (error) => {
+            if (error) throw error;
+            else res.send("1");
+        });
+    } catch (error) {
+        console.log("updateDesign failed due to ", error);
+        res.status(400).send(error);
+    }
 };
-
-module.exports = UpdateAccount;
+export default UpdateDesign;

@@ -10,6 +10,7 @@ const purchaseRoute = require("./routes/purchaseRoute");
 const mill = require("./routes/mill");
 const saleRoute = require("./routes/saleRoute");
 const accesslogs = require("./routes/accesslogs");
+const jobRoutes = require("./routes/jobRoutes");
 
 // Middlewares.
 app.use(
@@ -25,5 +26,6 @@ app.use("/purchases", purchaseRoute);
 app.use("/mill", mill);
 app.use("/sales", saleRoute);
 app.use("/accesslogs", accesslogs);
+app.use("/job",jobRoutes)
 
 app.listen(3005, () => console.log("UserService running at 3005."));

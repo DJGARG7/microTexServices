@@ -2,7 +2,7 @@ const db = require("../../config/db");
 
 const fetchDistinctItems = (req, res) => {
   const query =
-    "SELECT DISTINCT(ItemName) from grey_itemdetails;";
+    "select DISTINCT(itemName),gi.itemID from GREY_ITEMS as gi,GREY_ITEM_DETAILS as gid where gi.itemId=gid.itemId;";
   db.query(
     query,
     (err,result) => {

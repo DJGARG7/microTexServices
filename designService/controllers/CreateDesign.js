@@ -1,18 +1,19 @@
-const db = require("../config/db");
+import { db, config } from "../config/db.js";
 
 const Addaccountdata = (req, res) => {
-    console.log("heloo");
     const data = req.body;
     console.log(data);
-
     const query =
         "INSERT INTO master_design values (?,?,?,?,?,?,?,?,?,?,?,?,?);";
-    db.query(query, data, (err) => {
-        if (err) {
-            console.log(err);
-            res.send(err);
-        } else res.send("1");
-    });
+    try {
+        db.query(query, data, (error) => {
+            if (error) throw error;
+            else res.send("1");
+        });
+    } catch (error) {
+        console.log("createDesign failed due to ", error);
+        res.status(400).send(error);
+    }
 };
 
-module.exports = Addaccountdata;
+export default Addaccountdata;
