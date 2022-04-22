@@ -49,7 +49,7 @@ const addgeneralpurchase = async (req, res) => {
     }
   } catch (e) {
     connection.rollback();
-    res.send(e);
+    res.status(400).send(`${e.sqlMessage}`);
   }
 };
 
