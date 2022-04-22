@@ -2,8 +2,8 @@ const db = require("../../config/db");
 
 const getChallan = (req, res) => {
     console.log(req.body);
+    const query = "SELECT * FROM SALES_ORDER where status=0;";
     try {
-        const query = "SELECT * FROM SALES_ORDER where status=0;";
         db.query(query, (error, result) => {
             if (error) throw error;
             else res.send(result);
