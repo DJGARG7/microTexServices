@@ -1,6 +1,6 @@
-const mysql = require("mysql2/promise");
-const config = require("../config/transactionconnect");
-const { v4: uuidv4 } = require("uuid");
+import { db, config } from "../config/db.js";
+import { v4 as uuidv4 } from "uuid";
+import mysqlp from "mysql2/promise";
 const Transact = async (req, res) => {
     const t_id = uuidv4();
     const data = req.body;
@@ -73,7 +73,7 @@ const Transact = async (req, res) => {
     }
 };
 
-module.exports = Transact;
+export default Transact;
 
 /*
 transaction rules

@@ -1,15 +1,16 @@
-const db = require("../config/db");
+import { db, config } from "../config/db.js";
 const Deleteaccountdata = (req, res) => {
     const Dno = req.params.Dno;
     const query = "DELETE FROM master_design WHERE Dno=?;";
-    db.query(query, [Dno], (err) => {
-        if (err) {
-            console.log(err);
-            res.status(400).send(err);
-        } else {
-            res.send("1");
-        }
-    });
-}
+    try {
+        db.query(query, [Dno], (error) => {
+            if (error) throw error;
+            else res.send("1");
+        });
+    } catch (error) {
+        console.log("deleteDesign failed due to ", error);
+        res.status(400).send(error);
+    }
+};
 
-module.exports = Deleteaccountdata;
+export default Deleteaccountdata;
