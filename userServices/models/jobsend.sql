@@ -72,3 +72,15 @@ FOREGIN KEY
 1. challan NO -> From job_bills
 2. greyitemID -> Prikey of items bought in greypurchase
 */
+
+
+
+/*
+View for viewing all the items and related bill information
+*/
+CREATE VIEW job_send_items AS SELECT challanNo, challanDate, AccName,jobType, itemName, jobQuality,pieces, meters, jobRate 
+FROM job_bills NATURAL JOIN job_item_details INNER JOIN master_account INNER JOIN GREY_ITEMS INNER JOIN job_types WHERE 
+job_bills.accountID = master_account.uid AND job_item_details.greyItemID = GREY_ITEMS.itemID 
+AND job_bills.jobTypeID = job_types.jobId;
+
+
