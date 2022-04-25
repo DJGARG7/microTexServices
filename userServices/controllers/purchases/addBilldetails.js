@@ -32,11 +32,8 @@ const addBilldetails = async (req, res) => {
         console.log("Bill added successfully.");
 
         // Insert into GREY_BILL_DETAILS.
-        console.log(data.purchaseditems);
         await Promise.all(
             data.purchaseditems.map(async (item, index) => {
-                console.log(`DISCOUNT: ${item.Discount}`);
-                console.log(parseFloat(item.Discount));
                 await connection.execute(
                     "INSERT INTO GREY_ITEM_DETAILS VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);",
                     [

@@ -17,7 +17,7 @@ const updategeneralpurchase = (req, res) => {
     (err) => {
       if (err) {
         console.log(err);
-        res.status(400).send(err);
+        res.status(400).send(`${error.sqlMessage}`);
       } else {
         res.send("1");
       }
