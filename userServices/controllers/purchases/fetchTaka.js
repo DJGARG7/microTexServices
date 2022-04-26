@@ -7,7 +7,7 @@ const getTaka = (req, res) => {
         //     res.send([]);
     } else {
         db.query(
-            "SELECT * FROM GREY_TAKA_DETAILS WHERE billNumber = ? AND itemID=?",
+            "SELECT * FROM grey_taka_details WHERE billNumber = ? AND itemID = ?",
             [req.params.billNumber, req.params.itemID],
             (error, results) => {
                 if (error) {

@@ -3,7 +3,7 @@ const db = require("../../config/db");
 const fetchGreyBills = (req, res) => {
     if (!req.params.accountID && !req.params.itemID) {
         // For "View Purchases table.
-        db.query("SELECT * FROM GREY_PURCHASES;", (err, result) => {
+        db.query("SELECT * FROM grey_purchases;", (err, result) => {
             if (err) {
                 console.log(err);
                 res.send(err);
@@ -16,10 +16,10 @@ const fetchGreyBills = (req, res) => {
         res.send([]);
     } else {
         // For bills in Send to Mill
-        let query = `SELECT billNumber, billDate, AccName, GREY_ITEMS.itemID AS itemID, itemName, taka, meters 
-		FROM GREY_BILLS NATURAL JOIN GREY_ITEM_DETAILS INNER JOIN master_account INNER JOIN GREY_ITEMS 
-		WHERE GREY_BILLS.accountID = master_account.uid AND GREY_ITEM_DETAILS.itemID = GREY_ITEMS.itemID 
-		AND GREY_BILLS.accountID = ? AND GREY_ITEM_DETAILS.itemID = ?;`;
+        let query = `SELECT billNumber, billDate, AccName, grey_items.itemID AS itemID, itemName, sum(taka) AS taka, sum(meters) AS meters 
+		FROM grey_bills NATURAL JOIN grey_bill_details INNER JOIN master_account INNER JOIN grey_items 
+		WHERE grey_bills.accountID = master_account.uid AND grey_bill_details.itemID = grey_items.itemID 
+		AND grey_bills.accountID = ? AND grey_bill_details.itemID = ? GROUP BY billNumber;`;
 
         db.query(
             query,

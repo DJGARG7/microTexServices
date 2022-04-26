@@ -21,7 +21,7 @@ const addBilldetails = async (req, res) => {
     try {
         // Insert into GREY_BILLS.
         await connection.execute(
-            "INSERT INTO GREY_BILLS VALUES (?, ?, ?, ?);",
+            "INSERT INTO grey_bills VALUES (?, ?, ?, ?);",
             [
                 data.formData.billNumber,
                 data.formData.billDate,
@@ -35,7 +35,7 @@ const addBilldetails = async (req, res) => {
         await Promise.all(
             data.purchaseditems.map(async (item, index) => {
                 await connection.execute(
-                    "INSERT INTO GREY_ITEM_DETAILS VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);",
+                    "INSERT INTO grey_bill_details VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);",
                     [
                         data.formData.billNumber,
                         item.itemID,
@@ -52,7 +52,7 @@ const addBilldetails = async (req, res) => {
                 await Promise.all(
                     data.purchaseditems[index].takaList.map(async (taka) => {
                         await connection.execute(
-                            "INSERT INTO GREY_TAKA_DETAILS VALUES (NULL, ?, ?, ?);",
+                            "INSERT INTO grey_taka_details VALUES (NULL, ?, ?, ?);",
                             [data.formData.billNumber, item.itemID, taka.Mts]
                         );
                     })

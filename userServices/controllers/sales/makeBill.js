@@ -9,7 +9,7 @@ const makeBill = async (req, res) => {
     await connection.beginTransaction();
     try {
         await connection.execute(
-            "update sales_order set status=1 where CNAME=?",
+            "update SALES_ORDER set status=1 where CNAME=?",
             [data.uid]
         );
         await connection.commit();

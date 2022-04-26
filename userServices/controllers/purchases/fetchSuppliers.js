@@ -6,7 +6,7 @@ const fetchSuppliers = (req, res) => {
             res.send([{ uid: -1, AccName: "Please select an item." }]);
         else {
             db.query(
-                "SELECT DISTINCT master_account.uid, AccName FROM master_account INNER JOIN GREY_BILLS NATURAL JOIN GREY_ITEM_DETAILS WHERE master_account.uid = GREY_BILLS.accountID AND itemID = ?;",
+                "SELECT DISTINCT master_account.uid, AccName FROM master_account INNER JOIN grey_bills NATURAL JOIN grey_bill_details WHERE master_account.uid = grey_bills.accountID AND itemID = ?;",
                 [req.params.itemID],
                 (error, results) => {
                     if (error) {

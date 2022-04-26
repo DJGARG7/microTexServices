@@ -15,18 +15,18 @@
 --  PRIMARY KEY (`ChallanNo`)
 -- );
 
-CREATE TABLE `GREY_BILLS` (
+CREATE TABLE `grey_bills` (
   `billNumber` int(11) NOT NULL,
   `billDate` date NOT NULL,
   `accountID` varchar(36) NOT NULL,
   `billAmount` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-ALTER TABLE `GREY_BILLS`
+ALTER TABLE `grey_bills`
 ADD PRIMARY KEY (`billNumber`),
 ADD KEY `FKEY_ACCOUNTMASTER` (`accountID`);
 
-ALTER TABLE `GREY_BILLS`
+ALTER TABLE `grey_bills`
 ADD CONSTRAINT `FKEY_ACCOUNTMASTER` FOREIGN KEY (`accountID`) REFERENCES `master_account` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -44,17 +44,17 @@ ADD CONSTRAINT `FKEY_ACCOUNTMASTER` FOREIGN KEY (`accountID`) REFERENCES `master
 --  PRIMARY KEY (`uuid`)
 -- );
 
-CREATE TABLE `GREY_ITEMS` (
+CREATE TABLE `grey_items` (
   `itemID` int(11) NOT NULL,
   `itemName` varchar(30) NOT NULL,
   `openingMeters` int(11) NOT NULL,
   `rate` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-ALTER TABLE `GREY_ITEMS`
+ALTER TABLE `grey_items`
 ADD PRIMARY KEY (`itemID`);
 
-ALTER TABLE `GREY_ITEMS`
+ALTER TABLE `grey_items`
 MODIFY `itemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
@@ -78,7 +78,7 @@ MODIFY `itemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --  CONSTRAINT `link` FOREIGN KEY (`ChallanNo`) REFERENCES `grey_billdetails` (`ChallanNo`) ON DELETE CASCADE ON UPDATE NO ACTION
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
-CREATE TABLE `GREY_ITEM_DETAILS` (
+CREATE TABLE `grey_bill_details` (
   `serialNumber` int(11) NOT NULL,
   `billNumber` int(11) NOT NULL,
   `itemID` int(11) NOT NULL,
@@ -89,17 +89,17 @@ CREATE TABLE `GREY_ITEM_DETAILS` (
   `discount` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-ALTER TABLE `GREY_ITEM_DETAILS`
+ALTER TABLE `grey_bill_details`
 ADD PRIMARY KEY (`serialNumber`),
 ADD KEY `FKEY_GREY_BILLS` (`billNumber`),
 ADD KEY `FKEY_GREY_ITEMS` (`itemID`);
 
-ALTER TABLE `GREY_ITEM_DETAILS`
+ALTER TABLE `grey_bill_details`
   MODIFY `serialNumber` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;  
 
-ALTER TABLE `GREY_ITEM_DETAILS`
-ADD CONSTRAINT `FKEY_GREY_BILLS` FOREIGN KEY (`billNumber`) REFERENCES `GREY_BILLS` (`billNumber`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `FKEY_GREY_ITEMS` FOREIGN KEY (`itemID`) REFERENCES `GREY_ITEMS` (`itemID`) ON DELETE CASCADE ON UPDATE CASCADE;  
+ALTER TABLE `grey_bill_details`
+ADD CONSTRAINT `FKEY_GREY_BILLS` FOREIGN KEY (`billNumber`) REFERENCES `grey_bills` (`billNumber`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `FKEY_GREY_ITEMS` FOREIGN KEY (`itemID`) REFERENCES `grey_items` (`itemID`) ON DELETE CASCADE ON UPDATE CASCADE;  
 
 --
 ----------------------------------------------------------------------------------------------------
@@ -115,24 +115,24 @@ ADD CONSTRAINT `FKEY_GREY_ITEMS` FOREIGN KEY (`itemID`) REFERENCES `GREY_ITEMS` 
 --  CONSTRAINT `itemtotaka` FOREIGN KEY (`itemID`) REFERENCES `grey_itemdetails` (`itemID`) ON DELETE CASCADE
 -- );
 
-CREATE TABLE `GREY_TAKA_DETAILS` (
+CREATE TABLE `grey_taka_details` (
   `takaID` int(11) NOT NULL,
   `billNumber` int(11) NOT NULL,
   `itemID` int(11) NOT NULL,
   `meters` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-ALTER TABLE `GREY_TAKA_DETAILS`
+ALTER TABLE `grey_taka_details`
 ADD PRIMARY KEY (`takaID`),
 ADD KEY `FKEY_BILLS_TAKA` (`billNumber`),
 ADD KEY `FKEY_GREY_ITEMS_TAKA` (`itemID`);
 
-ALTER TABLE `GREY_TAKA_DETAILS`
+ALTER TABLE `grey_taka_details`
 MODIFY `takaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
-ALTER TABLE `GREY_TAKA_DETAILS`
-ADD CONSTRAINT `FKEY_BILLS_TAKA` FOREIGN KEY (`billNumber`) REFERENCES `GREY_BILLS` (`billNumber`) ON DELETE CASCADE ON UPDATE CASCADE,
-ADD CONSTRAINT `FKEY_ITEMS_GREY_TAKA` FOREIGN KEY (`itemID`) REFERENCES `GREY_ITEMS` (`itemID`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `grey_taka_details`
+ADD CONSTRAINT `FKEY_BILLS_TAKA` FOREIGN KEY (`billNumber`) REFERENCES `grey_bills` (`billNumber`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `FKEY_ITEMS_GREY_TAKA` FOREIGN KEY (`itemID`) REFERENCES `grey_items` (`itemID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 ----------------------------------------------------------------------------------------------------
@@ -146,13 +146,13 @@ ADD CONSTRAINT `FKEY_ITEMS_GREY_TAKA` FOREIGN KEY (`itemID`) REFERENCES `GREY_IT
 -- CREATE VIEW grey_bills AS SELECT * FROM grey_billdetails NATURAL JOIN grey_itemdetails;
 
 -- GREY_PURCHASES
-CREATE VIEW GREY_PURCHASES AS 
-SELECT billNumber, AccName, billDate, itemName, taka, meters, GREY_ITEM_DETAILS.rate, amount, discount FROM 
-GREY_BILLS NATURAL JOIN GREY_ITEM_DETAILS INNER JOIN master_account INNER JOIN GREY_ITEMS 
-WHERE GREY_BILLS.accountID = master_account.uid AND GREY_ITEM_DETAILS.itemID = GREY_ITEMS.itemID;
+CREATE VIEW gret_purchases AS 
+SELECT billNumber, AccName, billDate, itemName, taka, meters, grey_bill_details.rate, amount, discount FROM 
+grey_bills NATURAL JOIN grey_bill_details INNER JOIN master_account INNER JOIN grey_items 
+WHERE grey_bills.accountID = master_account.uid AND grey_bill_details.itemID = grey_items.itemID;
 
 -- GREY_INVENTORY
-CREATE VIEW GREY_INVENTORY AS 
+CREATE VIEW grey_inventory AS 
 SELECT itemID, itemName, AccName AS supplier, SUM(meters) AS meters FROM 
-GREY_BILLS NATURAL JOIN GREY_TAKA_DETAILS NATURAL JOIN GREY_ITEMS INNER JOIN master_account 
+grey_bills NATURAL JOIN grey_taka_details NATURAL JOIN grey_items INNER JOIN master_account 
 WHERE master_account.uid = accountID GROUP BY itemName;
