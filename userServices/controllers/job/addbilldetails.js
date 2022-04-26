@@ -12,7 +12,7 @@ const addbilldetails = async (req, res) => {
 
   try {
     await connection.execute(
-      "INSERT INTO job_bills values (?,?,?,?);",
+      "INSERT INTO job_challans values (?,?,?,?);",
       [
         data.state.challanNo,
         data.accountID,
