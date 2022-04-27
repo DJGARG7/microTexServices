@@ -84,6 +84,8 @@ CREATE TABLE `grey_bill_details` (
   `itemID` int(11) NOT NULL,
   `taka` int(11) NOT NULL,
   `meters` int(11) NOT NULL,
+  `remTaka` int(11) NOT NULL,
+  `remMeters` int(11) NOT NULL,
   `rate` decimal(10,2) NOT NULL,
   `amount` decimal(10,2) NOT NULL,
   `discount` decimal(10,2) NOT NULL
@@ -128,7 +130,7 @@ ADD KEY `FKEY_BILLS_TAKA` (`billNumber`),
 ADD KEY `FKEY_GREY_ITEMS_TAKA` (`itemID`);
 
 ALTER TABLE `grey_taka_details`
-MODIFY `takaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+MODIFY `takaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 ALTER TABLE `grey_taka_details`
 ADD CONSTRAINT `FKEY_BILLS_TAKA` FOREIGN KEY (`billNumber`) REFERENCES `grey_bills` (`billNumber`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -146,7 +148,7 @@ ADD CONSTRAINT `FKEY_ITEMS_GREY_TAKA` FOREIGN KEY (`itemID`) REFERENCES `grey_it
 -- CREATE VIEW grey_bills AS SELECT * FROM grey_billdetails NATURAL JOIN grey_itemdetails;
 
 -- GREY_PURCHASES
-CREATE VIEW gret_purchases AS 
+CREATE VIEW grey_purchases AS 
 SELECT billNumber, AccName, billDate, itemName, taka, meters, grey_bill_details.rate, amount, discount FROM 
 grey_bills NATURAL JOIN grey_bill_details INNER JOIN master_account INNER JOIN grey_items 
 WHERE grey_bills.accountID = master_account.uid AND grey_bill_details.itemID = grey_items.itemID;

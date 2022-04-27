@@ -16,10 +16,10 @@ const fetchGreyBills = (req, res) => {
         res.send([]);
     } else {
         // For bills in Send to Mill
-        let query = `SELECT billNumber, billDate, AccName, grey_items.itemID AS itemID, itemName, sum(taka) AS taka, sum(meters) AS meters 
+        let query = `SELECT billNumber, billDate, AccName, grey_items.itemID AS itemID, itemName, sum(remTaka) AS taka, sum(remMeters) AS meters 
 		FROM grey_bills NATURAL JOIN grey_bill_details INNER JOIN master_account INNER JOIN grey_items 
 		WHERE grey_bills.accountID = master_account.uid AND grey_bill_details.itemID = grey_items.itemID 
-		AND grey_bills.accountID = ? AND grey_bill_details.itemID = ? GROUP BY billNumber;`;
+		AND grey_bills.accountID = ? AND grey_bill_details.itemID = ? AND remTaka != 0 GROUP BY billNumber;`;
 
         db.query(
             query,

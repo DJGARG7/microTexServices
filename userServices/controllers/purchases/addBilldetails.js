@@ -35,10 +35,12 @@ const addBilldetails = async (req, res) => {
         await Promise.all(
             data.purchaseditems.map(async (item, index) => {
                 await connection.execute(
-                    "INSERT INTO grey_bill_details VALUES (NULL, ?, ?, ?, ?, ?, ?, ?);",
+                    "INSERT INTO grey_bill_details VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
                     [
                         data.formData.billNumber,
                         item.itemID,
+                        item.Taka,
+                        item.Mts,
                         item.Taka,
                         item.Mts,
                         item.Rate,
