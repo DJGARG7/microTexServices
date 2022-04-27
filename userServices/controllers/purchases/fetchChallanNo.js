@@ -7,7 +7,7 @@ const fetchChallanNo = (req, res) => {
     (err,result) => {
       if (err) {
         console.log(err);
-        res.send(err);
+        res.status(400).send(`${err.sqlMessage}`);
       } else {
         //   console.log(result."MAX");
           res.send(result)};
