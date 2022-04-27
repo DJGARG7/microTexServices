@@ -6,7 +6,7 @@ const fetchChallan = async (req, res) => {
     } else {
         let query = `SELECT challanNumber, greyBillNumber, millID, AccName, itemID, itemName, sentDate, sentTaka, sentMeters 
 		FROM mill_challan NATURAL JOIN mill_challan_details NATURAL JOIN grey_items INNER JOIN master_account 
-		WHERE millID = uid AND millID = ? AND itemID = ?;`;
+		WHERE millID = uid AND millID = ? AND itemID = ? AND isReceived = 0;`;
 
         db.query(
             query,
