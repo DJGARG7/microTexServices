@@ -34,7 +34,7 @@ const postChallan = async (req, res) => {
 
             // Insert into MILL_CHALLAN_DETAILS.
             await connection.execute(
-                "INSERT INTO mill_challan_details VALUES (NULL, ?, ?, ?, 0, 0, NULL, NULL);",
+                "INSERT INTO mill_challan_details VALUES (NULL, ?, ?, ?, 0, 0, NULL, NULL, NULL);",
                 [
                     req.body.challanNumber,
                     req.body.selectedTaka.length,
@@ -49,8 +49,6 @@ const postChallan = async (req, res) => {
                         "DELETE FROM grey_taka_details WHERE takaID = ? AND billNumber = ? AND itemID = ?;",
                         [taka.takaID, req.body.billNumber, req.body.itemID]
                     );
-
-                    console.log("Taka deleted from GREY_TAKA_DETAILS.");
                 })
             );
 
@@ -61,14 +59,10 @@ const postChallan = async (req, res) => {
                         "INSERT INTO mill_taka_details VALUES(NULL, ?, ?, ?, 1);",
                         [req.body.challanNumber, req.body.itemID, taka.meters]
                     );
-
-                    console.log("Taka inserted to MILL_TAKA_DETAILS.");
                 })
             );
 
             await connection.commit();
-
-            console.log("Transaction complete.");
 
             res.send("Sent!");
         } catch (error) {
@@ -80,17 +74,18 @@ const postChallan = async (req, res) => {
         try {
             // Update MILL_CHALLAN.
             await connection.execute(
-                "UPDATE mill_challan SET receiveDate = ?, amount = ?, isReceived = 1 WHERE challanNumber = ?;",
+                "UPDATE mill_challan SET receiveDate = ?, amount = ?, status = 1 WHERE challanNumber = ?;",
                 [req.body.receiveDate, req.body.amount, req.body.challanNumber]
             );
 
             // UPDATE MILL_CHALLAN_DETAILS.
             await connection.execute(
-                "UPDATE mill_challan_details SET receivedTaka = ?, receivedMeters = ?, lostMeters = ?, rate = ? WHERE challanNumber = ?;",
+                "UPDATE mill_challan_details SET receivedTaka = ?, receivedMeters = ?, millLoss = ?, pieceLoss = ?, rate = ? WHERE challanNumber = ?;",
                 [
                     req.body.receivedTaka,
                     req.body.receivedMeters,
-                    req.body.lostMeters,
+                    req.body.millLoss,
+                    req.body.pieceLoss,
                     req.body.rate,
                     req.body.challanNumber,
                 ]
@@ -102,9 +97,18 @@ const postChallan = async (req, res) => {
                 [req.body.challanNumber, req.body.itemID]
             );
 
-            await connection.commit();
+            // Insert into INVENTORY.
+            await connection.execute(
+                "INSERT INTO inventory VALUES (NULL, ?, ?, ?, ?, 0, 0, 0)",
+                [
+                    req.body.itemID,
+                    req.body.itemName,
+                    (req.body.receivedMeters - req.body.pieceLoss) / 10,
+                    "godown",
+                ]
+            );
 
-            console.log("Transaction complete.");
+            await connection.commit();
 
             res.send("Received!");
         } catch (error) {
