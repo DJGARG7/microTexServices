@@ -10,13 +10,13 @@ const fetchSuppliers = require("../controllers/purchases/fetchSuppliers");
 const fetchTaka = require("../controllers/purchases/fetchTaka");
 
 // Routes for Grey Purchase and related modules.
-router.get("/:startDate?/:endDate?", getSum);
 router.get("/items", fetchItems);
 router.post("/items", addItem);
 router.get("/bills/:accountID?/:itemID?", fetchGreyBills);
 router.post("/bills", addGreyBill);
 router.get("/suppliers/:itemID?", fetchSuppliers);
 router.get("/taka/:billNumber?/:itemID?", fetchTaka);
+router.get("/:startDate?/:endDate?", getSum);
 
 //imports for general purchase
 const fetchpurchase = require("../controllers/purchases/fetchgeneralpurchases");
