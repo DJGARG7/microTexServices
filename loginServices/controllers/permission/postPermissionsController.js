@@ -8,7 +8,7 @@ const postPermission = (req, res) => {
             "INSERT INTO UserPermissions VALUES(?, ?)",
             [req.params.uuid, req.params.p_id],
             (error) => {
-                if (error) res.status(400).send(`${error.sqlMessage}`);
+                if (error) res.status(500).send(`${error.sqlMessage}`);
                 else res.send("Permission added successfully");
             }
         );

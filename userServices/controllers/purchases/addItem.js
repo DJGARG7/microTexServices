@@ -12,7 +12,7 @@ const addItem = (req, res) => {
                         res.status(400).send(
                             `'${req.body.itemName}' already exists.`
                         );
-                    else res.status(400).send(`${error.sqlMessage}`);
+                    else res.status(500).send(`${error.sqlMessage}`);
                 }
             } else res.send("Item added successfully!");
         }

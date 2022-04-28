@@ -24,10 +24,10 @@ const fetchGreyBills = (req, res) => {
         db.query(
             query,
             [req.params.accountID, req.params.itemID],
-            (err, results) => {
-                if (err) {
-                    console.log(err);
-                    res.send(err);
+            (error, results) => {
+                if (error) {
+                    console.log(error);
+                    res.status(500).send(`${error.sqlMessage}`);
                 } else res.send(results);
             }
         );
