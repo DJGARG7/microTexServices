@@ -1,10 +1,10 @@
 const db = require("../../config/db");
 
-const getjobtype = (req, res) => {
-    const data = req.body
-    console.log("rgrrg");
+const getdistinctitems = (req, res) => {
+
+    const data = req.params
   db.query(
-    "SELECT * FROM job_types;",
+    `SELECT * FROM job_challans natural join job_challan_details where jobType=?;`,[data.status],
     (error,result) => {
       if (error) {
         if (error) res.status(400).send(`${error.sqlMessage}`);
@@ -13,4 +13,4 @@ const getjobtype = (req, res) => {
   );
 };
 
-module.exports = getjobtype;
+module.exports = getdistinctitems;

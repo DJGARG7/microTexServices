@@ -3,11 +3,11 @@ const db = require("../../config/db");
 const getinventorylist = (req, res) => {
   // For "View Purchases table.
 
-  console.log(req.params);
+
 
   db.query(
     `SELECT challanNo,challanDate,jobQuality,itemName,jobItemID,
-  pieces,meters,jobRate,greyItemID,jobTypeID FROM job_item_details as jid 
+  pieces,meters,jobRate,greyItemID,jobTypeID FROM job_challan_details as jid 
   NATURAL JOIN job_challans INNER JOIN GREY_ITEMS as gi 
   on gi.itemID=jid.greyItemID where accountID=? and status="inventory" and jobTypeId=?
    ORDER BY challanDate,challanNo;`,

@@ -71,13 +71,18 @@ Transaction table where foregin keys are
 2. itemname
 */
 CREATE TABLE `inventory` (
+ `InventoryID` int(11) NOT NULL AUTO_INCREMENT,
  `itemID` int(11) NOT NULL,
  `itemname` varchar(10) NOT NULL,
  `meters` int(11) NOT NULL,
  `status` varchar(11) NOT NULL,
- `remark` varchar(11) NOT NULL,
+ `Embroidery` int(1) NOT NULL DEFAULT 0,
+ `Stone` int(1) NOT NULL DEFAULT 0,
+ `Lace` int(1) NOT NULL DEFAULT 0,
+ PRIMARY KEY (`itemID`,`itemname`,`status`,`Embroidery`,`Stone`,`Lace`),
+ UNIQUE KEY `InventoryID` (`InventoryID`),
  KEY `itemID` (`itemID`),
  KEY `itemName` (`itemname`),
  CONSTRAINT `itemID` FOREIGN KEY (`itemID`) REFERENCES `GREY_ITEMS` (`itemID`),
  CONSTRAINT `itemName` FOREIGN KEY (`itemname`) REFERENCES `GREY_ITEMS` (`itemName`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4
