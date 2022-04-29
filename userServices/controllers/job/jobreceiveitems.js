@@ -24,23 +24,21 @@ const jobreceiveitems = async (req, res) => {
           [item.pieces, item.inventoryID]
         );
 
-
-        // for fetching the stone and lace work details 
+        // for fetching the stone and lace work details
         const types = await connection.execute(
           `SELECT * FROM inventory where InventoryID=?`,
           [item.inventoryID]
         );
 
-        const l = types[0][0].Lace
-        const s = types[0][0].Stone
-        const e = types[0][0].Embroidery
-
+        const l = types[0][0].Lace;
+        const s = types[0][0].Stone;
+        const e = types[0][0].Embroidery;
 
         // create a new entry in invetory or add to a exsisting one
         if (item.jobType === "Embroidery") {
           const exist = await connection.execute(
             `select exists(select * from inventory where itemID=? and status="godown" and Embroidery=1 and Lace=? and Stone=?) as ans`,
-            [item.itemID,l,s]
+            [item.itemID, l, s]
           );
 
           if (exist[0][0].ans) {
@@ -51,17 +49,10 @@ const jobreceiveitems = async (req, res) => {
           } else {
             await connection.execute(
               `INSERT INTO inventory VALUES (NULL,?,?,?,"godown",1,?,?)`,
-              [
-                item.itemID,
-                item.itemName,
-                item.pieces,
-                s,
-                l,
-              ]
+              [item.itemID, item.itemName, item.pieces, s, l]
             );
           }
-        }
-         else if (item.jobType === "Stone") {
+        } else if (item.jobType === "Stone") {
           const exist = await connection.execute(
             `select exists(select * from inventory where itemID=? and status="godown" and Embroidery=? and Lace=? and Stone=1) as ans`,
             [item.itemID, e, l]
@@ -75,17 +66,10 @@ const jobreceiveitems = async (req, res) => {
           } else {
             await connection.execute(
               `INSERT INTO inventory VALUES (NULL,?,?,?,"godown",?,1,?)`,
-              [
-                item.itemID,
-                item.itemName,
-                item.pieces,
-                e,
-                l,
-              ]
+              [item.itemID, item.itemName, item.pieces, e, l]
             );
           }
-        } 
-        else if (item.jobType === "Lace") {
+        } else if (item.jobType === "Lace") {
           const exist = await connection.execute(
             `select exists(select * from inventory where itemID=? and status="godown" and Embroidery=? and Lace=1 and Stone=?) as ans`,
             [item.itemID, e, s]
@@ -95,24 +79,29 @@ const jobreceiveitems = async (req, res) => {
               `update inventory set pieces = pieces + ? where itemID=? and status="godown" and Embroidery=? and Lace=1 and Stone=?`,
               [item.pieces, item.itemID, e, s]
             );
-          } 
-          else {
+          } else {
             await connection.execute(
               `INSERT INTO inventory VALUES (NULL,?,?,?,"godown",?,?,1)`,
-              [
-                item.itemID,
-                item.itemName,
-                item.pieces,
-                e,
-                s,
-              ]
+              [item.itemID, item.itemName, item.pieces, e, s]
             );
           }
         }
       })
     );
 
-    // await connection.rollback();
+    const transactData = {
+      date: data.billdate,
+      uid: data.accountID,
+      accType: "Creditors For Job",
+      amt: data.totalamount,
+      CrDr: "Cr",
+      billno: data.challannumber,
+      remark: "Job purchases",
+    };
+    
+    await Axios.post("http://localhost:3007/transaction/", transactData);
+
+
     await connection.commit();
     res.send("Items received Successfully");
   } catch (e) {

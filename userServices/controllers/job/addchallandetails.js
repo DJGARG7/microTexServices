@@ -149,24 +149,6 @@ const challandetails = async (req, res) => {
       })
     );
 
-    // const transactData = {
-    //   date: data.state.billdate,
-    //   uid: data.accntid,
-    //   accType: data.accntType,
-    //   amt: data.totalamount,
-    //   CrDr: data.CrDr,
-    //   billno: data.state.billno,
-    //   remark: "general purchase",
-    // };
-
-    // try {
-    //   await Axios.post("http://localhost:3007/transaction/", transactData);
-    //   await connection.commit();
-    //   res.send(JSON.stringify(ref));
-    // } catch (e) {
-    //   connection.rollback();
-    //   res.send(e);
-    // }
 
     await connection.commit();
     res.send("Challan Successfully added");
