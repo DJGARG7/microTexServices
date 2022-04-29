@@ -2,19 +2,9 @@ import express from "express";
 const router = express.Router();
 
 import transact from "../controllers/Transact.js";
-// const Deleteaccountdata = require("../controllers/Deleteaccountdata");
-// const updatedata = require("../controllers/UpdateAccount");
-// const FetchAll = require("../controllers/FetchAll");
-// const fetchAccounts=require("../controllers/fetchAccounts");
+import getDrinfo from "../controllers/getDrInfo.js";
 
-// router.post("", Accountdata); // adds data to account_master table
-// router.delete("/:id", Deleteaccountdata); // deletes data from the table with given id
-// router.put("/:id", updatedata); // update the data in the table
-router.post("", transact); // gets all the data from the table
-// router.get("/:accType",fetchAccounts); //gets id and account name from account table with given account type
-
-// router.get("/test", verifyToken, (req, res) => {
-//   res.send("Authenticated!");
-// });
+router.post("", transact); // 
+router.get("/drBills/:uid", getDrinfo); // gets all the data from the table
 
 export default router;
