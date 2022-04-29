@@ -10,6 +10,7 @@ const addbilldetails = async (req, res) => {
 
   await connection.beginTransaction();
   try {
+    // adding challan details to the grey_challans
     await connection.execute(`INSERT INTO job_challans values (?,?,?,?,0);`, [
       data.challandetails.challanNo,
       data.accountID,
@@ -17,14 +18,18 @@ const addbilldetails = async (req, res) => {
       data.challandetails.challanDate,
     ]);
 
+    // for adding all the items
     await Promise.all(
       data.sendjobitemslist.map(async (item, index) => {
         let inID;
+
+        // update the inventory table and minus the sent pieces from the inentory
         await connection.execute(
           `UPDATE inventory SET pieces = pieces - ? where InventoryID = ?;`,
           [item.pieces, item.inventoryID]
         );
 
+        // if the sent job is embriodery add it in the inventory first and then fetch the inentoryID and add it in johchallandetauls
         if (data.challandetails.jobType === "Embroidery") {
           const exist = await connection.execute(
             `select exists(select * from inventory where itemID=? and status="Embroidery" and Embroidery=? and Lace=? and Stone=?) as ans`,
@@ -42,7 +47,6 @@ const addbilldetails = async (req, res) => {
             );
             console.log(res[0][0].InventoryID);
             inID = res[0][0].InventoryID;
-
           } else {
             await connection.execute(
               `INSERT INTO inventory VALUES (NULL,?,?,?,"Embroidery",?,?,?)`,
@@ -77,7 +81,7 @@ const addbilldetails = async (req, res) => {
               `SELECT InventoryID from inventory where itemID=? and status="Stone" and Embroidery=? and Lace=? and Stone=?`,
               [item.itemID, item.em, item.la, item.st]
             );
-            
+
             // console.log(res.InventoryID);
             inID = res[0][0].InventoryID;
           } else {
@@ -135,7 +139,6 @@ const addbilldetails = async (req, res) => {
             inID = res[0][0].InventoryID;
           }
         }
-
 
         // inserting into the job_deatils_tables the challan details with inventory id
 
