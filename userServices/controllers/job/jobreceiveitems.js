@@ -114,7 +114,7 @@ const jobreceiveitems = async (req, res) => {
 
     // await connection.rollback();
     await connection.commit();
-    res.send("Bill Successfully added");
+    res.send("Items received Successfully");
   } catch (e) {
     await connection.rollback();
     console.log(e);

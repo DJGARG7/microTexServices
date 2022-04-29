@@ -169,7 +169,7 @@ const challandetails = async (req, res) => {
     // }
 
     await connection.commit();
-    res.send("Bill Successfully added");
+    res.send("Challan Successfully added");
   } catch (e) {
     connection.rollback();
     console.log(e);
