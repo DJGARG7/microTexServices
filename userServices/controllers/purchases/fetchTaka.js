@@ -11,7 +11,7 @@ const getTaka = (req, res) => {
             [req.params.billNumber, req.params.itemID],
             (error, results) => {
                 if (error) {
-                    res.status(400).send(`${error.sqlMessage}`);
+                    res.status(500).send(`${error.sqlMessage}`);
                 } else {
                     res.send(results);
                 }

@@ -8,7 +8,7 @@ const deletePermission = (req, res) => {
             "DELETE FROM UserPermissions WHERE uuid = ? AND p_id = ?",
             [req.params.uuid, req.params.p_id],
             (error) => {
-                if (error) res.status(400).send(`${error.sqlMessage}`);
+                if (error) res.status(500).send(`${error.sqlMessage}`);
                 else res.send("Permission deleted successfully");
             }
         );

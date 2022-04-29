@@ -83,7 +83,7 @@ const register = async (req, res) => {
             res.send("User registered!");
         } catch (error) {
             connection.rollback();
-            res.status(400).send(`${error.sqlMessage}`);
+            res.status(500).send(`${error.sqlMessage}`);
         }
     }
 };

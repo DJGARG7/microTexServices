@@ -1,17 +1,3 @@
-/*
-Table for creating type of jobs available in the industry PRI KEY = jobID (autoincrment)
-*/
-CREATE TABLE `job_types` (
- `jobId` int(16) NOT NULL AUTO_INCREMENT,
- `jobType` varchar(40) DEFAULT NULL,
- PRIMARY KEY (`jobId`),
- UNIQUE KEY `jobType` (`jobType`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4
-/*
-Table for creating type of jobs available in the industry PRI KEY = jobID (autoincrment)
-*/
-
-
 
 
 CREATE TABLE `job_challans` (
@@ -20,12 +6,12 @@ CREATE TABLE `job_challans` (
  `jobType` varchar(15) NOT NULL,
  `challanDate` date NOT NULL,
  `status` tinyint(1) NOT NULL DEFAULT 0,
+ `receiveDate` date DEFAULT NULL,
+ `totalamount` int(10) DEFAULT NULL,
  PRIMARY KEY (`challanNo`),
  KEY `job_accountID` (`accountID`),
  CONSTRAINT `job_accountID` FOREIGN KEY (`accountID`) REFERENCES `master_account` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
-
-
 
 
 /*
@@ -49,7 +35,6 @@ CREATE TABLE `job_challan_details` (
  CONSTRAINT `challanNo` FOREIGN KEY (`challanNo`) REFERENCES `job_challans` (`challanNo`) ON DELETE CASCADE ON UPDATE CASCADE,
  CONSTRAINT `grey_job_itemFK` FOREIGN KEY (`greyItemID`) REFERENCES `GREY_ITEMS` (`itemID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4
-
 
 
 

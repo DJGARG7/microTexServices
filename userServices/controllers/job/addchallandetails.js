@@ -1,35 +1,29 @@
 const Axios = require("axios");
 const config = require("../../config/transactionconnect");
 const mysql = require("mysql2/promise");
-const { compileSources } = require("truffle");
 
-const addbilldetails = async (req, res) => {
+const challandetails = async (req, res) => {
   const data = req.body;
   const connection = await mysql.createConnection(config);
   await connection.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED");
 
   await connection.beginTransaction();
   try {
-    // adding challan details to the grey_challans
-    await connection.execute(`INSERT INTO job_challans values (?,?,?,?,0);`, [
+    await connection.execute(`INSERT INTO job_challans values (?,?,?,?,0,NULL,NULL);`, [
       data.challandetails.challanNo,
       data.accountID,
       data.challandetails.jobType,
       data.challandetails.challanDate,
     ]);
 
-    // for adding all the items
     await Promise.all(
       data.sendjobitemslist.map(async (item, index) => {
         let inID;
-
-        // update the inventory table and minus the sent pieces from the inentory
         await connection.execute(
           `UPDATE inventory SET pieces = pieces - ? where InventoryID = ?;`,
           [item.pieces, item.inventoryID]
         );
 
-        // if the sent job is embriodery add it in the inventory first and then fetch the inentoryID and add it in johchallandetauls
         if (data.challandetails.jobType === "Embroidery") {
           const exist = await connection.execute(
             `select exists(select * from inventory where itemID=? and status="Embroidery" and Embroidery=? and Lace=? and Stone=?) as ans`,
@@ -183,4 +177,4 @@ const addbilldetails = async (req, res) => {
   }
 };
 
-module.exports = addbilldetails;
+module.exports = challandetails;
