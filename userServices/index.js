@@ -5,13 +5,14 @@ var cors = require("cors");
 
 const app = express();
 dotenv.config();
-
+const port = process.env.PORT || 3005;
 // Importing routes.
 const purchases = require("./routes/purchases");
 const mill = require("./routes/mill");
 const sales = require("./routes/sales");
 const accessLog = require("./routes/accessLog");
 const job = require("./routes/job");
+const cashBook = require("./routes/cashBook");
 
 // Middlewares.
 app.use(
@@ -27,7 +28,6 @@ app.use("/mill", mill);
 app.use("/sales", sales);
 app.use("/accesslogs", accessLog);
 app.use("/job", job);
+app.use("/cashbook", cashBook);
 
-app.listen(process.env.PORT || 3005, () =>
-    console.log(`Server running at port ${process.env.PORT}.`)
-);
+app.listen(port, () => console.log(`Server running at port ${port}.`));
