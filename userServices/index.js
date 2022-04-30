@@ -13,7 +13,7 @@ const sales = require("./routes/sales");
 const accessLog = require("./routes/accessLog");
 const job = require("./routes/job");
 const cashBook = require("./routes/cashBook");
-
+const reports = require("./routes/reports");
 // Middlewares.
 app.use(
     cors({
@@ -29,5 +29,6 @@ app.use("/sales", sales);
 app.use("/accesslogs", accessLog);
 app.use("/job", job);
 app.use("/cashbook", cashBook);
+app.use("/reports", reports);
 
-app.listen(port, () => console.log(`Server running at port ${port}.`));
+app.listen(port, () => console.log(`User Service running at port ${port}.`));
