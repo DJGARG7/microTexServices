@@ -6,6 +6,7 @@ const Transact = async (req, res) => {
     const t_id2 = uuidv4();
     var cashCrDr = "Cr";
     const data = req.body;
+    const amount = data.amt;
     // const data = {
     //     date: "2022-03-03",
     //     uid: "7d9de9c0-e33b-4915-ab12-ab501ad8d6e3",
@@ -75,7 +76,7 @@ const Transact = async (req, res) => {
                 data.date,
                 data.uid,
                 data.accType,
-                data.amt,
+                amount,
                 data.CrDr,
                 new_bal,
                 data.billno,
@@ -89,7 +90,7 @@ const Transact = async (req, res) => {
                 data.date,
                 uidCash,
                 "Cash Account",
-                data.amt,
+                amount,
                 cashCrDr,
                 cash_bal,
                 data.billno,

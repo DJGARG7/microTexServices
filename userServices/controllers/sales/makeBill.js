@@ -4,14 +4,14 @@ const Axios = require("axios");
 
 const makeBill = async (req, res) => {
     const data = req.body;
-    console.log(data);
+    console.log("make bill line 7", data);
     const connection = await mysql.createConnection(config);
     await connection.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED");
     await connection.beginTransaction();
     try {
         await connection.execute(
-            "update SALES_ORDER set status=1 where CNAME=?",
-            [data.uid]
+            "update SALES_ORDER set status=1 where BILL_NO=?",
+            [data.billno]
         );
         await connection.commit();
 

@@ -28,6 +28,6 @@ app.use("/mill", mill);
 app.use("/sales", sales);
 app.use("/accesslogs", accessLog);
 app.use("/job", job);
-app.use("cashbook", cashBook);
+app.use("/cashbook", cashBook);
 
 app.listen(port, () => console.log(`Server running at port ${port}.`));
