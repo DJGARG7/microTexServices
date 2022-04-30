@@ -1,5 +1,6 @@
 const mysql = require("mysql2/promise");
 const config = require("../../config/transactionconnect");
+const axios = require("axios");
 
 const addGreyBill = async (req, res) => {
     console.log(req.body);
@@ -58,11 +59,28 @@ const addGreyBill = async (req, res) => {
             })
         );
 
+        // Add transaction.
+        const transactData = {
+            date: req.body.formData.billDate,
+            uid: req.body.formData.accountID,
+            accType: "Sundry Creditors",
+            amt: req.body.totalamount,
+            CrDr: "Cr",
+            billno: req.body.formData.billNumber,
+            remark: "Grey Purchase",
+        };
+
+        await axios.post("http://localhost:3007/transaction/", transactData);
+
         await connection.commit();
+        await connection.end();
+
         res.send("Saved!");
     } catch (err) {
+        await connection.rollback();
+        await connection.end();
         console.log(error);
-        connection.rollback();
+
         res.status(500).send("Save failed!");
     }
 };

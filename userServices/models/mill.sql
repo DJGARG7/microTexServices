@@ -41,7 +41,7 @@ CREATE TABLE `mill_challan_details` (
   `receivedMeters` int(11) NOT NULL,
   `millLoss` int(11) DEFAULT NULL,
   `pieceLoss` int(11) DEFAULT NULL,
-  `rate` int(11) DEFAULT NULL
+  `rate` decimal(20,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `mill_challan_details`

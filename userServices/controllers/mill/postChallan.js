@@ -1,5 +1,6 @@
 const mysql = require("mysql2/promise");
 const config = require("../../config/transactionconnect");
+const axios = require("axios");
 
 const postChallan = async (req, res) => {
     const connection = await mysql.createConnection(config);
@@ -63,11 +64,14 @@ const postChallan = async (req, res) => {
             );
 
             await connection.commit();
+            await connection.end();
 
             res.send("Sent!");
         } catch (error) {
-            connection.rollback();
+            await connection.rollback();
+            await connection.end();
             console.log(error);
+
             res.status(400).send(`${error.sqlMessage}`);
         }
     } else if (req.params.mode === "receive") {
@@ -97,24 +101,58 @@ const postChallan = async (req, res) => {
                 [req.body.challanNumber, req.body.itemID]
             );
 
-            // Insert into INVENTORY.
-            await connection.execute(
-                "INSERT INTO inventory VALUES (NULL, ?, ?, ?, ?, 0, 0, 0)",
-                [
-                    req.body.itemID,
-                    req.body.itemName,
-                    (req.body.receivedMeters - req.body.pieceLoss) / 10,
-                    "godown",
-                ]
+            // Check if inventory entry already exists.
+            let results = await connection.execute(
+                "SELECT * FROM inventory WHERE itemID = ? AND status = 'godown';",
+                [req.body.itemID]
+            );
+
+            if (results[0].length !== 0) {
+                // Update inventory entry
+                await connection.execute(
+                    "UPDATE inventory SET pieces = pieces + ? WHERE itemID = ? AND status = 'godown';",
+                    [
+                        (req.body.receivedMeters - req.body.pieceLoss) / 10,
+                        req.body.itemID,
+                    ]
+                );
+            } else {
+                // Insert into INVENTORY.
+                await connection.execute(
+                    "INSERT INTO inventory VALUES (NULL, ?, ?, ?, ?, 0, 0, 0)",
+                    [
+                        req.body.itemID,
+                        req.body.itemName,
+                        (req.body.receivedMeters - req.body.pieceLoss) / 10,
+                        "godown",
+                    ]
+                );
+            }
+
+            // Add transaction.
+            const transactData = {
+                date: req.body.receiveDate,
+                uid: req.body.millID,
+                accType: "Creditors for process",
+                amt: req.body.amount,
+                CrDr: "Cr",
+                billno: req.body.challanNumber,
+                remark: "Receive from Mill",
+            };
+
+            await axios.post(
+                "http://localhost:3007/transaction/",
+                transactData
             );
 
             await connection.commit();
+            await connection.end();
 
             res.send("Received!");
         } catch (error) {
-            connection.rollback();
+            await connection.rollback();
             console.log(error);
-            res.status(400).send(`${error.sqlMessage}`);
+            res.status(400).send(`Failed to receive!`);
         }
     } else {
         res.status(400).send("Bad request");
