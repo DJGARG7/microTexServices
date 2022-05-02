@@ -1,5 +1,56 @@
 // http://localhost:3005/reports/balancesheet
+const db = require("../../config/db");
 const balanceSheet = (req, res) => {
-    res.send("1");
+    const dict = { 0: "liabilites", 1: "assets" };
+    const actData = { liabilites: [], assets: [] };
+    const dummyData = {
+        "Sundry Creditors": {
+            type: 0,
+            subdata: [],
+        },
+        "Creditors For Process": {
+            type: 0,
+            subdata: [],
+        },
+        "Creditors For Job": {
+            type: 0,
+            subdata: [],
+        },
+
+        "Cash Account": {
+            type: 1,
+            subdata: [],
+        },
+        "Sundry Debtors": {
+            type: 1,
+            subdata: [],
+        },
+    };
+    console.log(dummyData);
+    const query = "SELECT * FROM bs1;";
+    try {
+        db.query(query, (error, result) => {
+            if (error) throw error;
+            else {
+                result.map((obj) => {
+                    dummyData[obj.AccType].subdata.push({
+                        name: obj.AccName,
+                        value: obj.balance,
+                    });
+                });
+                console.log(dummyData);
+                Object.keys(dummyData).map((key) => {
+                    actData[dict[dummyData[key].type]].push({
+                        heading: key,
+                        subdata: dummyData[key].subdata,
+                    });
+                });
+                res.send(actData);
+            }
+        });
+    } catch (error) {
+        console.log("balance sheet failed due to ", error);
+        res.status(400).send(error);
+    }
 };
 module.exports = balanceSheet;
