@@ -52,8 +52,16 @@ CREATE TABLE `Permissions` (
 --
 
 INSERT INTO `Permissions` (`p_id`, `p_name`) VALUES
-(1, 'Read Transactions'),
-(2, 'Write Transactions');
+(1, 'Grey Purchase'),
+(2, 'General Purchase'),
+(3, 'Send to Mill'),
+(4, 'Receive from Mill'),
+(5, 'Sale Challan'),
+(6, 'Sale Billing'),
+(7, 'Display Bills'),
+(8, 'Send For Job'),
+(9, 'Receive From Job'),
+(13, 'Balance Sheet');
 
 -- --------------------------------------------------------
 

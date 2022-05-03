@@ -1,13 +1,11 @@
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
 
-const db = require("../../config/db");
 const mysql = require("mysql2/promise");
-const config = require("../../utils/transactionConfig");
+const config = require("../../config/transactionConfig");
 const validation = require("../../utils/validation");
 
 const register = async (req, res) => {
-    // console.log(req.body);
     if (!req.body.userType) res.status(400).send("Bad format.");
 
     // Get salt to hash passwords.
@@ -26,15 +24,28 @@ const register = async (req, res) => {
         // Generate UUID.
         let uuid = uuidv4();
 
-        // Insert data into the table.
-        db.query(
-            "INSERT INTO Proprietor VALUES(?, ?, ?, ?)",
-            [uuid, req.body.userID, req.body.userName, hashedPassword],
-            (error) => {
-                if (error) res.status(400).send(`${error.sqlMessage}`);
-                else res.send("User registered!");
-            }
+        // Create connection.
+        const connection = await mysql.createConnection(config);
+
+        // Begin transaction.
+        await connection.execute(
+            "SET TRANSACTION ISOLATION LEVEL READ COMMITTED"
         );
+        await connection.beginTransaction();
+
+        // Insert data into the table.
+        try {
+            await connection.execute(
+                "INSERT INTO Proprietor VALUES(?, ?, ?, ?)",
+                [uuid, req.body.userID, req.body.userName, hashedPassword]
+            );
+
+            await connection.commit();
+            res.send("User registered!");
+        } catch (error) {
+            connection.rollback();
+            res.status(500).send(`${error.sqlMessage}`);
+        }
     } else if (req.body.userType === "firm") {
         // Validate incoming request.
         const { error } = validation.validateRegisterFirm(req.body);
