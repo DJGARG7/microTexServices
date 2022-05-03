@@ -5,6 +5,7 @@ const mysql = require("mysql2");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 const app = express();
 dotenv.config();
@@ -16,6 +17,10 @@ const db = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
+    port: 3306,
+    ssl: {
+        ca: fs.readFileSync(process.env.CERT_PATH),
+    },
     multipleStatements: true,
 });
 
@@ -29,7 +34,6 @@ app.use(
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.json());
-
 
 const authenticate = (req, res, next) => {
     // Access is denied if access token is not sent.
@@ -99,7 +103,7 @@ app.get("/cityMaster/get", authenticate, (req, res) => {
 
 app.post("/cityMaster/update", authenticate, (req, res) => {
     db.query(
-        "UPDATE CITYMASTER SET CityName=?,StateName=? WHERE CityName=?;",
+        "UPDATE master_city SET CityName=?,StateName=? WHERE CityName=?;",
         [req.body.City, req.body.State, req.body.oldcity],
         (err) => {
             if (err) {
@@ -125,8 +129,6 @@ app.post("/cityMaster/delete", (req, res) => {
     });
 });
 
-
-
-app.listen(3001, () => {
-    console.log("City master running on 3001");
+app.listen(process.env.PORT || 3001, () => {
+    console.log(`CityMaster running at port ${process.env.PORT || 3001}.`);
 });
