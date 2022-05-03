@@ -66,8 +66,10 @@ const Addaccountdata = async (req, res) => {
             ]);
             await connection.commit();
             await connection.end();
-            console.log("vonnee failed ",e);
-            res.status(400).send("insert failed due to issue in transaction service");
+            console.log("vonnee failed ", e);
+            res.status(400).send(
+                "insert failed due to issue in transaction service"
+            );
             return;
         }
         await connection.end();

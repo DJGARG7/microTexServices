@@ -1,5 +1,5 @@
-// http://localhost:3005/reports/balancesheet
 const db = require("../../config/db");
+
 const balanceSheet = (req, res) => {
     const dict = { 0: "liabilites", 1: "assets" };
     const actData = { liabilites: [], assets: [] };
@@ -8,7 +8,7 @@ const balanceSheet = (req, res) => {
             type: 0,
             subdata: [],
         },
-        "Creditors For Process": {
+        "Creditors for process": {
             type: 0,
             subdata: [],
         },
@@ -26,7 +26,9 @@ const balanceSheet = (req, res) => {
             subdata: [],
         },
     };
+
     console.log(dummyData);
+
     const query = "SELECT * FROM bs1;";
     try {
         db.query(query, (error, result) => {
