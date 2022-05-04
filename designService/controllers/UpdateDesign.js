@@ -3,7 +3,7 @@ import { db, config } from "../config/db.js";
 const UpdateDesign = (req, res) => {
     const Dno = req.params.Dno;
     const data = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     const query =
         "UPDATE master_design set Dno= ?,Name= ?,\
                                  Cloth_Type= ?,\

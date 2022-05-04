@@ -31,4 +31,4 @@ app.use("/job", job);
 app.use("/cashbook", cashBook);
 app.use("/reports", reports);
 
-app.listen(port, () => console.log(`User Service running at port ${port}.`));
+app.listen(port, () => console.log(`UserService running at port ${port}.`));

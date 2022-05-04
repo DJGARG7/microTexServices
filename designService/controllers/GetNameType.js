@@ -1,7 +1,7 @@
 import { db, config } from "../config/db.js";
 
 const GetNameType = (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const query =
         "SELECT distinct(name) FROM master_design;SELECT distinct(cloth_Type) FROM master_design;";
     try {

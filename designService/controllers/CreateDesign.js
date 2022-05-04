@@ -2,7 +2,7 @@ import { db, config } from "../config/db.js";
 
 const Addaccountdata = (req, res) => {
     const data = req.body;
-    console.log(data);
+
     const query =
         "INSERT INTO master_design values (?,?,?,?,?,?,?,?,?,?,?,?,?);";
     try {

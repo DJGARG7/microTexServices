@@ -11,7 +11,7 @@ CREATE TABLE `job_challans` (
  PRIMARY KEY (`challanNo`),
  KEY `job_accountID` (`accountID`),
  CONSTRAINT `job_accountID` FOREIGN KEY (`accountID`) REFERENCES `master_account` (`uid`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 /*
@@ -34,7 +34,7 @@ CREATE TABLE `job_challan_details` (
  KEY `grey_job_itemFK` (`greyItemID`),
  CONSTRAINT `challanNo` FOREIGN KEY (`challanNo`) REFERENCES `job_challans` (`challanNo`) ON DELETE CASCADE ON UPDATE CASCADE,
  CONSTRAINT `grey_job_itemFK` FOREIGN KEY (`greyItemID`) REFERENCES `grey_items` (`itemID`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4;
 
 
 
@@ -44,8 +44,8 @@ CREATE TABLE `job_challan_details` (
 View for viewing all the items and related bill information
 */
 CREATE VIEW job_view_challans AS SELECT challanNo, challanDate,uid, AccName,jobType, itemName,pieces, jobRate,status,inventoryID
-FROM job_challans NATURAL JOIN job_challan_details INNER JOIN master_account INNER JOIN GREY_ITEMS WHERE 
-job_challans.accountID = master_account.uid AND job_challan_details.greyItemID = GREY_ITEMS.itemID;
+FROM job_challans NATURAL JOIN job_challan_details INNER JOIN master_account INNER JOIN grey_items WHERE 
+job_challans.accountID = master_account.uid AND job_challan_details.greyItemID = grey_items.itemID;
 
 
 /*

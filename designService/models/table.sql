@@ -1,4 +1,4 @@
-CREATE TABLE `designmaster` (
+CREATE TABLE `master_design` (
   `Dno` int(11) NOT NULL,
   `NAME` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `CLOTH_TYPE` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -13,5 +13,6 @@ CREATE TABLE `designmaster` (
   `LACE_JOB` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `DIAM_JOB` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
 ALTER TABLE `designmaster`
   ADD PRIMARY KEY (`Dno`);

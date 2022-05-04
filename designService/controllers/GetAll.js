@@ -1,7 +1,7 @@
 import { db, config } from "../config/db.js";
 
 const FetchAll = (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const query = "SELECT * FROM master_design;";
     try {
         db.query(query, (error, result) => {

@@ -17,4 +17,6 @@ app.use(
 );
 app.use(express.json());
 app.use("/designMaster", authRoute);
-app.listen(3004, () => console.log("Design Master running at 3004."));
+app.listen(process.env.PORT || 3004, () =>
+    console.log(`DesignMaster running at port ${process.env.PORT || 3004}.`)
+);
