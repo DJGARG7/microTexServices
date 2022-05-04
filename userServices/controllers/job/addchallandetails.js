@@ -8,6 +8,7 @@ const challandetails = async (req, res) => {
   await connection.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED");
 
   await connection.beginTransaction();
+  console.log(data);
   try {
     await connection.execute(`INSERT INTO job_challans values (?,?,?,?,0,NULL,NULL);`, [
       data.challandetails.challanNo,
@@ -23,6 +24,9 @@ const challandetails = async (req, res) => {
           `UPDATE inventory SET pieces = pieces - ? where InventoryID = ?;`,
           [item.pieces, item.inventoryID]
         );
+
+
+
 
         if (data.challandetails.jobType === "Embroidery") {
           const exist = await connection.execute(
@@ -60,7 +64,8 @@ const challandetails = async (req, res) => {
             console.log(res.InventoryID);
             inID = res[0][0].InventoryID;
           }
-        } else if (data.challandetails.jobType === "Stone") {
+        }
+     else if (data.challandetails.jobType === "Stone") {
           const exist = await connection.execute(
             `select exists(select * from inventory where itemID=? and status="Stone" and Embroidery=? and Lace=? and Stone=?) as ans`,
             [item.itemID, item.em, item.la, item.st]
@@ -134,8 +139,7 @@ const challandetails = async (req, res) => {
           }
         }
 
-        // inserting into the job_deatils_tables the challan details with inventory id
-
+    //     // inserting into the job_deatils_tables the challan details with inventory id
         await connection.execute(
           "INSERT INTO job_challan_details VALUES (NULL, ?, ?, ?, ?, ?);",
           [
@@ -149,7 +153,7 @@ const challandetails = async (req, res) => {
       })
     );
 
-
+    // await connection.rollback();
     await connection.commit();
     res.send("Challan Successfully added");
   } catch (e) {

@@ -33,7 +33,7 @@ CREATE TABLE `job_challan_details` (
  KEY `challanNo` (`challanNo`),
  KEY `grey_job_itemFK` (`greyItemID`),
  CONSTRAINT `challanNo` FOREIGN KEY (`challanNo`) REFERENCES `job_challans` (`challanNo`) ON DELETE CASCADE ON UPDATE CASCADE,
- CONSTRAINT `grey_job_itemFK` FOREIGN KEY (`greyItemID`) REFERENCES `GREY_ITEMS` (`itemID`)
+ CONSTRAINT `grey_job_itemFK` FOREIGN KEY (`greyItemID`) REFERENCES `grey_items` (`itemID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4
 
 
@@ -66,6 +66,7 @@ CREATE TABLE `inventory` (
  UNIQUE KEY `InventoryID` (`InventoryID`),
  KEY `itemID` (`itemID`),
  KEY `itemName` (`itemname`),
- CONSTRAINT `itemID` FOREIGN KEY (`itemID`) REFERENCES `GREY_ITEMS` (`itemID`),
- CONSTRAINT `itemName` FOREIGN KEY (`itemname`) REFERENCES `GREY_ITEMS` (`itemName`)
+ CONSTRAINT `itemID_greyID` FOREIGN KEY (`itemID`) REFERENCES `grey_items` (`itemID`) ON DELETE CASCADE ON UPDATE CASCADE,
+ CONSTRAINT `itemname_greyitem` FOREIGN KEY (`itemname`) REFERENCES `grey_items` (`itemName`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4
+ DEFAULT CHARSET=utf8mb4
