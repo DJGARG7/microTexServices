@@ -5,7 +5,7 @@ const postPermission = (req, res) => {
         res.status(400).send("Error! Bad request format");
     else {
         db.query(
-            "INSERT INTO UserPermissions VALUES(?, ?)",
+            "INSERT INTO User_Permissions VALUES(?, ?)",
             [req.params.uuid, req.params.p_id],
             (error) => {
                 if (error) res.status(500).send(`${error.sqlMessage}`);

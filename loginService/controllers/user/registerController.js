@@ -85,7 +85,7 @@ const register = async (req, res) => {
             await Promise.all(
                 req.body.permissions.map(async (p_id) => {
                     await connection.execute(
-                        `INSERT INTO UserPermissions VALUES('${uuid}', ${p_id});`
+                        `INSERT INTO User_Permissions VALUES('${uuid}', ${p_id});`
                     );
                 })
             );

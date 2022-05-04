@@ -9,7 +9,7 @@ const fetchPermissions = (req, res) => {
             });
         } else {
             db.query(
-                "SELECT p_id FROM UserPermissions WHERE uuid=?",
+                "SELECT p_id FROM User_Permissions WHERE uuid=?",
                 [req.params.uuid],
                 (error, results) => {
                     if (error) res.status(400).send(`${error.sqlMessage}`);
@@ -19,7 +19,7 @@ const fetchPermissions = (req, res) => {
         }
     } else {
         db.query(
-            "SELECT p_id FROM UserPermissions WHERE uuid=?",
+            "SELECT p_id FROM User_Permissions WHERE uuid=?",
             [req.params.uuid],
             (error, results) => {
                 if (error) res.status(500).send(`${error.sqlMessage}`);

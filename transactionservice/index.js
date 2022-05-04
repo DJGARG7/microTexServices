@@ -17,4 +17,8 @@ app.use(
 );
 app.use(express.json());
 app.use("/transaction", transactionRoute);
-app.listen(3007, () => console.log("Transaction Service running at 3007."));
+app.listen(process.env.PORT || 3007, () =>
+    console.log(
+        `TransactionService running at port ${process.env.PORT || 3007}.`
+    )
+);

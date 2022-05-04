@@ -13,8 +13,4 @@ router.put("/:id", UpdateAccount); // update the data in the table
 router.get("", FetchAll); // gets all the data from the table
 router.get("/:accType", FetchAccounts); //gets id and account name from account table with given account type
 
-// router.get("/test", verifyToken, (req, res) => {
-//   res.send("Authenticated!");
-// });
-
 export default router;

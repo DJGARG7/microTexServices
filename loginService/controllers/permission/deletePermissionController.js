@@ -5,7 +5,7 @@ const deletePermission = (req, res) => {
         res.status(400).send("Error! Bad request format");
     else {
         db.query(
-            "DELETE FROM UserPermissions WHERE uuid = ? AND p_id = ?",
+            "DELETE FROM User_Permissions WHERE uuid = ? AND p_id = ?",
             [req.params.uuid, req.params.p_id],
             (error) => {
                 if (error) res.status(500).send(`${error.sqlMessage}`);
