@@ -1,0 +1,30 @@
+version: "3.9"
+services:
+    authservice:
+        image: microtex.azurecr.io/authservice:v1
+        ports:
+            - "3002:3002"
+    citymaster:
+        image: microtex.azurecr.io/citymaster:v1
+        ports:
+            - "3001:3001"
+    accountmaster:
+        image: microtex.azurecr.io/accountmaster:v1
+        ports:
+            - "3003:3003"
+    designmaster:
+        image: microtex.azurecr.io/designmaster:v1
+        ports:
+            - "3004:3004"
+    userservice:
+        image: microtex.azurecr.io/userservice:v1
+        ports:
+            - "3005:3005"
+    transactionservice:
+        image: microtex.azurecr.io/transactionservice:v1
+        ports:
+            - "3007:3007"
+    app:
+        image: microtex.azurecr.io/app:v1
+        ports:
+            - "3000:3000"
