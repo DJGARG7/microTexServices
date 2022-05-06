@@ -4,27 +4,55 @@ services:
         image: microtex.azurecr.io/authservice:v1
         ports:
             - "3002:3002"
+        # deploy:
+        #     restart_policy:
+        #         condition: on-failure
+        #         max_attempts: 3
     citymaster:
         image: microtex.azurecr.io/citymaster:v1
         ports:
             - "3001:3001"
+        # deploy:
+        #     restart_policy:
+        #         condition: on-failure
+        #         max_attempts: 3
     accountmaster:
-        image: microtex.azurecr.io/accountmaster:v1
+        image: microtex.azurecr.io/accountmaster:v1.1.1
         ports:
             - "3003:3003"
+        # deploy:
+        #     restart_policy:
+        #         condition: on-failure
+        #         max_attempts: 3
     designmaster:
         image: microtex.azurecr.io/designmaster:v1
         ports:
             - "3004:3004"
+        # deploy:
+        #     restart_policy:
+        #         condition: on-failure
+        #         max_attempts: 3
     userservice:
-        image: microtex.azurecr.io/userservice:v1
+        image: microtex.azurecr.io/userservice:v1.1.4
         ports:
             - "3005:3005"
+        # deploy:
+        #     restart_policy:
+        #         condition: on-failure
+        #         max_attempts: 3
     transactionservice:
-        image: microtex.azurecr.io/transactionservice:v1
+        image: microtex.azurecr.io/transactionservice:v1.1.3
         ports:
             - "3007:3007"
+        # deploy:
+        # restart_policy:
+        #     condition: on-failure
+        #     max_attempts: 3
     app:
-        image: microtex.azurecr.io/app:v1
+        image: microtex.azurecr.io/app:v1.1
         ports:
-            - "3000:3000"
+            - "80:3000"
+        # deploy:
+        # restart_policy:
+        #     condition: on-failure
+        #     max_attempts: 3

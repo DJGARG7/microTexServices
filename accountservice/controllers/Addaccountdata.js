@@ -56,7 +56,7 @@ const Addaccountdata = async (req, res) => {
         };
         try {
             await Axios.post(
-                "http://localhost:3007/transaction/",
+                "http://transactionservice:3007/transaction/",
                 transactData
             );
         } catch (e) {

@@ -141,7 +141,7 @@ const postChallan = async (req, res) => {
             };
 
             await axios.post(
-                "http://localhost:3007/transaction/",
+                "http://transactionservice:3007/transaction",
                 transactData
             );
 

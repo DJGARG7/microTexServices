@@ -23,6 +23,8 @@ const addGreyBill = async (req, res) => {
             ]
         );
 
+        console.log("Inserted into GREY_BILLS.");
+
         // Insert into GREY_BILL_DETAILS.
         await Promise.all(
             req.body.purchaseditems.map(async (item, index) => {
@@ -41,6 +43,8 @@ const addGreyBill = async (req, res) => {
                     ]
                 );
 
+                console.log("Inserted into GREY_BILLS_DETAILS.");
+
                 // Insert into GREY_TAKA_DETAILS.
                 await Promise.all(
                     req.body.purchaseditems[index].takaList.map(
@@ -56,6 +60,8 @@ const addGreyBill = async (req, res) => {
                         }
                     )
                 );
+
+                console.log("Inserted into GREY_TAKA_DETAILS.");
             })
         );
 
@@ -70,7 +76,10 @@ const addGreyBill = async (req, res) => {
             remark: "Grey Purchase",
         };
 
-        await axios.post("http://localhost:3007/transaction/", transactData);
+        await axios.post(
+            "http://transactionservice:3007/transaction",
+            transactData
+        );
 
         await connection.commit();
         await connection.end();
@@ -79,7 +88,7 @@ const addGreyBill = async (req, res) => {
     } catch (error) {
         await connection.rollback();
         await connection.end();
-        console.log(err);
+        console.log(error);
 
         res.status(500).send("Save failed!");
     }

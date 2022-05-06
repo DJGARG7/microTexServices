@@ -99,7 +99,10 @@ const jobreceiveitems = async (req, res) => {
             remark: "Job purchases",
         };
 
-        await Axios.post("http://localhost:3007/transaction/", transactData);
+        await Axios.post(
+            "http://transactionservice:3007/transaction/",
+            transactData
+        );
 
         await connection.commit();
         res.send("Items received Successfully");

@@ -18,8 +18,8 @@ const fetchDistinctItems = require("../controllers/purchases/fetchDistinctItems"
 // Routes for Grey Purchase and related modules.
 router.get("/items", fetchItems);
 router.post("/items", addItem);
-router.get("/bills/:accountID?/:itemID?", fetchGreyBills);
 router.post("/bills", addGreyBill);
+router.get("/bills/:accountID?/:itemID?", fetchGreyBills);
 router.get("/taka/:billNumber?/:itemID?", fetchTaka);
 router.get("/fetchgeneralpurchase", fetchpurchase);
 router.post("/addgeneralpurchase", addgeneralpurchase);
