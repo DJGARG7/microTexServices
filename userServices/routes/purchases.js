@@ -24,7 +24,7 @@ const updategeneralpurchase = require("../controllers/purchases/updategeneralpur
 const fetchDistinctItems = require("../controllers/purchases/fetchDistinctItems");
 
 // routes for general purchase
-router.get("/fetchgeneralpurchase", fetchpurchase);
+router.get("/fetchgeneralpurchases", fetchpurchase);
 router.post("/addgeneralpurchase", addgeneralpurchase);
 router.delete("/deletegeneralpurchase/:id", deletegeneralpurchase);
 router.put("/updategeneralpurchase/:id", updategeneralpurchase);

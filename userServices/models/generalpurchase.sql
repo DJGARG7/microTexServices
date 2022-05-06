@@ -1,4 +1,4 @@
-CREATE TABLE `generalpurchase` (
+CREATE TABLE `general_purchase` (
  `uuid` varchar(36) NOT NULL,
  `aacntname` varchar(30) NOT NULL,
  `itemname` varchar(50) NOT NULL,
