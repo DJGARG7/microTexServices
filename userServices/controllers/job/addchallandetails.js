@@ -25,9 +25,6 @@ const challandetails = async (req, res) => {
           [item.pieces, item.inventoryID]
         );
 
-
-
-
         if (data.challandetails.jobType === "Embroidery") {
           const exist = await connection.execute(
             `select exists(select * from inventory where itemID=? and status="Embroidery" and Embroidery=? and Lace=? and Stone=?) as ans`,
