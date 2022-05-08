@@ -79,7 +79,7 @@ const addGreyBill = async (req, res) => {
     } catch (err) {
         await connection.rollback();
         await connection.end();
-        console.log(error);
+        console.log(err);
 
         res.status(500).send("Save failed!");
     }
