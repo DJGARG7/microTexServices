@@ -14,7 +14,15 @@ const permissionRoute = require("./routes/permission");
 // Middlewares.
 app.use(
     cors({
-        origin: ["http://localhost:3000", "http://109.177.157.129:3000"],
+        origin: [
+            "http://localhost:3000",
+            "http://localhost:80",
+            "http://localhost",
+            "http://app:80",
+            "http://app",
+            "http://20.213.49.62/:80",
+            "http://20.213.49.62/",
+        ],
         credentials: true,
     })
 );
