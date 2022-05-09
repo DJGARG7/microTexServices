@@ -10,8 +10,6 @@ const getTotalItemSold = async (req, res) => {
     const itemsbought = await connection.execute(
       `SELECT SUM(meters) as total_meters,itemID,itemName from grey_bill_details NATURAL JOIN grey_items GROUP BY itemID;`,
     );
-
-    console.log(itemsbought[0])
     res.send(itemsbought[0]);
   } catch (e) {
     console.log(e);

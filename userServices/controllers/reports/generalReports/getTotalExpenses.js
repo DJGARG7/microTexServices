@@ -22,6 +22,10 @@ const getTotalExpenses = async (req, res) => {
         `SELECT SUM(totalamount) as general_purchase_expense FROM general_purchase;`,
       );
 
+    
+    
+    
+
     const ans = {
         grey_purchase_expense : expense1[0][0].grey_purchase_expense,
         job_send_expenses : expense1[0][0].job_send_expenses,
