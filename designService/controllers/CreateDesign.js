@@ -4,7 +4,7 @@ const Addaccountdata = (req, res) => {
     const data = req.body;
 
     const query =
-        "INSERT INTO master_design values (?,?,?,?,?,?,?,?,?,?,?,?,?);";
+        "INSERT INTO master_design values (?,?,?,?,?,?,?,?,?,?,?,?,?,0);";
     try {
         db.query(query, data, (error) => {
             if (error) throw error;

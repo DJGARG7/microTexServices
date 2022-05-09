@@ -23,7 +23,10 @@ const addChallan = async (req, res) => {
                         sale_item.clothType,
                     ]
                 );
-                
+                await connection.execute(
+                    "update master_design set qty=qty-? where NAME = ?",
+                    [sale_item.quantity, sale_item.DName]
+                );
             })
         );
         await connection.commit();
