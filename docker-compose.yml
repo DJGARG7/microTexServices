@@ -33,7 +33,7 @@ services:
         #         condition: on-failure
         #         max_attempts: 3
     userservice:
-        image: microtex.azurecr.io/userservice:v1.1.6
+        image: microtex.azurecr.io/userservice:v1.1.7
         ports:
             - "3005:3005"
         # deploy:
@@ -49,7 +49,7 @@ services:
         #     condition: on-failure
         #     max_attempts: 3
     app:
-        image: microtex.azurecr.io/app:v1.2
+        image: microtex.azurecr.io/app:v1.3
         ports:
             - "80:80"
         # deploy:
