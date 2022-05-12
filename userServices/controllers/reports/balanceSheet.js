@@ -8,7 +8,7 @@ const balanceSheet = (req, res) => {
             type: 0,
             subdata: [],
         },
-        "Creditors For Process": {
+        "Creditors for process": {
             type: 0,
             subdata: [],
         },
@@ -16,7 +16,6 @@ const balanceSheet = (req, res) => {
             type: 0,
             subdata: [],
         },
-
         "Cash Account": {
             type: 1,
             subdata: [],
@@ -25,6 +24,14 @@ const balanceSheet = (req, res) => {
             type: 1,
             subdata: [],
         },
+        "Creditors for expenses":{
+            type:0,
+            subdata :[],
+        },
+        "Creditors for others":{
+            type:0,
+            subdata :[],
+        }
     };
     console.log(dummyData);
     const query = "SELECT * FROM bs1;";
@@ -32,7 +39,9 @@ const balanceSheet = (req, res) => {
         db.query(query, (error, result) => {
             if (error) throw error;
             else {
+                console.log(result)
                 result.map((obj) => {
+                    console.log(obj.AccType);
                     dummyData[obj.AccType].subdata.push({
                         name: obj.AccName,
                         value: obj.balance,
