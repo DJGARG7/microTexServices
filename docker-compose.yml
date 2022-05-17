@@ -4,6 +4,7 @@ services:
         image: microtex.azurecr.io/authservice:v1.0.3
         ports:
             - "3002:3002"
+        restart: on-failure:5
         # deploy:
         #     restart_policy:
         #         condition: on-failure
@@ -36,6 +37,7 @@ services:
         image: microtex.azurecr.io/userservice:v1.1.7
         ports:
             - "3005:3005"
+        restart: on-failure:5
         # deploy:
         #     restart_policy:
         #         condition: on-failure
