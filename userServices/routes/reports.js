@@ -8,7 +8,7 @@ const getItemSold = require("../controllers/reports/generalReports/getItemSold")
 const getTotalSaleAccountWise = require("../controllers/reports/generalReports/getTotalSaleAccountWise");
 const balanceSheet = require("../controllers/reports/balanceSheet/balanceSheet");
 const totalBS = require("../controllers/reports/balanceSheet/totalBS");
-
+const getitemsent = require("../controllers/reports/moduleReports/job/getitemsent");
 
 
 
@@ -20,5 +20,11 @@ router.get("/getTotalAccountExpense",getTotalAccountExpense);
 router.get("/getItemSold",getItemSold);
 router.get("/getTotalSaleAccountWise",getTotalSaleAccountWise);
 router.get("/totalBS", totalBS);
+
+
+
+
+// routes for module reports
+router.get("/getitemsent/:jobtype",getitemsent);
 
 module.exports = router;
