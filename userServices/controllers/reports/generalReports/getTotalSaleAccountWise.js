@@ -8,7 +8,7 @@ const getTotalSaleAccountWise = async (req, res) => {
   try {
     // to get the total expenditure of job and grey
     const saleaccountwise = await connection.execute(
-      `SELECT CNAME,SUM(QTY*RATE) as amount FROM sales_order NATURAL JOIN sales_order_details GROUP BY CNAME;`,
+      `SELECT AccName as CNAME,SUM(QTY*RATE) as amount FROM sales_order NATURAL JOIN sales_order_details NATURAL JOIN master_account WHERE sales_order.CNAME = master_account.uid GROUP BY CNAME;`,
     );
     res.send(saleaccountwise[0]);
   } catch (e) {
