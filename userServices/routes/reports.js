@@ -14,6 +14,7 @@ const getTotalSaleAccountWise = require("../controllers/reports/generalReports/g
 
 // Imports for Mill Report.
 const fetchGreyStock = require("../controllers/reports/millReport/fetchGreyStock");
+const fetchMillPending = require("../controllers/reports/millReport/fetchMillPending");
 
 // Routes for Balance Sheet.
 // router.post("/payment", payment);
@@ -29,5 +30,6 @@ router.get("/getTotalSaleAccountWise", getTotalSaleAccountWise);
 
 // Routes for Mill Report.
 router.get("/greyStock", fetchGreyStock);
+router.get("/millPending", fetchMillPending);
 
 module.exports = router;
