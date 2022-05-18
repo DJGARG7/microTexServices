@@ -87,3 +87,23 @@ ALTER TABLE `mill_taka_details`
 ----------------------------------------------------------------------------------------------------
 -- VIEWS.
 ----------------------------------------------------------------------------------------------------
+
+-- MILL_PENDING
+CREATE VIEW mill_pending AS 
+SELECT challanNumber, C1.AccName AS mill, C2.AccName as supplier, itemName, sentDate, sentMeters 
+FROM mill_challan NATURAL JOIN mill_challan_details 
+NATURAL JOIN grey_items 
+INNER JOIN grey_bills 
+INNER JOIN master_account AS C1 ON C1.uid = millID 
+INNER JOIN master_account AS C2 ON C2.uid=grey_bills.accountID 
+WHERE grey_bills.billNumber = mill_challan.greyBillNumber AND mill_challan.status=0;
+
+-- MILL_RECEIVED
+CREATE VIEW mill_received AS
+SELECT challanNumber, C1.AccName AS mill, C2.AccName as supplier, itemName, sentDate, receiveDate, sentMeters, receivedMeters, millLoss, pieceLoss, rate, amount 
+FROM mill_challan NATURAL JOIN mill_challan_details 
+NATURAL JOIN grey_items 
+INNER JOIN grey_bills 
+INNER JOIN master_account AS C1 ON C1.uid = millID 
+INNER JOIN master_account AS C2 ON C2.uid=grey_bills.accountID 
+WHERE grey_bills.billNumber = mill_challan.greyBillNumber AND mill_challan.status=1;

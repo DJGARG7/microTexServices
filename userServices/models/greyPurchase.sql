@@ -110,4 +110,4 @@ WHERE grey_bills.accountID = master_account.uid AND grey_bill_details.itemID = g
 CREATE VIEW grey_inventory AS 
 SELECT itemID, itemName, AccName AS supplier, SUM(meters) AS meters FROM 
 grey_bills NATURAL JOIN grey_taka_details NATURAL JOIN grey_items INNER JOIN master_account 
-WHERE master_account.uid = accountID GROUP BY itemName;
+WHERE master_account.uid = accountID GROUP BY itemName, supplier;
