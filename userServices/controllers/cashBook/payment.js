@@ -14,13 +14,26 @@ const payment = async (req, res) => {
     //     billno: "-1",
     //     remark: "1,2",
     // };
+    // grey_bills -> sundry creditors , billNumber , status
+    // job_challans -> creditor for job, challanNo , status
+    // mill_challan -> creditor for process, challanNumber , status
     const connection = await mysql.createConnection(config);
     await connection.execute("SET TRANSACTION ISOLATION LEVEL READ COMMITTED");
     await connection.beginTransaction();
     try {
         //query to update status in correct table
-        // const query1 = `update sales_order set status = 2 where BILL_NO IN (${data.remark})`; //update sales_order status=2
-        // await connection.execute(query1);
+        var query;
+        if (data.accType == "Sundry Creditors") {
+            query = `update grey_bills set status = 2 where billNumber IN (${data.remark})`;
+        } else if (data.accType == "Creditors For Job") {
+            query = `update job_challans set status = 2 where challanNo IN (${data.remark})`;
+        } else if (data.accType == "Creditors for process") {
+            query = `update mill_challan set status = 2 where challanNumber IN (${data.remark})`;
+        } else {
+            throw "payment failed";
+        }
+        console.log(query);
+        await connection.execute(query);
         await Axios.post("http://localhost:3007/transaction/", data);
         await connection.commit();
         await connection.end();

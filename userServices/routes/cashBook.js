@@ -5,5 +5,6 @@ const receive = require("../controllers/cashBook/receive");
 
 // router.post("/payment", payment);
 router.post("/receive", receive);
+router.post("/payment", payment);
 
 module.exports = router;
