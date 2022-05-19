@@ -96,7 +96,7 @@ NATURAL JOIN grey_items
 INNER JOIN grey_bills 
 INNER JOIN master_account AS C1 ON C1.uid = millID 
 INNER JOIN master_account AS C2 ON C2.uid=grey_bills.accountID 
-WHERE grey_bills.billNumber = mill_challan.greyBillNumber AND mill_challan.status=0;
+WHERE grey_bills.billNumber = mill_challan.greyBillNumber AND mill_challan.status=0 ORDER BY sentDate ASC;
 
 -- MILL_RECEIVED
 CREATE VIEW mill_received AS
@@ -106,4 +106,4 @@ NATURAL JOIN grey_items
 INNER JOIN grey_bills 
 INNER JOIN master_account AS C1 ON C1.uid = millID 
 INNER JOIN master_account AS C2 ON C2.uid=grey_bills.accountID 
-WHERE grey_bills.billNumber = mill_challan.greyBillNumber AND mill_challan.status=1;
+WHERE grey_bills.billNumber = mill_challan.greyBillNumber AND mill_challan.status=1 ORDER BY receiveDate ASC;
