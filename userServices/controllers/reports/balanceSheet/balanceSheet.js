@@ -1,5 +1,10 @@
+<<<<<<< HEAD:userServices/controllers/reports/balanceSheet.js
 const db = require("../../config/db");
 
+=======
+// http://localhost:3005/reports/balancesheet
+const db = require("../../../config/db");
+>>>>>>> 9b399fb51b9ee4eb0e524b8a22f11334cf50f898:userServices/controllers/reports/balanceSheet/balanceSheet.js
 const balanceSheet = (req, res) => {
     const dict = { 0: "liabilites", 1: "assets" };
     const actData = { liabilites: [], assets: [] };
@@ -16,13 +21,20 @@ const balanceSheet = (req, res) => {
             type: 0,
             subdata: [],
         },
-
         "Cash Account": {
             type: 1,
             subdata: [],
         },
         "Sundry Debtors": {
             type: 1,
+            subdata: [],
+        },
+        "Creditors for expenses": {
+            type: 0,
+            subdata: [],
+        },
+        "Creditors for others": {
+            type: 0,
             subdata: [],
         },
     };
@@ -34,7 +46,9 @@ const balanceSheet = (req, res) => {
         db.query(query, (error, result) => {
             if (error) throw error;
             else {
+                console.log(result);
                 result.map((obj) => {
+                    console.log(obj.AccType);
                     dummyData[obj.AccType].subdata.push({
                         name: obj.AccName,
                         value: obj.balance,

@@ -33,5 +33,9 @@ app.use("/users", userRoute);
 app.use("/permissions", permissionRoute);
 
 app.listen(process.env.PORT || 3002, () =>
+<<<<<<< HEAD:loginService/app.js
     console.log(`AuthService running at port ${process.env.PORT || 3002}.`)
+=======
+    console.log(`Server running at port ${process.env.PORT || 3002}.`)
+>>>>>>> 9b399fb51b9ee4eb0e524b8a22f11334cf50f898:loginServices/app.js
 );

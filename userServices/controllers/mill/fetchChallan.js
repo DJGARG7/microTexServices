@@ -13,7 +13,7 @@ const fetchChallan = async (req, res) => {
             [req.params.millID, req.params.itemID],
             (error, results) => {
                 if (error) {
-                    if (error) res.status(400).send(`${error.sqlMessage}`);
+                    if (error) res.status(500).send(`${error.sqlMessage}`);
                 } else {
                     res.send(results);
                 }

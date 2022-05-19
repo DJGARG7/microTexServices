@@ -2,13 +2,13 @@ const Axios = require("axios");
 const config = require("../../../config/transactionconnect");
 const mysql = require("mysql2/promise");
 
-const getTotalItemSold = async (req, res) => {
+const getItemSold = async (req, res) => {
   const data = req.body;
   const connection = await mysql.createConnection(config);
   try {
     // to get the total expenditure of job and grey
     const itemsbought = await connection.execute(
-      `SELECT SUM(meters) as total_meters,itemID,itemName from grey_bill_details NATURAL JOIN grey_items GROUP BY itemID;`,
+      `SELECT SUM(QTY) as total_pcs, Type from sales_order_details GROUP BY TYPE;`,
     );
     res.send(itemsbought[0]);
   } catch (e) {
@@ -17,4 +17,4 @@ const getTotalItemSold = async (req, res) => {
   }
 };
 
-module.exports = getTotalItemSold;
+module.exports = getItemSold;

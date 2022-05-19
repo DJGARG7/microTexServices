@@ -8,7 +8,8 @@ const getTotalAccountExpense = async (req, res) => {
     try {
         // to get the account name and amount of expense paid to it
         const accountWiseExpense = await connection.execute(
-            `SELECT * FROM (SELECT SUM(amount) as total,uid from transactions group by uid) temp_table where total>0;`
+            `SELECT * FROM (SELECT SUM(amount) as total,AccName from transactions natural join master_account where CrDr="Cr" group by uid) temp_table where total>0;
+            `
         );
         console.log(accountWiseExpense[0]);
         res.send(accountWiseExpense[0]);
