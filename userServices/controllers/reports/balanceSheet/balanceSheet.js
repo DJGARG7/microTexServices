@@ -1,10 +1,5 @@
-<<<<<<< HEAD:userServices/controllers/reports/balanceSheet.js
-const db = require("../../config/db");
-
-=======
-// http://localhost:3005/reports/balancesheet
 const db = require("../../../config/db");
->>>>>>> 9b399fb51b9ee4eb0e524b8a22f11334cf50f898:userServices/controllers/reports/balanceSheet/balanceSheet.js
+
 const balanceSheet = (req, res) => {
     const dict = { 0: "liabilites", 1: "assets" };
     const actData = { liabilites: [], assets: [] };
