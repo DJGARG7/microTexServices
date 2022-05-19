@@ -11,8 +11,13 @@ const getTotalItemBought = require("../controllers/reports/generalReports/getTot
 const getTotalAccountExpense = require("../controllers/reports/generalReports/getTotalAccountExpense");
 const getItemSold = require("../controllers/reports/generalReports/getItemSold");
 const getTotalSaleAccountWise = require("../controllers/reports/generalReports/getTotalSaleAccountWise");
-const getitemsent = require("../controllers/reports/moduleReports/job/getitemsent");
 
+
+// for job report
+const getitemsent = require("../controllers/reports/moduleReports/job/getitemsent");
+const getitemreceived = require("../controllers/reports/moduleReports/job/getitemreceived")
+const getgodownitem = require("../controllers/reports/moduleReports/job/getgodownitem");
+const getitemlist = require("../controllers/reports/moduleReports/job/getitemlist");
 
 // Imports for Mill Report.
 const fetchGreyStock = require("../controllers/reports/millReport/fetchGreyStock");
@@ -27,8 +32,11 @@ router.get("/totalBS", totalBS);
 
 
 
-// routes for module reports
+// routes for job reports
+router.get("/getitemlist",getitemlist);
 router.get("/getitemsent/:jobtype",getitemsent);
+router.get("/getitemreceived/:jobtype",getitemreceived);
+router.get("/getgodownitem/:itemname",getgodownitem);
 // Routes for General Report.
 router.get("/getExpense", getTotalExpenses);
 router.get("/getTotalItemBought", getTotalItemBought);
