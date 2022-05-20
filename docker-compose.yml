@@ -13,14 +13,16 @@ services:
         image: microtex.azurecr.io/citymaster:v1.0.3
         ports:
             - "3001:3001"
+        restart: on-failure:5
         # deploy:
         #     restart_policy:
         #         condition: on-failure
         #         max_attempts: 3
     accountmaster:
-        image: microtex.azurecr.io/accountmaster:v1.1.5
+        image: microtex.azurecr.io/accountmaster:v1.1.6
         ports:
             - "3003:3003"
+        restart: on-failure:5
         # deploy:
         #     restart_policy:
         #         condition: on-failure
@@ -29,12 +31,13 @@ services:
         image: microtex.azurecr.io/designmaster:v1.0.3
         ports:
             - "3004:3004"
+        restart: on-failure:5
         # deploy:
         #     restart_policy:
         #         condition: on-failure
         #         max_attempts: 3
     userservice:
-        image: microtex.azurecr.io/userservice:v1.1.8
+        image: microtex.azurecr.io/userservice:v1.1.9
         ports:
             - "3005:3005"
         restart: on-failure:5
@@ -54,7 +57,7 @@ services:
     app:
         image: microtex.azurecr.io/app:v1.4
         ports:
-            - "80:80"
+            - "80:3000"
         # deploy:
         # restart_policy:
         #     condition: on-failure

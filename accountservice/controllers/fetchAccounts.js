@@ -5,7 +5,7 @@ const FetchAccounts = (req, res) => {
     const query = "SELECT uid,AccName FROM master_account where AccType=?;";
     try {
         db.query(query, [AccType], (error, result) => {
-            if (error) throw error;
+            if (error) res.status(500).send("Server error");
             else res.send(result);
         });
     } catch (error) {
