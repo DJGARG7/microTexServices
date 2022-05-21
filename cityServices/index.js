@@ -30,7 +30,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(express.json());
 
-
 const authenticate = (req, res, next) => {
     // Access is denied if access token is not sent.
     if (!req.signedCookies.accessToken) res.status(401).send("Access denied.");
@@ -99,7 +98,7 @@ app.get("/cityMaster/get", authenticate, (req, res) => {
 
 app.post("/cityMaster/update", authenticate, (req, res) => {
     db.query(
-        "UPDATE CITYMASTER SET CityName=?,StateName=? WHERE CityName=?;",
+        "UPDATE master_city SET CityName=?,StateName=? WHERE CityName=?;",
         [req.body.City, req.body.State, req.body.oldcity],
         (err) => {
             if (err) {
@@ -124,8 +123,6 @@ app.post("/cityMaster/delete", (req, res) => {
         res.send("Successfully deleted");
     });
 });
-
-
 
 app.listen(3001, () => {
     console.log("City master running on 3001");
