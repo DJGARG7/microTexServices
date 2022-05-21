@@ -103,14 +103,14 @@ const postChallan = async (req, res) => {
 
             // Check if inventory entry already exists.
             let results = await connection.execute(
-                "SELECT * FROM inventory WHERE itemID = ? AND status = 'godown';",
+                "SELECT * FROM inventory WHERE itemID = ? AND status = 'godown' and Embroidery = 0 and Stone=0 and Lace=0;",
                 [req.body.itemID]
             );
 
             if (results[0].length !== 0) {
                 // Update inventory entry
                 await connection.execute(
-                    "UPDATE inventory SET pieces = pieces + ? WHERE itemID = ? AND status = 'godown';",
+                    "UPDATE inventory SET pieces = pieces + ? WHERE itemID = ? AND status = 'godown' and Embroidery = 0 and Stone=0 and Lace=0;",
                     [
                         (req.body.receivedMeters - req.body.pieceLoss) / 10,
                         req.body.itemID,
